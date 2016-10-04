@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import Logo from './Logo.png';
 
 class NavBar extends Component {
 	constructor() {
@@ -8,9 +10,14 @@ class NavBar extends Component {
 	render() {
 		return (
 			<div className="navbar">
-				<p>Home</p>
-				<p>Profile</p>
-				<p>Login</p>
+				<span id="logo">
+					<img src={Logo} />
+				</span>
+				<span id="nav">
+					<Link to='/'>Home</Link>&nbsp;
+					<Link to='/login'>Login</Link>
+					<p>Profile</p>
+				</span>
 			</div>
 			)
 	}

@@ -1,4 +1,37 @@
+* {
+	font-family: 
+}
+
+body {
+
+}
+
+img {
+	width: 20%;
+}
+
+#logo {
+	width: 30%;
+}
+
+#nav {
+	width: 70%;
+	padding-left: 300px;
+}
+
+.navbar {
+	vertical-align: middle;
+	height: 150px;
+	min-width: 800px;
+}
+
+.navbar a {
+	padding-left: 30px;
+	text-decoration: none;
+}
+
 .navbar p {
 	display: inline-block;
-	padding: 0 40px 0 40px;
+	vertical-align: center;
+	padding-left: 30px;
 }

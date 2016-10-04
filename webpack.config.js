@@ -12,6 +12,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, loader: "style!css" },
+      { test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, loader: "url-loader" },
       {
         test: /\.jsx$/,
         loader: 'babel-loader',
