@@ -11,7 +11,7 @@ let client = new pg.Client(config);
 client.connect(function (err) {
   if (err) throw err;
   console.log("we're in")
-  createDB();
+  createTestDB();
   client.end();
 });
 
@@ -28,7 +28,7 @@ client.connect(function (err) {
 // })
 
 //create a test db with createdb
-function createDB() {
+function createTestDB() {
   exec('createdb test', function (error, stdout, stderr) {
           console.log('stdout: ' + stdout);
           console.log('stderr: ' + stderr);
