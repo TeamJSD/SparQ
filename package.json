@@ -4,12 +4,21 @@
   "description": "gSpark",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "commander": "^2.9.0",
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.4",
+    "graphql": "^0.7.1",
+    "nodemon": "^1.10.2",
+    "pg": "^6.1.0",
     "react": "^15.3.2",
+    "sequelize": "^3.24.3",
     "webpack": "^1.13.2"
   }
 }
