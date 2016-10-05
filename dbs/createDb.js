@@ -1,5 +1,5 @@
 const pg = require('pg');
-const cp = require('child_process');
+const exec = require('child_process').exec;
 // const commander = require('commander');
 
 const config = {
@@ -7,10 +7,12 @@ const config = {
 }
 
 let client = new pg.Client(config);
-client.on('drain', client.end.bind(client));
+// client.on('drain', client.end.bind(client));
 client.connect(function (err) {
   if (err) throw err;
   console.log("we're in")
+  createDB();
+  client.end();
 });
 
 //show dbs
@@ -26,10 +28,12 @@ client.connect(function (err) {
 // })
 
 //create a test db with createdb
-cp.exec('createdb test', function (error, stdout, stderr) {
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
-        if (error !== null) {
-             console.log('exec error: ' + error);
-        }
-});
+function createDB() {
+  exec('createdb test', function (error, stdout, stderr) {
+          console.log('stdout: ' + stdout);
+          console.log('stderr: ' + stderr);
+          if (error !== null) {
+              console.log('exec error: ' + error);
+          }
+  });
+}
