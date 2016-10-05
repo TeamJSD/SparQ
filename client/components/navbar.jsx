@@ -9,15 +9,18 @@ class NavBar extends Component {
 
 	render() {
 		return (
+			<div id='nav-container'>
 			<div className="navbar">
 				<span id="logo">
-					<img src={Logo} />
+					<Link to='/'><img src={Logo} /></Link>
 				</span>
+				<span id='spacer'></span>
 				<span id="nav">
 					<Link to='/'>Home</Link>&nbsp;
 					<Link to='/login'>Login</Link>
-					<p>Profile</p>
+					<Link to='/profile'>Profile</Link>
 				</span>
+			</div>
 			</div>
 			)
 	}

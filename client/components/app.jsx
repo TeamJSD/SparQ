@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import Home from './../home/home.jsx';
 import Login from './../login/login.jsx';
+import Profile from './../profile/profile.jsx';
 import NotFound from './../404/404.jsx';
 import Container from './container.jsx';
 
@@ -11,9 +12,10 @@ class App extends Component {
 		return (
 			<Router history={hashHistory}>
 				<Route path='/' component={Container}>
-					<IndexRoute component={Home} />
-					<Route path='/login' component={Login} />
-					<Route path='*' component={NotFound} />
+						<IndexRoute component={Home} />
+						<Route path='/login' component={Login} />
+						<Route path='/profile' component={Profile} />
+						<Route path='*' component={NotFound} />
 				</Route>
 			</Router>
 		)
