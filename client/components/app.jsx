@@ -13,8 +13,8 @@ class App extends Component {
 			<Router history={hashHistory}>
 				<Route path='/' component={Container}>
 						<IndexRoute component={Home} />
+						<Route path='/profile' component={Profile} />		
 						<Route path='/login' component={Login} />
-						<Route path='/profile' component={Profile} />
 						<Route path='*' component={NotFound} />
 				</Route>
 			</Router>

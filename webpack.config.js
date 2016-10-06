@@ -7,7 +7,13 @@ module.exports = {
   devServer: {
     inline: true,
     contentBase: './client',
-    port: 8100
+    port: 8100,
+    proxy: {
+      '/authorize': {
+        target: 'http://localhost:3000/authorize',
+        secure: false
+      }
+    }
   },
   module: {
     loaders: [
