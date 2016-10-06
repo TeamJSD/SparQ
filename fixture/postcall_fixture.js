@@ -1,23 +1,42 @@
-let fix = {
-  "userID": 123,
-  "UserPassword": "ABC",
-  "DBName": "DBNAME123ABC",
-  "fields": [{
-    "fieldName": "email",
-    "type": "string",
-    "required": true,
-    "mutable": false
-  }, {
-    "fieldName": "firstName",
-    "type": "string",
-    "required": true,
-    "mutable": false
-  }, {
-    "age": "firstName",
-    "type": "string",
-    "required": false,
-    "mutable": true
-  }]
-}
+let fixture =
 
-export default fix;
+  {
+    "userID": 123,
+    "UserPassword": "ABC",
+    "DBName": "DBNAME123ABC",
+    "tables": [{
+      "tableName": "Person",
+      "fields": [{
+        "fieldName": "email",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, {
+        "fieldName": "firstName",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, {
+        "fieldName": "age",
+        "type": "INTEGER",
+        "required": false,
+        "mutable": true
+      }]
+    }, {
+      "tableName": "Post",
+      "fields": [{
+        "fieldName": "Title",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, {
+        "fieldName": "Content",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, ]
+    }],
+    "relationships": "Person.hasMany(Post);Post.belongsTo(Person);"
+  }
+
+module.exports = fixture;
