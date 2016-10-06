@@ -36,7 +36,19 @@ let fixture =
         "mutable": false
       }, ]
     }],
-    "relationships": "Person.hasMany(Post);Post.belongsTo(Person);"
+    "hasRelationships": true,
+    "relationships": [{
+        "Master": "Person",
+        "Slave": "Post",
+        "Verb": "hasMany"
+      },
+      {
+        "Master": "Post",
+        "Slave": "belongsTo",
+        "Verb": "Person"
+      }
+    ],
+    "relationshipsString": "Person.hasMany(Post);\nPost.belongsTo(Person);"
   }
 
 module.exports = fixture;

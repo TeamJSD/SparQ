@@ -37,7 +37,7 @@ let connection = `const Conn = new Sequelize(
   }
 );\n\n`
 
-function dupeTempDB() {
+function createDBFile() {
   //create db file and append dep block. 
   fs.writeFile(`${Fixture.userID}_db.js`, dependencies, (err) => {
     if (err) { console.log(err) }
@@ -50,7 +50,7 @@ function dupeTempDB() {
         if (err) { console.log(err) }
 
         //append relationships and exports
-        fs.appendFile(`${Fixture.userID}_db.js`, Fixture.relationships + `\nmodule.exports = Conn;`, (err) => {
+        fs.appendFile(`${Fixture.userID}_db.js`, Fixture.relationshipsString + `\nmodule.exports = Conn;`, (err) => {
           if (err) { console.log(err) };
 
         });
@@ -59,4 +59,4 @@ function dupeTempDB() {
   })
 };
 
-dupeTempDB();
+createDBFile();

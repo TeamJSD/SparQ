@@ -36,5 +36,6 @@ Content: {
     },
 });
 
-Person.hasMany(Post);Post.belongsTo(Person);
-module.exports = Conn
+Person.hasMany(Post);
+Post.belongsTo(Person);
+module.exports = Conn;
