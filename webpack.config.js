@@ -13,8 +13,8 @@ module.exports = {
         target: 'http://localhost:3000/authorize',
         secure: false
       },
-      '/login': {
-        target: 'http://localhost:3000/login',
+      '/signup': {
+        target: 'http://localhost:3000/signup',
         secure: false
       },
       '/data': {

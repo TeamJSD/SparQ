@@ -125,6 +125,8 @@ button:hover {
 
 #sign-up:hover {
 	cursor: pointer;
+	text-shadow: none;
+	color: #333;
 }
 
 #login-panel {
@@ -168,8 +170,16 @@ button:hover {
 	flex-grow: 1;
 }
 
+.submit-schema, .add-input {
+	width: 100px;
+	height: 30px;
+	font-size: 13px;
+	margin-top: 25px;
+}
 
-
+.schema-input {
+	height: 26px;
+}
 
 
 

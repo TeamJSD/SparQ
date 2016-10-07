@@ -18,14 +18,14 @@ app.get('/', (req, res) => {
   res.end();
 })
 
-app.post('/login', userCtrl.addUser, (req, res) => {
-  console.log('hit login')
+app.post('/signup', (req, res) => {
+  console.log('hit sign up')
   res.end();
 })
 
-app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
-  res.redirect('http://localhost:8100/#/profile');
-})
+// app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
+//   res.redirect('http://localhost:8100/#/profile');
+// })
 
 app.post('/data', (req, res) => {
   console.log(req.body)
