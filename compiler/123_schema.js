@@ -7,38 +7,38 @@ import {
   GraphQLSchema,
   GraphQLNonNull
 } from 'graphql';
-import Db from './db';
+import Db from './123_db';
 
 const Person = new GraphQLObjectType({
   name: 'Person',
   description: 'This represents a Person',
   fields: () => {
     return {
-email: {
-      type: GraphQLString,
-      resolve(person) {
-        return person.email;
-}
-    },
-firstName: {
-      type: GraphQLString,
-      resolve(person) {
-        return person.firstName;
-}
-    },
-age: {
-      type: GraphQLInt,
-      resolve(person) {
-        return person.age;
-}
-    },
- post: {
+      email: {
+        type: GraphQLString,
+        resolve(person) {
+          return person.email;
+        }
+      },
+      firstName: {
+        type: GraphQLString,
+        resolve(person) {
+          return person.firstName;
+        }
+      },
+      age: {
+        type: GraphQLInt,
+        resolve(person) {
+          return person.age;
+        }
+      },
+      post: {
         type: new GraphQLList(Post),
         resolve(person) {
           return person.getPosts();
         }
       }
-}
+    }
   }
 });
 
@@ -47,25 +47,25 @@ const Post = new GraphQLObjectType({
   description: 'This represents a Post',
   fields: () => {
     return {
-Title: {
-      type: GraphQLString,
-      resolve(post) {
-        return post.Title;
-}
-    },
-Content: {
-      type: GraphQLString,
-      resolve(post) {
-        return post.Content;
-}
-    },
- person: {
+      Title: {
+        type: GraphQLString,
+        resolve(post) {
+          return post.Title;
+        }
+      },
+      Content: {
+        type: GraphQLString,
+        resolve(post) {
+          return post.Content;
+        }
+      },
+      person: {
         type: new GraphQLList(Person),
         resolve(post) {
           return post.getPersons();
         }
       }
-}
+    }
   }
 });
 
@@ -74,17 +74,18 @@ const Query = new GraphQLObjectType({
   description: 'this is a root query',
   fields: () => {
     return {
-   person: { 
-          type: new GraphQLList(Person),
-          resolve(root, args) {
-            return Db.models.person.findAll({ where: args });
-          }
-        },post: { 
-          type: new GraphQLList(Post),
-          resolve(root, args) {
-            return Db.models.post.findAll({ where: args });
-          }
-        },
+      person: {
+        type: new GraphQLList(Person),
+        resolve(root, args) {
+          return Db.models.person.findAll({ where: args });
+        }
+      },
+      post: {
+        type: new GraphQLList(Post),
+        resolve(root, args) {
+          return Db.models.post.findAll({ where: args });
+        }
+      },
     }
   }
 });
