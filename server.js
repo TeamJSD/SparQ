@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 // const graphqlHTTP = require('express-graphql');
-const {graphql} = require('graphql');
+const { graphql } = require('graphql');
 const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
 const cors = require('cors');
@@ -12,11 +12,9 @@ const dbController = require('./dbController/createDb');
 
 const app = express();
 
-
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
-
 
 app.get('/', (req, res) => {
   console.log("got /")
@@ -60,4 +58,5 @@ app.post('/createdb', (req, res) => {
 
 
 app.listen(3000, () => console.log('started server at 3000'));
+
 

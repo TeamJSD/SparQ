@@ -69,7 +69,7 @@ const Person = Conn.define('person', {
 // Person.hasMany(Post);
 // Post.belongsTo(Person);
 
-////
+////nothing
 Conn.sync({ force: true }).then(() => {
   // _.times(10, () => {
   //   return Person.create({
