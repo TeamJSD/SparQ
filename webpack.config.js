@@ -16,6 +16,10 @@ module.exports = {
       '/login': {
         target: 'http://localhost:3000/login',
         secure: false
+      },
+      '/data': {
+        target: 'http://localhost:3000/data',
+        secure: false
       }
     }
   },

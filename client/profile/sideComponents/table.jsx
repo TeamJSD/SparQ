@@ -8,7 +8,7 @@ class Table extends Component {
 	render() {
 		return (
 				<div>
-					<h3 onClick={this.props.onClick}>This is Table</h3>
+					<h1>This is Fucking Table</h1>
 				</div>
 		)
 	}

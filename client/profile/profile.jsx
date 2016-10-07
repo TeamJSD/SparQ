@@ -17,6 +17,7 @@ class Profile extends Component {
 
 	onClick(e) {
 		this.setState({choice: e.target.innerHTML})
+		console.log(this.state)
 	}
 
 	render() {
