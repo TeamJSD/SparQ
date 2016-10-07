@@ -4,10 +4,11 @@ const bodyParser = require('body-parser');
 const {graphql} = require('graphql');
 const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
-const dbController = require('dbController/createDb');
 const cors = require('cors');
-const cookieParser = require('cookieParser');
+const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
+const dbController = require('./dbController/createDb');
+
 
 const app = express();
 
@@ -36,24 +37,25 @@ app.post('/data', (req, res) => {
   res.end();
 })
 
-app.get('/graphql/:id', (req, res) => {
-  console.log("posted to graphql/:id");
-  console.log(`res.params.id: ${req.params.id}`);
-  userSchema = require(`./schemas/${req.params.id}`);
+// app.get('/graphql/:id', (req, res) => {
+//   console.log("posted to graphql/:id");
+//   console.log(`res.params.id: ${req.params.id}`);
+//   userSchema = require(`./schemas/${req.params.id}`);
 
-  graphql(userSchema.schema, '{hello}', userSchema.root)
-    .then((response) => {
-      console.log(response);
-    })
-    .then(() => {
-      res.end()
-    })
-})
+//   graphql(userSchema.schema, '{hello}', userSchema.root)
+//     .then((response) => {
+//       console.log(response);
+//     })
+//     .then(() => {
+//       res.end()
+//     })
+// })
 
-app.post('/createDb', (req, res) => {
-  const reqBody = req.body;
-  console.log("this is the req body", reqBody);
-  dbController.createDevUserDb()
+app.post('/createdb', (req, res) => {
+  const devDb = req.body;
+  console.log("this is the req body", devDb);
+  dbController.createDevUserDb(devDb.dbname)
+  res.end();
 })
 
 

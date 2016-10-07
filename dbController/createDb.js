@@ -1,6 +1,4 @@
-const pg = require('pg');
 const exec = require('child_process').exec;
-// const commander = require('commander');
 
 const config = {
   database: 'sparq'
@@ -8,17 +6,8 @@ const config = {
 
 const dbController = {};
 
-let client = new pg.Client(config);
-// client.on('drain', client.end.bind(client));
-
 
 dbController.createDevUserDb = function(name) {
-  client.connect(function (err) {
-    if (err) throw err;
-    console.log("connected to sparq db")
-    execCreateDb(name);
-    client.end();
-  });
   function execCreateDb(name) {
     exec(`createdb ${name}`, function (error, stdout, stderr) {
             console.log('stdout: ' + stdout);
@@ -28,6 +17,7 @@ dbController.createDevUserDb = function(name) {
             }
     });
   }
+  execCreateDb(name)
 }
 
 module.exports = dbController;

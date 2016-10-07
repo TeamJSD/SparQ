@@ -20,6 +20,10 @@ module.exports = {
       '/data': {
         target: 'http://localhost:3000/data',
         secure: false
+      },
+      '/createdb': {
+        target: 'http://localhost:3000/createdb',
+        secure: false
       }
     }
   },
