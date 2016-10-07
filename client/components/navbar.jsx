@@ -17,8 +17,8 @@ class NavBar extends Component {
 				<span id='spacer'></span>
 				<span id="nav">
 					<Link to='/'>Home</Link>&nbsp;
-					<Link to='/login'>Login</Link>
 					<Link to='/profile'>Profile</Link>
+					<Link to='/login'>Login</Link>
 				</span>
 			</div>
 			</div>
