@@ -2,6 +2,7 @@
 	font-family: 'Dosis', sans-serif;
 }
 
+
 h1 {
 	font-size: 60px;
 	color: #333;
@@ -21,8 +22,9 @@ p {
 	flex-flow: row nowrap;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 0;
+	padding: 10px 0 20px 0;
 	margin: 0;
+	border-bottom: 1px solid #3F3F3F;
 }
 
 #spacer {
@@ -43,7 +45,7 @@ p {
 }
 
 .navbar a {
-	padding-left: 30px;
+	padding-left: 40px;
 	text-decoration: none;
 	color: #FF9900;
 	font-size: 25px;
@@ -59,12 +61,13 @@ p {
 	justify-content: flex-end;
 	align-items: center;
 	padding: 0;
-	margin: 0;
+	margin: 100px 0 0 0;
 }
 
 #info {
 	width: 70%;
 	margin: 0 80px;
+	min-width: 600px;
 }
 
 #info h1 {
@@ -78,11 +81,96 @@ p {
 }
 
 #panel {
-	padding: 0 30px;
+	padding: 0 60px;
 	width: 30%;
 	border-left: 1px solid #AAA;
 	text-align: center;
 }
+
+#githubimg {
+	width: 200px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+button {
+	width: 200px;
+	height: 50px;
+	size: 30px;
+	font-size: 25px;
+	background: white;
+	border: 0.5px solid #333;
+	margin-bottom: 20px;
+}
+
+button:hover {
+	background: #333;
+	color: white;
+	cursor: pointer;
+}
+
+#login-view {
+	text-align: center;
+}
+
+#sign-up {
+  color: white;
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000; 
+  padding: 0px;
+}
+
+#sign-up:hover {
+	cursor: pointer;
+}
+
+#login-panel {
+	border: 1px solid black;
+	padding-bottom: 60px;
+	width: 500px;
+	margin: 0 auto 60px auto;
+	-webkit-animation: fadein 3s;
+}
+
+#login-field input {
+	font-size: 20px;
+	width: 196px;
+	height: 30px;
+	color: black;
+}
+
+#submit {
+	width: 202px;
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+#profile {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-end;
+}
+
+#sidebar {
+	border-right: 1px solid #333;
+	padding: 30px;
+	height: 600px;	
+}
+
+#viewer {
+	padding-left: 100px;
+	flex-grow: 1;
+}
+
+
+
+
 
 
 

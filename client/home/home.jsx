@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import Info from './../home/info.jsx';
-import Panel from './../home/rightPanel.jsx'
+import Info from './info.jsx';
+import Panel from './../components/panel.jsx'
 
 class Home extends Component {
 	render() {
 		return (
 			<div>
-				<h3>We are at home.</h3>
 				<div id='home-container'>
 					<span id='info'>
 						<Info />
