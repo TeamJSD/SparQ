@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const {graphql} = require('graphql');
 let userSchema;
 const app = express();
+const dbController = require('dbController/createDb');
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -25,6 +26,12 @@ app.get('/graphql/:id', (req, res) => {
     .then(() => {
       res.end()
     })
+})
+
+app.post('/createDb', (req, res) => {
+  const reqBody = req.body;
+  console.log("this is the req body", reqBody);
+  dbController.createDevUserDb()
 })
 
 app.listen(3000);
