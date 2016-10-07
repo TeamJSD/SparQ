@@ -31,6 +31,11 @@ app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
   res.redirect('http://localhost:8100/#/profile');
 })
 
+app.post('/data', (req, res) => {
+  console.log(req.body)
+  res.end();
+})
+
 app.get('/graphql/:id', (req, res) => {
   console.log("posted to graphql/:id");
   console.log(`res.params.id: ${req.params.id}`);
