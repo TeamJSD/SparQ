@@ -12,12 +12,18 @@ class Viewer extends Component {
 	}
 
 	render() {
+		let component;
+		if(this.props.view === 'GraphiQL') {
+			component = <GraphiQL />
+		} else if (this.props.view === 'GraphSchema') {
+			component = <GraphSchema />
+		} else if(this.props.view === 'Table') {
+			component = <Table />
+		}
 
 		return (
 			<div id='viewer'>
-				<GraphiQL />
-				<GraphSchema />
-				<Table />
+				{component}
 			</div>
 		)
 	}

@@ -8,7 +8,7 @@ class GraphiQL extends Component {
 	render() {
 		return (
 				<div>
-					<h3 onClick={this.props.onClick}>This is GraphiQL</h3>
+					<h1>This is GraphiQL</h1>
 				</div>
 		)
 	}
