@@ -23,12 +23,9 @@ const Developer = Conn.define('developer', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  // email: {
-  //   type: Sequelize.STRING,
-  //   validate: {
-  //     isEmail: true
-  //   }
-  // }
+  id: {
+    type: Sequelize.STRING
+  }
 });
 
 // const Post = Conn.define('post', {

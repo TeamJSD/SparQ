@@ -35,6 +35,10 @@ app.post('/data', (req, res) => {
   res.end();
 })
 
+
+app.post('/signup', (req, res) => {
+  
+})
 // app.get('/graphql/:id', (req, res) => {
 //   console.log("posted to graphql/:id");
 //   console.log(`res.params.id: ${req.params.id}`);
