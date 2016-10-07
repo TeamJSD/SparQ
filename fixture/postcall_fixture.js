@@ -44,8 +44,8 @@ let fixture =
       },
       {
         "Master": "Post",
-        "Slave": "belongsTo",
-        "Verb": "Person"
+        "Verb": "belongsTo",
+        "Slave": "Person"
       }
     ],
     "relationshipsString": "Person.hasMany(Post);\nPost.belongsTo(Person);"
