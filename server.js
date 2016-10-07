@@ -1,12 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 // const graphqlHTTP = require('express-graphql');
-const {graphql} = require('graphql');
+const { graphql } = require('graphql');
 let userSchema;
 const app = express();
 
-
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(test1);
 app.get('/', (req, res) => {
   console.log("got /")
@@ -27,4 +26,6 @@ app.get('/graphql/:id', (req, res) => {
     })
 })
 
-app.listen(3000);
+app.listen(3000, () => {
+  console.log(`app listening on port 3000`)
+});

@@ -1,41 +1,54 @@
-let fix = {
-  "userID": 123,
-  "fields": [{
-    "fieldName": "email",
-    "type": "string",
-    "required": true,
-    "mutable": false
-  }, {
-    "fieldName": "firstName",
-    "type": "string",
-    "required": true,
-    "mutable": false
-  }, {
-    "age": "firstName",
-    "type": "string",
-    "required": false,
-    "mutable": true
-  }]
-}
+let fixture =
 
-// [{
-//     "fieldName": 'email',
-//     "type": string,
-//     "required": true,
-//     "mutable": false
-//   },
-//   {
-//     "fieldName": 'firstName',
-//     "type": string,
-//     "required": true,
-//     "mutable": false
-//   },
-//   {
-//     "age": 'firstName',
-//     "type": "string",
-//     "required": false,
-//     "mutable": true
-//   }
-// ]
+  {
+    "userID": 123,
+    "UserPassword": "ABC",
+    "DBName": "DBNAME123ABC",
+    "tables": [{
+      "tableName": "Person",
+      "fields": [{
+        "fieldName": "email",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, {
+        "fieldName": "firstName",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, {
+        "fieldName": "age",
+        "type": "INTEGER",
+        "required": false,
+        "mutable": true
+      }]
+    }, {
+      "tableName": "Post",
+      "fields": [{
+        "fieldName": "Title",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, {
+        "fieldName": "Content",
+        "type": "STRING",
+        "required": true,
+        "mutable": false
+      }, ]
+    }],
+    "hasRelationships": true,
+    "relationships": [{
+        "Master": "Person",
+        "Slave": "Post",
+        "Verb": "hasMany"
+      },
+      {
+        "Master": "Post",
+        "Verb": "belongsTo",
+        "Slave": "Person"
+      }
+    ],
+    "relationshipsString": "Person.hasMany(Post);\nPost.belongsTo(Person);"
+  }
 
-export default fix;
+module.exports = fixture;
