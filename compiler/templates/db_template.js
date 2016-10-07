@@ -29,7 +29,6 @@ const Person = Conn.define('person', {
       isEmail: true,
     }
   }
-
 });
 
 const Post = Conn.define('post', {
@@ -47,7 +46,7 @@ const Post = Conn.define('post', {
 Person.hasMany(Post);
 Post.belongsTo(Person);
 
-////
+////nothing
 Conn.sync({ force: true }).then(() => {
   _.times(10, () => {
     return Person.create({

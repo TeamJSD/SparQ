@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 // const graphqlHTTP = require('express-graphql');
-const {graphql} = require('graphql');
+const { graphql } = require('graphql');
 const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
 const app = express();
@@ -9,11 +9,9 @@ const cors = require('cors');
 const cookieParser = require('cookieParser');
 const userCtrl = require('./server/controllers/userController')
 
-
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
-
 
 app.get('/', (req, res) => {
   console.log("got /")
@@ -47,6 +45,5 @@ app.get('/graphql/:id', (req, res) => {
       res.end()
     })
 })
-
 
 app.listen(3000, () => console.log('started server at 3000'));
