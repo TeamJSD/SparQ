@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Panel from './../components/panel.jsx';
-import login from './../actions/loginAction.jsx';
+import Signup from './../actions/signupAction.jsx';
+import axios from 'axios';
 
 class Login extends Component {
 	constructor(props) {
@@ -19,8 +20,8 @@ class Login extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		console.log(this.state);
-		//login(this.state);
+		console.log(this.state); //check console to see what object is being passed over
+		axios.post('http://localhost:3000/signup', this.state).then((response) => console.log(response)).catch((err) => console.log(err))
 	}
 
 	render() {
