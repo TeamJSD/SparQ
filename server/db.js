@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const Conn = new Sequelize(
   'kcafmbns',
   'kcafmbns',
-  '6VOqe_dUg_bkeiYemwkeC2NMYpsFW4Rb',
+  'FayjdFpQ4eXUo8QdWbyKc9X7oCAuty4U',
   {
     dialect: 'postgres',
     host: 'tantor.db.elephantsql.com',
