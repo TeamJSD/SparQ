@@ -8,7 +8,7 @@ class Table extends Component {
 	render() {
 		return (
 				<div>
-					<h1>This is Fucking Table</h1>
+					<h1>This is Table.</h1>
 				</div>
 		)
 	}

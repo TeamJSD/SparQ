@@ -15,7 +15,6 @@ class GraphSchema extends Component {
 		let update = Object.assign({}, this.state)
 		update['num']++
 		this.setState(update)
-		console.log(this.state)
 		axios.post('http://localhost:3000/data', update).then((response) => console.log(response)).catch((err) => console.log(err))
 	}
 
