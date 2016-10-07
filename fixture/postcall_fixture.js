@@ -2,7 +2,7 @@ let fixture =
 
   {
     "userID": 123,
-    "UserPassword": "ABC",
+    "UserPassword": 123,
     "DBName": "DBNAME123ABC",
     "tables": [{
       "tableName": "Person",

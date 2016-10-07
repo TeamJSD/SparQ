@@ -115,9 +115,7 @@ function createSchemaFile() {
         if (err) { console.log(err) }
 
         fs.appendFile(`${Fixture.userID}_schema.js`, `const Schema = new GraphQLSchema({
-  query: Query,
-  mutation: Mutation
-});\n
+  query: Query});\n
 export default Schema;`, (err) => {
           if (err) { console.log(err) }
 
