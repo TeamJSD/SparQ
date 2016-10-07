@@ -12,6 +12,10 @@ module.exports = {
       '/authorize': {
         target: 'http://localhost:3000/authorize',
         secure: false
+      },
+      '/login': {
+        target: 'http://localhost:3000/login',
+        secure: false
       }
     }
   },

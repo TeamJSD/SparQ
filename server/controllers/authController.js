@@ -1,6 +1,6 @@
 const request = require('request');
 const qs = require('querystring');
-const Config = require('./../config.json');
+const Config = require('./../../config.json');
 const cookieParser = require('cookie-parser')
 
 function authUser(req, res, next) {

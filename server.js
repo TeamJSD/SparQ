@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // const graphqlHTTP = require('express-graphql');
 const {graphql} = require('graphql');
-const authCtrl = require('./server/authController.js');
+const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
 const app = express();
 const cors = require('cors');
-const cookieParser = require('cookieParser')
+const cookieParser = require('cookieParser');
+const userCtrl = require('./server/controllers/userController')
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -16,6 +17,11 @@ app.use(cors())
 
 app.get('/', (req, res) => {
   console.log("got /")
+  res.end();
+})
+
+app.post('/login', userCtrl.addUser, (req, res) => {
+  console.log('hit login')
   res.end();
 })
 
