@@ -69,7 +69,7 @@ app.get('/graphql/:devId', setSchema, graphqlHTTP({
   graphiql: true
 }))
 
-app.post('/graphql/:devId', setSchema, graphqlHTTP({
+app.post('/graphql', setSchema, graphqlHTTP({
   schema: gqlTestSchema,
   graphiql: true
 }))
