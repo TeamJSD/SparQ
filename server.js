@@ -6,7 +6,7 @@ const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
 const app = express();
 const cors = require('cors');
-const cookieParser = require('cookieParser');
+const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 
 app.use(bodyParser.urlencoded({ extended: true }));
