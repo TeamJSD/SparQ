@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 // const graphqlHTTP = require('express-graphql');
 const { graphql } = require('graphql');
@@ -6,16 +7,24 @@ const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
 const app = express();
 const cors = require('cors');
-const cookieParser = require('cookieParser');
+const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/client/main.css'))
+
 
 app.get('/', (req, res) => {
   console.log("got /")
-  res.end();
+  res.sendFile(path.join(__dirname, '/client/index.html'));
+})
+
+app.get('/main.css', (req, res) => {
+  console.log("got /")
+  res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
 app.post('/signup', (req, res) => {
