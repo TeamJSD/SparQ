@@ -22,9 +22,6 @@ const Developer = Conn.define('developer', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  id: {
-    type: Sequelize.STRING
   }
 });
 

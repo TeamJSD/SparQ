@@ -1,14 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const graphqlHTTP = require('express-graphql');
+const graphqlHTTP = require('express-graphql');
 const { graphql } = require('graphql');
 const authCtrl = require('./server/controllers/authController.js');
-let userSchema;
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 const dbController = require('./dbController/createDb');
 
+
+import gqlTestSchema from './compiler/a1b2c3_schema.js';
 
 const app = express();
 
@@ -35,23 +36,30 @@ app.post('/data', (req, res) => {
   res.end();
 })
 
+app.post('/edit/:devid', (req, res) => {
+  console.log("this is the dev id", req.params.devid);
+  //should call db_compiler
+  //should call gqlschema_compilter
+
+  res.end();
+})
 
 app.post('/signup', (req, res) => {
-  
-})
-// app.get('/graphql/:id', (req, res) => {
-//   console.log("posted to graphql/:id");
-//   console.log(`res.params.id: ${req.params.id}`);
-//   userSchema = require(`./schemas/${req.params.id}`);
 
-//   graphql(userSchema.schema, '{hello}', userSchema.root)
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .then(() => {
-//       res.end()
-//     })
-// })
+})
+//works
+// app.use('/graphql', graphqlHTTP({
+//   schema: gqlTestSchema,
+//   graphiql: true
+// }))
+
+app.post('/graphql/:id', (req, res) => {
+  graphql(gqlTestSchema, '{person {firstName} }')
+    .then(result => {
+      console.log(result);
+      res.json(result);
+    })
+})
 
 app.post('/createdb', (req, res) => {
   const devDb = req.body;

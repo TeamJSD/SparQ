@@ -1,5 +1,4 @@
 const exec = require('child_process').exec;
-const
 const config = {
   database: 'sparq'
 }
