@@ -6,8 +6,14 @@ const authCtrl = require('./server/controllers/authController.js');
 let userSchema;
 const app = express();
 const cors = require('cors');
-const cookieParser = require('cookieParser');
-const userCtrl = require('./server/controllers/userController')
+const cookieParser = require('cookie-parser');
+const userCtrl = require('./server/controllers/userController');
+
+import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
+import DBCompiler from './compiler/db_compiler.js';
+
+console.log(GQLSchemaCompiler());
+console.log(DBCompiler());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())

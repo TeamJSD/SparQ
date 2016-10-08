@@ -1,5 +1,5 @@
-const fs = require('fs');
-const Fixture = require('./../fixture/postcall_fixture.js')
+import fs from 'fs';
+import Fixture from './../fixture/postcall_fixture.js';
 
 let createTablesBlock = function(tables) {
   let output = '';
@@ -50,7 +50,7 @@ function createDBFile() {
         if (err) { console.log(err) }
 
         //append relationships and exports
-        fs.appendFile(`${Fixture.userID}_db.js`, Fixture.relationshipsString + `\nmodule.exports = Conn;`, (err) => {
+        fs.appendFile(`${Fixture.userID}_db.js`, Fixture.relationshipsString + `\nexport default Conn;`, (err) => {
           if (err) { console.log(err) };
 
         });
@@ -59,4 +59,4 @@ function createDBFile() {
   })
 };
 
-createDBFile();
+export default createDBFile
