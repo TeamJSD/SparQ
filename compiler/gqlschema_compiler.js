@@ -127,4 +127,6 @@ export default Schema;`, (err) => {
   });
 };
 
+createSchemaFile();
+
 export default createSchemaFile

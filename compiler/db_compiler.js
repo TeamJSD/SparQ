@@ -59,4 +59,6 @@ function createDBFile() {
   })
 };
 
+createDBFile();
+
 export default createDBFile
