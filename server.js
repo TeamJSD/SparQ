@@ -10,12 +10,14 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 
+import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
+import DBCompiler from './compiler/db_compiler.js';
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
 app.use(express.static(__dirname + '/client/main.css'))
-
 
 app.get('/', (req, res) => {
   console.log("got /")
