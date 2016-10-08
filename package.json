@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run start-dev && npm run start-server",
-    "start-server": "node server",
-    "start-dev": "webpack-dev-server"
+    "start": "npm run start-server",
+    "start-server": "node server"
   },
   "author": "",
   "license": "ISC",
@@ -27,11 +26,13 @@
     "fs": "0.0.1-security",
     "graphql": "^0.7.1",
     "nodemon": "^1.10.2",
+    "path": "^0.12.7",
     "pg": "^6.1.0",
     "pg-pool": "^1.5.0",
     "querystring": "^0.2.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-dropdown": "^1.1.0",
     "react-router": "^2.8.1",
     "request": "^2.75.0",
     "sequelize": "^3.24.3",
@@ -39,8 +40,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "watchify": "^3.7.0",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.1"
+    "webpack": "^1.13.2"
   },
   "devDependencies": {
     "babel": "^6.5.2",

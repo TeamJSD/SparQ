@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql');
 const { graphql } = require('graphql');
@@ -16,20 +17,28 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/client/main.css'))
+
 
 app.get('/', (req, res) => {
   console.log("got /")
+  res.sendFile(path.join(__dirname, '/client/index.html'));
+})
+
+app.get('/main.css', (req, res) => {
+  console.log("got /")
+  res.sendFile(path.join(__dirname, '/client/main.css'));
+})
+
+app.post('/signup', (req, res) => {
+  console.log('hit sign up')
   res.end();
 })
 
-app.post('/login', userCtrl.addUser, (req, res) => {
-  console.log('hit login')
-  res.end();
-})
-
-app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
-  res.redirect('http://localhost:8100/#/profile');
-})
+// app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
+//   res.redirect('http://localhost:8100/#/profile');
+// })
 
 app.post('/data', (req, res) => {
   console.log(req.body)
