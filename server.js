@@ -8,6 +8,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 const dbController = require('./dbController/createDb');
+const setSchema = require('./server/middleware/schemaController');
 
 
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
@@ -57,27 +58,39 @@ app.post('/signup', (req, res) => {
 
 })
 //works
-// app.use('/graphql', graphqlHTTP({
+// app.use('/graphql/', setSchema, graphqlHTTP({
 //   schema: gqlTestSchema,
 //   graphiql: true
 // }))
 
-app.post('/graphql/:devid', (req, res) => {
-  console.log("req.params.devid", req.params.devid);
+
+app.get('/graphql/:devId', setSchema, graphqlHTTP({
+  schema: gqlTestSchema,
+  graphiql: true
+}))
+
+app.post('/graphql/:devId', setSchema, graphqlHTTP({
+  schema: gqlTestSchema,
+  graphiql: true
+}))
+
+
+// app.post('/graphql/:devid', (req, res) => {
+//   console.log("req.params.devid", req.params.devid);
   
-  //first check params, then check request body
-  //this post only works for a body
-  //should find a way to use express-graphql or apollo-server
-  //this is bad practice... find a better way to do this.
-  let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
-  console.log("req.body", req.body.query);
-  const reqQuery = req.body.query;
-  graphql(gqlTestSchema, reqQuery)
-    .then(result => {
-      console.log(result);
-      res.json(result);
-    })
-})
+//   //first check params, then check request body
+//   //this post only works for a body
+//   //should find a way to use express-graphql or apollo-server
+//   //this is bad practice... find a better way to do this.
+//   let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
+//   console.log("req.body", req.body.query);
+//   const reqQuery = req.body.query;
+//   graphql(gqlTestSchema, reqQuery)
+//     .then(result => {
+//       console.log(result);
+//       res.json(result);
+//     })
+// })
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;
