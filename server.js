@@ -60,20 +60,20 @@ app.post('/signup', (req, res) => {
 
 })
 // works
-app.use('/graphql/', apolloExpress({
-  schema: gqlTestSchema,
+// app.use('/graphql/', apolloExpress({
+//   schema: gqlTestSchema,
+// }))
+
+
+// app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
+//   schema: req.devSchema
+// }))
+
+app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
+  console.log("req.devSchema", req.devSchema)
+  //some weird export thing... because we're not using import'
+  return {schema: req.devSchema.default}
 }))
-
-
-// app.get('/graphql/:devId', setSchema, graphqlHTTP({
-//   schema: gqlTestSchema,
-//   graphiql: true
-// }))
-
-// app.post('/graphql', setSchema, graphqlHTTP({
-//   schema: gqlTestSchema,
-//   graphiql: true
-// }))
 
 
 // app.post('/graphql/:devid', (req, res) => {
