@@ -62,6 +62,9 @@ p {
 	align-items: center;
 	padding: 0;
 	margin: 100px 0 0 0;
+	background-image: url("https://www.reindex.io/blog/building-a-graphql-server-with-node-js-and-sql/GraphQL_NodeJS.png");
+	background-repeat: no-repeat;
+	background-position: center top;
 }
 
 #info {
@@ -162,12 +165,20 @@ button:hover {
 #sidebar {
 	border-right: 1px solid #333;
 	padding: 30px;
-	height: 600px;	
+	height: 800px;	
+}
+
+#sidebar h3:hover {
+	cursor: pointer;
 }
 
 #viewer {
 	padding-left: 100px;
 	flex-grow: 1;
+}
+
+#create-schema {
+	margin-top: 60px;
 }
 
 .submit-schema, .add-input {
@@ -177,10 +188,30 @@ button:hover {
 	margin-top: 25px;
 }
 
+.schema-form {
+	border: 1px solid black;
+	padding: 25px;
+	width: 400px;
+}
+
 .schema-input {
 	height: 26px;
 }
 
+.Dropdown-root:hover {
+	cursor: pointer;
+	display: inline;
+}
+
+.Dropdown-placeholder {
+	border-bottom: 1px solid black;
+	width: 50px;
+	text-align: center;
+}
+
+.input {
+	margin-bottom: 30px;
+}
 
 
 

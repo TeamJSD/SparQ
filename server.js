@@ -14,8 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
-app.use(express.static(__dirname + '/client/main.css'))
-
 
 app.get('/', (req, res) => {
   console.log("got /")
@@ -29,14 +27,13 @@ app.get('/main.css', (req, res) => {
 
 app.post('/signup', (req, res) => {
   console.log('hit sign up')
-  res.end();
 })
 
 // app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
 //   res.redirect('http://localhost:8100/#/profile');
 // })
 
-app.post('/data', (req, res) => {
+app.post('/data', (req, res) =>  {
   console.log(req.body)
   res.end();
 })

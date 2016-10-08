@@ -17,7 +17,7 @@ class Viewer extends Component {
 			component = <GraphiQL />
 		} else if (this.props.view === 'GraphSchema') {
 			component = <GraphSchema />
-		} else if(this.props.view === 'Table') {
+		} else if(this.props.view === 'My Tables') {
 			component = <Table />
 		}
 

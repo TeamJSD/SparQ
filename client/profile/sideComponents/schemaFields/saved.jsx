@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Table extends Component {
+class Saved extends Component {
 	constructor() {
 		super()
 	}
@@ -8,10 +8,10 @@ class Table extends Component {
 	render() {
 		return (
 				<div>
-					<h1>My Table</h1>
+					<h1>Schema Saved!</h1>
 				</div>
 		)
 	}
 }
 
-export default Table;
+export default Saved;
