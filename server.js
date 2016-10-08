@@ -10,6 +10,8 @@ const userCtrl = require('./server/controllers/userController')
 const dbController = require('./dbController/createDb');
 const setSchema = require('./server/middleware/schemaController');
 
+import { apolloExpress } from 'apollo-server';
+
 
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
 
@@ -57,22 +59,21 @@ app.post('/edit/:devid', (req, res) => {
 app.post('/signup', (req, res) => {
 
 })
-//works
-// app.use('/graphql/', setSchema, graphqlHTTP({
+// works
+app.use('/graphql/', apolloExpress({
+  schema: gqlTestSchema,
+}))
+
+
+// app.get('/graphql/:devId', setSchema, graphqlHTTP({
 //   schema: gqlTestSchema,
 //   graphiql: true
 // }))
 
-
-app.get('/graphql/:devId', setSchema, graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
-}))
-
-app.post('/graphql', setSchema, graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
-}))
+// app.post('/graphql', setSchema, graphqlHTTP({
+//   schema: gqlTestSchema,
+//   graphiql: true
+// }))
 
 
 // app.post('/graphql/:devid', (req, res) => {
