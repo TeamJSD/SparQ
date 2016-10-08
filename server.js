@@ -57,27 +57,27 @@ app.post('/signup', (req, res) => {
 
 })
 //works
-// app.use('/graphql', graphqlHTTP({
-//   schema: gqlTestSchema,
-//   graphiql: true
-// }))
+app.use('/graphql/a1b2c3', graphqlHTTP({
+  schema: gqlTestSchema,
+  graphiql: true
+}))
 
-app.post('/graphql/:devid', (req, res) => {
-  console.log("req.params.devid", req.params.devid);
+// app.post('/graphql/:devid', (req, res) => {
+//   console.log("req.params.devid", req.params.devid);
   
-  //first check params, then check request body
-  //this post only works for a body
-  //should find a way to use express-graphql or apollo-server
-  //this is bad practice... find a better way to do this.
-  let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
-  console.log("req.body", req.body.query);
-  const reqQuery = req.body.query;
-  graphql(gqlTestSchema, reqQuery)
-    .then(result => {
-      console.log(result);
-      res.json(result);
-    })
-})
+//   //first check params, then check request body
+//   //this post only works for a body
+//   //should find a way to use express-graphql or apollo-server
+//   //this is bad practice... find a better way to do this.
+//   let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
+//   console.log("req.body", req.body.query);
+//   const reqQuery = req.body.query;
+//   graphql(gqlTestSchema, reqQuery)
+//     .then(result => {
+//       console.log(result);
+//       res.json(result);
+//     })
+// })
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;
