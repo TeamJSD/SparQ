@@ -5,8 +5,9 @@ class Info extends Component {
 	render() {
 		return (
 				<div className="info">
-					<h1>Lorem Ispum</h1>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					<h1>SparQ</h1>
+						<p>SparQ is a platform that offers GraphQL as a service, giving developers infinite possibilities to create their dream application.
+						With just a few clicks, developers can spin up a whole backend that can be queried using GraphQL methods- the most intuitive and user-friendly query language available.
 						</p>
 				</div>
 			)

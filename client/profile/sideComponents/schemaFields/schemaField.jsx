@@ -15,7 +15,8 @@ class SchemaField extends Component {
 		this.createForm = this.createForm.bind(this);
 	}
 
-	onClick() {
+	onClick(e) {
+		e.preventDefault();
 		const inputs = this.state.inputs.concat(Input)
 		this.setState({ inputs })
 	}
