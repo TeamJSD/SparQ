@@ -1,12 +1,35 @@
 ///////// should these go in the server.js? 
-import Sequelize from 'sequelize';
-import _ from 'lodash';
+const Sequelize = require('sequelize');
+const _ =  require('lodash');
+const faker = require('faker');
+let fix = {
+  "userID": 123,
+  "modelName": "Person",
+  "fields": [{
+    "fieldName": "email",
+    "type": "string",
+    "required": true,
+    "mutable": false
+  }, {
+    "fieldName": "firstName",
+    "type": "string",
+    "required": true,
+    "mutable": false
+  }, {
+    "fieldName": "age",
+    "type": "number",
+    "required": false,
+    "mutable": true
+  }]
+}
 
-///// does this need to go in each file because we only have a single db instance? 
+//convert type to sequelize type
+
 const Conn = new Sequelize(
-  'relay', //name of users individual db.
-  'postgres', // username
-  'postgres', { //password
+  'test',
+  null,
+  null, //name of users individual db.
+  { //password
     dialect: 'postgres', //always postgres
     host: 'localhost' //instance
   }
@@ -31,35 +54,35 @@ const Person = Conn.define('person', {
   }
 });
 
-const Post = Conn.define('post', {
-  title: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  content: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-});
+// const Post = Conn.define('post', {
+//   title: {
+//     type: Sequelize.STRING,
+//     allowNull: false
+//   },
+//   content: {
+//     type: Sequelize.STRING,
+//     allowNull: false
+//   },
+// });
 
 //Relationships
-Person.hasMany(Post);
-Post.belongsTo(Person);
+// Person.hasMany(Post);
+// Post.belongsTo(Person);
 
 ////nothing
 Conn.sync({ force: true }).then(() => {
-  _.times(10, () => {
-    return Person.create({
-      firstName: Faker.name.firstName(),
-      lastName: Faker.name.lastName(),
-      email: Faker.internet.email()
-    }).then((person) => {
-      return person.createPost({
-        title: `Sample title by ${person.firstName}`,
-        content: 'this is a sample article'
-      });
-    });
+  // _.times(10, () => {
+  //   return Person.create({
+  //     firstName: Faker.name.firstName(),
+  //     lastName: Faker.name.lastName(),
+  //     email: Faker.internet.email()
+  //   })
+  // })
+  Person.create({
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email()
   })
 });
 
-export default Conn;
+module.exports = Conn;

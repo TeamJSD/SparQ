@@ -22,13 +22,7 @@ const Developer = Conn.define('developer', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  // email: {
-  //   type: Sequelize.STRING,
-  //   validate: {
-  //     isEmail: true
-  //   }
-  // }
+  }
 });
 
 // const Post = Conn.define('post', {

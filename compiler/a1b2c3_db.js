@@ -1,10 +1,11 @@
 import Sequelize from 'sequelize';
 import _ from 'lodash';
+import Faker from 'faker';
 
 const Conn = new Sequelize(
-  'DBNAME123ABC', //name of users individual db.
-  '123', // username
-  'ABC', { //password
+  'test1', //name of users individual db.
+  null, // username
+  null, { //password
     dialect: 'postgres', //always postgres
     host: 'localhost' //instance
   }
@@ -26,11 +27,11 @@ age: {
 });
 
 const Post = Conn.define('post', {
-Title: {
+title: {
       type: Sequelize.STRING,
       allowNull: false
     },
-Content: {
+content: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -38,4 +39,21 @@ Content: {
 
 Person.hasMany(Post);
 Post.belongsTo(Person);
-module.exports = Conn;
+
+
+Conn.sync({force: true}).then(()=> {
+  _.times(10, ()=>{
+    return Person.create({
+      firstName: Faker.name.firstName(),
+      lastName: Faker.name.lastName(),
+      email: Faker.internet.email()
+    }).then(person => {
+      return person.createPost({
+        title: `sample title by ${person.firstName}`,
+        content: 'this is a sample article'
+      })
+    })
+  })
+})
+
+export default Conn;

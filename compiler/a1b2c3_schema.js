@@ -7,7 +7,7 @@ import {
   GraphQLSchema,
   GraphQLNonNull
 } from 'graphql';
-import Db from './123_db';
+import Db from './a1b2c3_db.js';
 
 const Person = new GraphQLObjectType({
   name: 'Person',
@@ -91,8 +91,7 @@ const Query = new GraphQLObjectType({
 });
 
 const Schema = new GraphQLSchema({
-  query: Query,
-  mutation: Mutation
+  query: Query
 });
 
 export default Schema;

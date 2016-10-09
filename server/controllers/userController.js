@@ -10,4 +10,8 @@ function addUser(req, res, next) {
 	next();
 }
 
+function assignId(req, res, next) {
+	
+}
+
 module.exports = { addUser }

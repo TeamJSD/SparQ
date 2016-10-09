@@ -1,14 +1,18 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const graphqlHTTP = require('express-graphql');
+const graphqlHTTP = require('express-graphql');
 const { graphql } = require('graphql');
 const authCtrl = require('./server/controllers/authController.js');
-let userSchema;
-const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
+const dbController = require('./dbController/createDb');
+
+
+import gqlTestSchema from './compiler/a1b2c3_schema.js';
+
+const app = express();
 
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
@@ -41,18 +45,48 @@ app.post('/data', (req, res) =>  {
   res.end();
 })
 
-app.get('/graphql/:id', (req, res) => {
-  console.log("posted to graphql/:id");
-  console.log(`res.params.id: ${req.params.id}`);
-  userSchema = require(`./schemas/${req.params.id}`);
+app.post('/edit/:devid', (req, res) => {
+  console.log("this is the dev id", req.params.devid);
+  //should call db_compiler
+  //should call gqlschema_compilter
 
-  graphql(userSchema.schema, '{hello}', userSchema.root)
-    .then((response) => {
-      console.log(response);
-    })
-    .then(() => {
-      res.end()
-    })
+  res.end();
 })
 
+app.post('/signup', (req, res) => {
+
+})
+//works
+app.use('/graphql/a1b2c3', graphqlHTTP({
+  schema: gqlTestSchema,
+  graphiql: true
+}))
+
+// app.post('/graphql/:devid', (req, res) => {
+//   console.log("req.params.devid", req.params.devid);
+  
+//   //first check params, then check request body
+//   //this post only works for a body
+//   //should find a way to use express-graphql or apollo-server
+//   //this is bad practice... find a better way to do this.
+//   let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
+//   console.log("req.body", req.body.query);
+//   const reqQuery = req.body.query;
+//   graphql(gqlTestSchema, reqQuery)
+//     .then(result => {
+//       console.log(result);
+//       res.json(result);
+//     })
+// })
+
+app.post('/createdb', (req, res) => {
+  // const devDb = req.body;
+  // console.log("this is the req body", devDb);
+  // dbController.createDevUserDb(devDb.dbname)
+  res.end();
+})
+
+
 app.listen(3000, () => console.log('started server at 3000'));
+
+
