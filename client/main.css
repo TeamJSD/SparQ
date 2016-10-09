@@ -213,6 +213,12 @@ button:hover {
 	margin-bottom: 30px;
 }
 
+#database-view button, input {
+	width: 100px;
+	height: 30px;
+	font-size: 13px;
+	margin-top: 25px;
+}
 
 
 
