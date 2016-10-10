@@ -29,7 +29,7 @@ class Login extends Component {
 
 		return (
 			<div id='login-view'>
-				<h1>Not a member?</h1><h1 id='sign-up'>Sign Up.</h1>
+				<h1>Not a member?</h1><a href='http://localhost:3000/#/signup'><h1 id='sign-up'>Sign Up.</h1></a>
 				<div id='login-panel'>
 					<Panel  
 					onSubmit={this.onSubmit} 

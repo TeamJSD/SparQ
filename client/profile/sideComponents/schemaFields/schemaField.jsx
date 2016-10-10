@@ -14,7 +14,7 @@ class SchemaField extends Component {
 		this.onClick = this.onClick.bind(this);
 		this.createForm = this.createForm.bind(this);
 	}
-
+	
 	onClick(e) {
 		e.preventDefault();
 		const inputs = this.state.inputs.concat(Input)
@@ -22,7 +22,6 @@ class SchemaField extends Component {
 	}
 
 	createForm(e) {
-		//console.log(document.getElementsByClassName('schema-input'))
 		let inputs = document.getElementsByClassName('schema-input');
 		let selections = document.getElementsByClassName('Dropdown-placeholder');
 		let obj = {};
@@ -45,7 +44,7 @@ class SchemaField extends Component {
 				<div>
 					<h3>This is schema field #{this.props.index + 1}</h3>
 						<form className='schema-form'>
-						
+							<span id='schema-type'><h3>Object name:</h3><input type='text' id='schema-type-input'></input></span>
 								{ inputs }
 
 							<button 

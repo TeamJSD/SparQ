@@ -19,6 +19,7 @@ class NavBar extends Component {
 					<Link to='/'>Home</Link>&nbsp;
 					<Link to='/profile'>Profile</Link>
 					<Link to='/login'>Login</Link>
+					<Link to='/signup'>Sign Up</Link>
 				</span>
 			</div>
 			</div>
