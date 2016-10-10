@@ -17,10 +17,11 @@ class Database extends Component {
 		console.log(this.state)
 	}
 
-	saveDB(e, indx) {
-		let obj = this.state;
-		obj.content[indx] = <h2>Database saved!</h2>;
-		this.setState(obj);
+	saveDB(e) {
+		let obj = this.state.content
+		obj[e] = <h2>Database saved!</h2>;
+		console.log(this.state, obj, e)
+		this.setState({ content: obj });
 	}
 
 	render() {
