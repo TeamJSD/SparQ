@@ -103,7 +103,7 @@ button {
 	font-size: 25px;
 	background: white;
 	border: 0.5px solid #333;
-	margin-bottom: 20px;
+	margin: 10px auto 20px auto;
 }
 
 button:hover {
@@ -112,8 +112,17 @@ button:hover {
 	cursor: pointer;
 }
 
+#footer {
+	text-align: center;
+	margin-top: 100px;
+}
+
 #login-view {
 	text-align: center;
+}
+
+#login-view a {
+	text-decoration: none;
 }
 
 #sign-up {
@@ -124,7 +133,9 @@ button:hover {
   -1px 1px 0 #000,
   1px 1px 0 #000; 
   padding: 0px;
+  text-decoration: none;
 }
+
 
 #sign-up:hover {
 	cursor: pointer;
@@ -132,12 +143,13 @@ button:hover {
 	color: #333;
 }
 
+
+
 #login-panel {
 	border: 1px solid black;
 	padding-bottom: 60px;
 	width: 500px;
 	margin: 0 auto 60px auto;
-	-webkit-animation: fadein 3s;
 }
 
 #login-field input {
@@ -149,11 +161,6 @@ button:hover {
 
 #submit {
 	width: 202px;
-}
-
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
 }
 
 #profile {
@@ -188,6 +195,13 @@ button:hover {
 	margin-top: 25px;
 }
 
+ #sign-up-page-button {
+ 	width: 100px;
+	height: 30px;
+	font-size: 13px;
+	margin-top: 25px;
+ }
+
 .schema-form {
 	border: 1px solid black;
 	padding: 25px;
@@ -219,6 +233,29 @@ button:hover {
 	font-size: 13px;
 	margin-top: 25px;
 }
+
+#schema-type h3, input {
+	display: inline-block;
+	margin: 0 20px 0 0;
+}
+
+#schema-type input {
+	width: 300px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

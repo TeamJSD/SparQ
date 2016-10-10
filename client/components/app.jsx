@@ -6,6 +6,7 @@ import Login from './../login/login.jsx';
 import Profile from './../profile/profile.jsx';
 import NotFound from './../404/404.jsx';
 import Container from './container.jsx';
+import Signup from './../signup/signup.jsx';
 
 class App extends Component {
 	render() {
@@ -13,6 +14,7 @@ class App extends Component {
 			<Router history={hashHistory}>
 				<Route path='/' component={Container}>
 						<IndexRoute component={Home} />
+						<Route path='/signup' component={Signup} />
 						<Route path='/login' component={Login} />
 						<Route path='/profile' component={Profile} />	
 						<Route path='*' component={NotFound} />

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import DatabaseForm from './forms/databaseForm.jsx';
+import Route from './forms/fakeRoute.jsx';
 
 class Database extends Component {
 	constructor() {
@@ -17,10 +18,12 @@ class Database extends Component {
 		console.log(this.state)
 	}
 
-	saveDB(e, indx) {
-		let obj = this.state;
-		obj.content[indx] = <h2>Database saved!</h2>;
-		this.setState(obj);
+	saveDB(e) {
+		console.log(this)
+		let obj = this.state.content
+		obj[e] = Route;
+		console.log(this.state, obj, e)
+		this.setState({ content: obj });
 	}
 
 	render() {
