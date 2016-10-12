@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "sparq",
   "version": "1.0.0",
   "description": "gSpark",
   "main": "index.js",
@@ -8,8 +8,8 @@
     "start": "babel-node server.js",
     "start-server": "node server"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "TeamJSD",
+  "license": "MIT",
   "dependencies": {
     "apollo-server": "^0.3.2",
     "axios": "^0.14.0",
@@ -53,5 +53,18 @@
     "babelify": "^7.3.0",
     "faker": "^3.1.0",
     "webpack": "^1.13.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamJSD/SparQ.git"
+  },
+  "keywords": [
+    "graphql",
+    "baas",
+    "sparq"
+  ],
+  "bugs": {
+    "url": "https://github.com/TeamJSD/SparQ/issues"
+  },
+  "homepage": "https://github.com/TeamJSD/SparQ#readme"
 }

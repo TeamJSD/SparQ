@@ -12,13 +12,14 @@ const setSchema = require('./server/middleware/schemaController');
 
 import { apolloExpress } from 'apollo-server';
 
-
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
 
 const app = express();
 
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
+require('dotenv').config();
+console.log('port', process.env.NODE_PORT);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -43,7 +44,6 @@ app.post('/signup', (req, res) => {
 //   res.redirect('http://localhost:8100/#/profile');
 // })
 
-
 app.post('/edit/:devid', (req, res) => {
   console.log("this is the dev id", req.params.devid);
   //should call db_compiler
@@ -54,26 +54,25 @@ app.post('/edit/:devid', (req, res) => {
 
 app.post('/signup', (req, res) => {
 
-})
-// works
-// app.use('/graphql/', apolloExpress({
-//   schema: gqlTestSchema,
-// }))
-
+  })
+  // works
+  // app.use('/graphql/', apolloExpress({
+  //   schema: gqlTestSchema,
+  // }))
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
 // }))
 
-app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
+app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
   console.log("req.devSchema", req.devSchema)
-  //some weird export thing... because we're not using import'
-  return {schema: req.devSchema.default}
+    //some weird export thing... because we're not using import'
+  return { schema: req.devSchema.default }
 }))
 
 // app.post('/graphql/:devid', (req, res) => {
 //   console.log("req.params.devid", req.params.devid);
-  
+
 //   //first check params, then check request body
 //   //this post only works for a body
 //   //should find a way to use express-graphql or apollo-server
@@ -95,7 +94,4 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
-
-app.listen(3000, () => console.log('started server at 3000'));
-
-
+app.listen(process.env.NODE_PORT || 8080, () => console.log('started server at 8080'));
