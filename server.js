@@ -17,12 +17,13 @@ import gqlTestSchema from './compiler/a1b2c3_schema.js';
 
 const app = express();
 
+import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
+import DBCompiler from './compiler/db_compiler.js';
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
-app.use(express.static(__dirname + '/client/main.css'))
-
 
 app.get('/', (req, res) => {
   console.log("got /")
@@ -36,14 +37,13 @@ app.get('/main.css', (req, res) => {
 
 app.post('/signup', (req, res) => {
   console.log('hit sign up')
-  res.end();
 })
 
 // app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
 //   res.redirect('http://localhost:8100/#/profile');
 // })
 
-app.post('/data', (req, res) => {
+app.post('/data', (req, res) =>  {
   console.log(req.body)
   res.end();
 })
@@ -74,7 +74,6 @@ app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
   //some weird export thing... because we're not using import'
   return {schema: req.devSchema.default}
 }))
-
 
 // app.post('/graphql/:devid', (req, res) => {
 //   console.log("req.params.devid", req.params.devid);

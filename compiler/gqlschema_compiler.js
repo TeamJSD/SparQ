@@ -1,5 +1,6 @@
-const fs = require('fs');
-const Fixture = require('./../fixture/postcall_fixture.js');
+import fs from 'fs';
+import _ from 'lodash';
+import Fixture from './../fixture/postcall_fixture.js';
 
 let dependencies = `import {
   GraphQLObjectType,
@@ -127,3 +128,5 @@ export default Schema;`, (err) => {
 };
 
 createSchemaFile();
+
+export default createSchemaFile
