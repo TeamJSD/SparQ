@@ -20,9 +20,10 @@ class GraphSchema extends Component {
 		//axios.post('http://localhost:3000/data', update).then((response) => console.log(response)).catch((err) => console.log(err))
 	}
 
-	saveSchema(e, indx) {
+	saveSchema(e) {
+		console.log(e)
 		let obj = this.state;
-		obj.schemas[indx] = Saved;
+		obj.schemas[e] = Saved;
 		this.setState(obj)
 	}
 
@@ -39,7 +40,7 @@ class GraphSchema extends Component {
 		return (
 				<div id='view-display'>
 					{ schemas }
-					<button id='create-schema' onClick={this.createSchema}>Create Schema</button>
+					<button id='create-schema' onClick={this.createSchema}>New Schema</button>
 				</div>
 		)
 	}

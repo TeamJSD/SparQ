@@ -7,7 +7,7 @@ function authUser(req, res, next) {
 	console.log(req.query.code)
 	const redirect = 'http://localhost:3000/authorize';
   const code = req.query.code;
-  const url = 'https://github.com/login/oauth/access_token?client_id='+ Config.id +'&redirect_uri='+redirect + '&client_secret='+ Config.secret+'&code=' + code
+  const url = 'https://github.com/login/oauth/access_token?client_id='+ Config.id +'&redirect_uri='+redirect + '&client_secret='+ Config.secret+'&code=' + code + '&scope=user:email'
 
   request(url, function(err, res, body) {
     let obj = qs.parse(body);

@@ -8,7 +8,7 @@ class LoginButton extends Component {
 	render() {
 		return (
 			<div>
-				<a href='https://github.com/login/oauth/authorize?client_id=ae9980b87ac026416d88'><button id='signin' onClick={this.gitHubAuth}>Sign in with GitHub</button></a>
+				<a href='https://github.com/login/oauth/authorize?client_id=ae9980b87ac026416d88'><button id='signin' onClick={this.gitHubAuth}>GitHub</button></a>
 			</div>
 			)
 	}

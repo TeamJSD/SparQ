@@ -36,9 +36,9 @@ app.post('/signup', (req, res) => {
   console.log('hit sign up')
 })
 
-// app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
-//   res.redirect('http://localhost:8100/#/profile');
-// })
+app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
+  res.redirect('http://localhost:3000/#/profile');
+})
 
 app.post('/data', (req, res) =>  {
   console.log(req.body)
