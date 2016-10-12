@@ -7,42 +7,41 @@ const Conn = new Sequelize(
   null, // username
   null, { //password
     dialect: 'postgres', //always postgres
-    host: 'localhost' //instance
+    host: process.env.NODE_DBHOST //instance
   }
 );
 
 const Person = Conn.define('person', {
-email: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-firstName: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-age: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  age: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
 });
 
 const Post = Conn.define('post', {
-title: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-content: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  content: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
 });
 
 Person.hasMany(Post);
 Post.belongsTo(Person);
 
-
-Conn.sync({force: true}).then(()=> {
-  _.times(10, ()=>{
+Conn.sync({ force: true }).then(() => {
+  _.times(10, () => {
     return Person.create({
       firstName: Faker.name.firstName(),
       lastName: Faker.name.lastName(),
