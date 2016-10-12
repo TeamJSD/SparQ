@@ -3,22 +3,22 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql');
 const { graphql } = require('graphql');
-const authCtrl = require('./server/controllers/authController.js');
+// const authCtrl = require('./server/controllers/authController.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const userCtrl = require('./server/controllers/userController')
-const dbController = require('./dbController/createDb');
-const setSchema = require('./server/middleware/schemaController');
+// const userCtrl = require('./server/controllers/userController')
+// const dbController = require('../dbController/createDb');
+const setSchema = require('./middleware/schemaController');
 
 import { apolloExpress } from 'apollo-server';
+import GQLSchemaCompiler from '../compiler/gqlschema_compiler.js';
+import DBCompiler from '../compiler/db_compiler.js';
 
-
-import gqlTestSchema from './compiler/a1b2c3_schema.js';
+import devUserSchema from './db/sparq_schema.js'
+import gqlTestSchema from '../compiler/a1b2c3_schema.js';
 
 const app = express();
 
-import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
-import DBCompiler from './compiler/db_compiler.js';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -43,9 +43,13 @@ app.post('/signup', (req, res) => {
 //   res.redirect('http://localhost:8100/#/profile');
 // })
 
+app.use('/devUser', graphqlHTTP({
+  schema: devUserSchema,
+  graphiql: true
+}))
 
-app.post('/edit/:devid', (req, res) => {
-  console.log("this is the dev id", req.params.devid);
+app.post('/edit/:devId', (req, res) => {
+  console.log("this is the dev id", req.params.devId);
   //should call db_compiler
   //should call gqlschema_compilter
 
@@ -66,7 +70,7 @@ app.post('/signup', (req, res) => {
 // }))
 
 app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
-  console.log("req.devSchema", req.devSchema)
+  // console.log("req.devSchema", req.devSchema)
   //some weird export thing... because we're not using import'
   return {schema: req.devSchema.default}
 }))
