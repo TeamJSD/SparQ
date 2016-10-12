@@ -8,6 +8,9 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 const dbController = require('./dbController/createDb');
+const setSchema = require('./server/middleware/schemaController');
+
+import { apolloExpress } from 'apollo-server';
 
 
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
@@ -56,10 +59,20 @@ app.post('/edit/:devid', (req, res) => {
 app.post('/signup', (req, res) => {
 
 })
-//works
-app.use('/graphql/a1b2c3', graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
+// works
+// app.use('/graphql/', apolloExpress({
+//   schema: gqlTestSchema,
+// }))
+
+
+// app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
+//   schema: req.devSchema
+// }))
+
+app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
+  console.log("req.devSchema", req.devSchema)
+  //some weird export thing... because we're not using import'
+  return {schema: req.devSchema.default}
 }))
 
 // app.post('/graphql/:devid', (req, res) => {
