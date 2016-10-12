@@ -43,10 +43,6 @@ app.post('/signup', (req, res) => {
 //   res.redirect('http://localhost:8100/#/profile');
 // })
 
-app.post('/data', (req, res) =>  {
-  console.log(req.body)
-  res.end();
-})
 
 app.post('/edit/:devid', (req, res) => {
   console.log("this is the dev id", req.params.devid);
