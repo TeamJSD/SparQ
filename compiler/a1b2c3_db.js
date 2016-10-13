@@ -2,14 +2,18 @@ import Sequelize from 'sequelize';
 import _ from 'lodash';
 import Faker from 'faker';
 
+require('dotenv').config();
+
 const Conn = new Sequelize(
-  'test1', //name of users individual db.
-  null, // username
-  null, { //password
+  'sparqdb', //name of users individual db.
+  process.env.NODE_DBUSERNAME, // username
+  process.env.NODE_DBPASSWORD, { //password
     dialect: 'postgres', //always postgres
     host: process.env.NODE_DBHOST //instance
   }
 );
+
+console.log(process.env.NODE_DBUSERNAME, process.env.NODE_DBPASSWORD, process.env.NODE_DBHOST);
 
 const Person = Conn.define('person', {
   email: {

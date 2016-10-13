@@ -19,7 +19,7 @@ const app = express();
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
 require('dotenv').config();
-console.log('port', process.env.NODE_PORT);
+console.log('port', process.env.NODE_PORT, process.env.NODE_DBHOST);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
