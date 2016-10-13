@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run start-server",
+    "start": "babel-node server.js",
     "start-server": "node server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server": "^0.3.2",
     "axios": "^0.14.0",
     "babel": "^6.5.2",
     "babel-cli": "^6.16.0",
