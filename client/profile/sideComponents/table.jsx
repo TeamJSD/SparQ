@@ -8,7 +8,7 @@ class Table extends Component {
 	render() {
 		return (
 				<div>
-					<h1>My Table</h1>
+					<h1>My Tables</h1>
 				</div>
 		)
 	}
