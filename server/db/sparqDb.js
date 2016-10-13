@@ -6,7 +6,7 @@ let sampleSchemaModel = JSON.stringify(testFixture);
 console.log('this is the  sampleSchemaModel:', sampleSchemaModel)
 
 const Conn = new Sequelize(
-  'devUsers',
+  'sparq',
   null,
   null,
   {

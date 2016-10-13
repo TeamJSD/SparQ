@@ -19,6 +19,80 @@ const DevUser = new GraphQLObjectType({
         resolve(devUser) {
           return devUser.username
         }
+      },
+      //may need to rethink this...
+      password: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.password
+        }
+      },
+      devId: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.devId
+        }
+      },
+      dbName: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.dbName
+        }
+      },
+      dbUsername: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.dbUsername
+        }
+      },
+      dbPassword: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.dbPassword
+        }
+      },
+      gqlSchemaPath: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.gqlSchemaPath
+        }
+      },
+      schemaModel: {
+        type: GraphQLString,
+        resolve(devUser) {
+          return devUser.schemaModel
+        }
+      }
+    }
+  }
+})
+//defend against stuff in resolve function... like trying to create 
+//new users...
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation', 
+  description: 'Functions to create stuff',
+  fields() {
+    return {
+      addDevUser: {
+        type: DevUser,
+        args: {
+          username: {
+            type: new GraphQLNonNull(GraphQLString)
+          },
+          password: {
+            type: new GraphQLNonNull(GraphQLString)
+          },
+          devId: {
+            type: new GraphQLNonNull(GraphQLString)
+          }
+        },
+        resolve(_, args) {
+          return sparqDb.models.devUser.create({
+            username: args.username,
+            password: args.password,
+            devId: args.devId
+          })
+        }
       }
     }
   }
@@ -40,7 +114,8 @@ const Query = new GraphQLObjectType({
 })
 
 const Schema = new GraphQLSchema({
-  query: Query
+  query: Query,
+  mutation: Mutation
 });
 
 export default Schema;
