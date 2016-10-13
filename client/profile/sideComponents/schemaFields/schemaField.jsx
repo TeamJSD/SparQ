@@ -22,10 +22,9 @@ class SchemaField extends Component {
 	}
 
 	createForm(e) {
+		e.preventDefault();
 		let target = e.nativeEvent;
-
 		const inputsNumber = target.target.length - 2
-
 		let values = [];
 
 		for(let i = 0; i < inputsNumber; i++) {
@@ -60,7 +59,7 @@ class SchemaField extends Component {
 
 							<button	
 								type='submit'		
-								className={'submit-schema-' + this.props.index}>
+								className='submit-schema'>
 							 	Save
 							</button>
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import LoginButton from './loginbutton.jsx';
 import LoginField from './loginfield.jsx';
-import pic from './githublogo.png';
+import pic from './../components/githublogo.png';
 
-class Panel extends Component {
+class LoginPanel extends Component {
 	constructor(){
 		super();
 	}
@@ -11,7 +11,7 @@ class Panel extends Component {
 	render() {
 		return (
 			<div>
-				<h1>Welcome to SparQ</h1>
+				<h1>Log into SparQ</h1>
 				<img src={pic} id='githubimg'/>
 				<LoginButton />
 				<LoginField 
@@ -25,4 +25,4 @@ class Panel extends Component {
 	}
 }
 
-export default Panel;
+export default LoginPanel;

@@ -26,20 +26,25 @@ app.use(cors())
 app.use(express.static(__dirname + '/'));
 
 app.get('/', (req, res) => {
-  console.log("got /")
   res.sendFile(path.join(__dirname, '/client/index.html'));
 })
 
 app.get('/main.css', (req, res) => {
-  console.log("got /")
   res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
 app.post('/signup', (req, res) => {
   console.log('hit sign up')
+  console.log(req.body)
+  res.end();
 })
 
-app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
+app.post('/login', (req, res) => {
+  console.log('hit login')
+  res.end();
+})
+
+app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
   res.redirect('http://localhost:3000/#/profile');
 })
 
@@ -57,8 +62,11 @@ app.post('/edit/:devid', (req, res) => {
   res.end();
 })
 
-app.post('/signup', (req, res) => {
 
+//works
+app.use('/graphql/a1b2c3', graphqlHTTP({
+  schema: gqlTestSchema,
+  graphiql: true
 })
 // works
 // app.use('/graphql/', apolloExpress({
