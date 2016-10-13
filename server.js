@@ -67,7 +67,7 @@ app.post('/edit/:devid', (req, res) => {
 app.use('/graphql/a1b2c3', graphqlHTTP({
   schema: gqlTestSchema,
   graphiql: true
-})
+}))
 // works
 // app.use('/graphql/', apolloExpress({
 //   schema: gqlTestSchema,
@@ -78,11 +78,11 @@ app.use('/graphql/a1b2c3', graphqlHTTP({
 //   schema: req.devSchema
 // }))
 
-app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
-  console.log("req.devSchema", req.devSchema)
-  //some weird export thing... because we're not using import'
-  return {schema: req.devSchema.default}
-}))
+// app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
+//   console.log("req.devSchema", req.devSchema)
+//   //some weird export thing... because we're not using import'
+//   return {schema: req.devSchema.default}
+// }))
 
 // app.post('/graphql/:devid', (req, res) => {
 //   console.log("req.params.devid", req.params.devid);
