@@ -44,7 +44,7 @@ function createFixture(data) {
 
   console.log(fixture)
 
- return axios.post('http://localhost:3000/edit', fixture)
+ return axios.post('/edit', fixture)
 	.then((response) => console.log(response))
 	.catch((err) => console.log(err));
 }

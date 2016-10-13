@@ -19,7 +19,7 @@ class Input extends Component {
 		return (
 				<div className='input'>
 					<input
-						className={'schema-input-' + this.props.index}
+						className='schema-input'
 						ref={this.props.index}
 						type='text'
 						value={this.value}
@@ -28,7 +28,7 @@ class Input extends Component {
 					</input>
 
 					<Dropdown
-						className={'dropdown-' + this.props.index}
+						className='dropdown'
 						value={this.state.value}
 						onChange={this.props.createForm} />
 				</div>
