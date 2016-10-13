@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Dropdown from 'react-dropdown';
 import Input from './input.jsx';
 import Saved from './saved.jsx';
+import createFixture from './../../../actions/schemaAction.jsx';
 
 class SchemaField extends Component {
 	constructor() {
@@ -12,7 +13,6 @@ class SchemaField extends Component {
 		}
 		this.onClick = this.onClick.bind(this);
 		this.createForm = this.createForm.bind(this);
-		this.handleChange = this.handleChange.bind(this);
 	}
 	
 	onClick(e) {
@@ -26,16 +26,15 @@ class SchemaField extends Component {
 
 		const inputsNumber = target.target.length - 2
 
+		let values = [];
+
 		for(let i = 0; i < inputsNumber; i++) {
-			console.log(target.target[i].value)
+			values.push(target.target[i].value)
 		}
 
-		//return this.props.saveSchema(this, e);
-	}
+		return createFixture(values)
 
-	handleChange(e) {
-		//console.log(e, e.target)
-		this.setState()
+		//return this.props.saveSchema(this, e);
 	}
 
 	render() {

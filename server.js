@@ -45,6 +45,11 @@ app.post('/data', (req, res) =>  {
   res.end();
 })
 
+app.post('/fixture', (req, res) => {
+  console.log('inside the fixture', req.body);
+  res.end()
+})
+
 app.post('/edit/:devid', (req, res) => {
   console.log("this is the dev id", req.params.devid);
   //should call db_compiler

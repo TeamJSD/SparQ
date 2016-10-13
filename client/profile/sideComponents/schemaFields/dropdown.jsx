@@ -18,15 +18,12 @@ class Dropdown extends Component {
 		return (
 			<div>
 					<select id = "dropdown">
-                <option value="string">String</option>
-                <option value="id">ID</option>
-                <option value="number">Number</option>
-                <option value="float">Float</option>
-                <option value="boolean">Boolean</option>
-                <option value="datetime">DateTime</option>
-                <option value="email">Email</option>
-                <option value="location">Location</option>
-                <option value="file">File</option>
+                <option value="STRING">String</option>
+                <option value="UUID">ID</option>
+                <option value="INTEGER">Number</option>
+                <option value="FLOAT">Float</option>
+                <option value="BOOLEAN">Boolean</option>
+                <option value="DATE">Date</option>
             </select>
 			</div>
 			)
