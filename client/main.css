@@ -1,5 +1,5 @@
 * {
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Quicksand', sans-serif;
 }
 
 
@@ -11,6 +11,10 @@ h1 {
 p {
 	color: #666;
 	font-size: 30px;
+}
+
+input {
+	width: 300px;
 }
 
 #nav-container {
@@ -51,10 +55,6 @@ p {
 	font-size: 25px;
 }
 
-.content {
-
-}
-
 #home-container {
 	display: flex;
 	flex-flow: row nowrap;
@@ -62,9 +62,6 @@ p {
 	align-items: center;
 	padding: 0;
 	margin: 100px 0 0 0;
-	background-image: url("https://www.reindex.io/blog/building-a-graphql-server-with-node-js-and-sql/GraphQL_NodeJS.png");
-	background-repeat: no-repeat;
-	background-position: center top;
 }
 
 #info {
@@ -97,13 +94,13 @@ p {
 }
 
 button {
-	width: 200px;
-	height: 50px;
-	size: 30px;
-	font-size: 25px;
+	width: 100px;
+	height: 30px;
+	size: 20px;
+	font-size: 13px;
 	background: white;
 	border: 0.5px solid #333;
-	margin: 10px auto 20px auto;
+	margin: 25px auto 20px auto;
 }
 
 button:hover {
@@ -157,6 +154,7 @@ button:hover {
 	width: 196px;
 	height: 30px;
 	color: black;
+	margin: 0;
 }
 
 #submit {
@@ -186,6 +184,9 @@ button:hover {
 
 #create-schema {
 	margin-top: 60px;
+	height: 50px;
+	width: 200px;
+	font-size: 20px;
 }
 
 .submit-schema, .add-input {
@@ -206,6 +207,10 @@ button:hover {
 	border: 1px solid black;
 	padding: 25px;
 	width: 400px;
+}
+
+.schema-form input {
+	width: 300px;
 }
 
 .schema-input {
@@ -239,10 +244,9 @@ button:hover {
 	margin: 0 20px 0 0;
 }
 
-#schema-type input {
-	width: 300px;
+#log-in-spoof {
+	height: 30px;
 }
-
 
 
 

@@ -5,10 +5,8 @@ class Container extends Component {
 	render() {
 		return (
 			<div id='container'>
-				<div className='content'>
 					<NavBar />
 					{this.props.children}
-				</div>
 			</div>
 		)
 	}
