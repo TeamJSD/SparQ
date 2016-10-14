@@ -33,7 +33,6 @@ class SchemaField extends Component {
 
 		return createFixture(values)
 
-		//return this.props.saveSchema(this, e);
 	}
 
 	render() {
