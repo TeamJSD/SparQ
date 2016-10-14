@@ -8,7 +8,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 // const userCtrl = require('./server/controllers/userController')
 // const dbController = require('../dbController/createDb');
-const setSchema = require('./middleware/schemaController');
+const setSchema = require('./middleware/setSchema');
 
 import { apolloExpress } from 'apollo-server';
 import GQLSchemaCompiler from '../compiler/gqlschema_compiler.js';
@@ -39,6 +39,8 @@ app.post('/signup', (req, res) => {
   console.log('hit sign up')
 })
 
+// app.post('edit')
+
 // app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
 //   res.redirect('http://localhost:8100/#/profile');
 // })
@@ -48,8 +50,9 @@ app.use('/devUser', graphqlHTTP({
   graphiql: true
 }))
 
-app.post('/edit/:devId', (req, res) => {
-  console.log("this is the dev id", req.params.devId);
+app.post('/edit', (req, res) => {
+  // console.log("this is the dev id", req.params.devId);
+  //check cookies to see which user's schema to update
   //should call db_compiler
   //should call gqlschema_compilter
 
