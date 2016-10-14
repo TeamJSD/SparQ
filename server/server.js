@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 // const userCtrl = require('./server/controllers/userController')
 // const dbController = require('../dbController/createDb');
 const setSchema = require('./middleware/setSchema');
-
+const devUserCtrl = require('./middleware/devUserController');
 import { apolloExpress } from 'apollo-server';
 import GQLSchemaCompiler from '../compiler/gqlschema_compiler.js';
 import DBCompiler from '../compiler/db_compiler.js';
@@ -33,9 +33,7 @@ app.get('/main.css', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
-app.post('/signup', (req, res) => {
-  console.log('hit sign up')
-  console.log(req.body)
+app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
   res.end();
 })
 
@@ -45,9 +43,9 @@ app.post('/login', (req, res) => {
   res.end();
 })
 
-app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
-  res.redirect('http://localhost:3000/#/profile');
-})
+// app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
+//   res.redirect('http://localhost:3000/#/profile');
+// })
 
 app.use('/devUser', graphqlHTTP({
   schema: devUserSchema,
