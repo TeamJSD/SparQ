@@ -18,7 +18,8 @@ const Conn = new Sequelize(
 const DevUser = Conn.define('devUser', {
   username: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
     type: Sequelize.STRING,
@@ -66,6 +67,16 @@ Conn.sync({force: true})
         dbPassword: '',
         gqlSchemaPath: 'a1b2c3_schema.js',
         schemaModel: '{[()]}'
+      })
+      DevUser.create({
+        devId: 'aabbcc',
+        username: 'derrick',
+        password:'a1b2c3',
+        dbName: 'test3',
+        dbUsername:'',
+        dbPassword: '',
+        gqlSchemaPath: 'a1b2c3_schema.js',
+        schemaModel: '[{}]'
       })
     })
 

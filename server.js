@@ -6,16 +6,21 @@ const { graphql } = require('graphql');
 // const authCtrl = require('./server/controllers/authController.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-// const userCtrl = require('./server/controllers/userController')
-// const dbController = require('../dbController/createDb');
-const setSchema = require('./middleware/setSchema');
-const devUserCtrl = require('./middleware/devUserController');
-import { apolloExpress } from 'apollo-server';
-import GQLSchemaCompiler from '../compiler/gqlschema_compiler.js';
-import DBCompiler from '../compiler/db_compiler.js';
 
-import devUserSchema from './db/sparq_schema.js'
-import gqlTestSchema from '../compiler/a1b2c3_schema.js';
+const setSchema = require('./server/middleware/setSchema');
+const devUserCtrl = require('./server/middleware/devUserController');
+
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+
+import { apolloExpress } from 'apollo-server';
+import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
+import DBCompiler from './compiler/db_compiler.js';
+
+import devUserSchema from './server/db/sparq_schema.js'
+import gqlTestSchema from './compiler/a1b2c3_schema.js';
+
+
 
 const app = express();
 
@@ -24,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/index.html'));
@@ -38,8 +44,7 @@ app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
 })
 
 
-app.post('/login', (req, res) => {
-  console.log('hit login')
+app.post('/login', devUserCtrl.authenticateDevUser , (req, res) => {
   res.end();
 })
 
