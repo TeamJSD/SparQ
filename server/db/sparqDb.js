@@ -3,13 +3,12 @@ const faker = require('faker');
 const testFixture = require('../../fixture/postcall_fixture.js')
 
 let sampleSchemaModel = JSON.stringify(testFixture);
-console.log('this is the  sampleSchemaModel:', sampleSchemaModel)
+// console.log('this is the  sampleSchemaModel:', sampleSchemaModel)
 
 const Conn = new Sequelize(
   'sparq',
   null,
-  null,
-  {
+  null, {
     dialect: 'postgres',
     host: 'localhost'
   }
@@ -31,7 +30,7 @@ const DevUser = Conn.define('devUser', {
   },
   dbName: {
     type: Sequelize.STRING,
-  }, 
+  },
   dbUsername: {
     type: Sequelize.STRING
   },
@@ -46,38 +45,38 @@ const DevUser = Conn.define('devUser', {
   }
 });
 
-Conn.sync({force: true})
-    .then(()=>{
-      DevUser.create({
-        devId: 'a1b2c3',
-        username: 'stevedesk',
-        password: '12345',
-        dbName: 'test1',
-        dbUsername: '',
-        dbPassword: '',
-        gqlSchemaPath: 'a1b2c3_schema.js',
-        schemaModel: 'this: {that: other}'
-      })
-      DevUser.create({
-        devId: 'z1y2x3',
-        username: 'jayceman',
-        password: 'password',
-        dbName: 'test2',
-        dbUsername: '',
-        dbPassword: '',
-        gqlSchemaPath: 'a1b2c3_schema.js',
-        schemaModel: '{[()]}'
-      })
-      DevUser.create({
-        devId: 'aabbcc',
-        username: 'derrick',
-        password:'a1b2c3',
-        dbName: 'test3',
-        dbUsername:'',
-        dbPassword: '',
-        gqlSchemaPath: 'a1b2c3_schema.js',
-        schemaModel: '[{}]'
-      })
+Conn.sync({ force: true })
+  .then(() => {
+    DevUser.create({
+      devId: 'a1b2c3',
+      username: 'stevedesk',
+      password: '12345',
+      dbName: 'test1',
+      dbUsername: '',
+      dbPassword: '',
+      gqlSchemaPath: 'a1b2c3_schema.js',
+      schemaModel: 'this: {that: other}'
     })
+    DevUser.create({
+      devId: 'z1y2x3',
+      username: 'jayceman',
+      password: 'password',
+      dbName: 'test2',
+      dbUsername: '',
+      dbPassword: '',
+      gqlSchemaPath: 'a1b2c3_schema.js',
+      schemaModel: '{[()]}'
+    })
+    DevUser.create({
+      devId: 'aabbcc',
+      username: 'derrick',
+      password: 'a1b2c3',
+      dbName: 'test3',
+      dbUsername: '',
+      dbPassword: '',
+      gqlSchemaPath: 'a1b2c3_schema.js',
+      schemaModel: '[{}]'
+    })
+  })
 
 export default Conn;

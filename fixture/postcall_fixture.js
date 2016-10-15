@@ -1,8 +1,8 @@
 let fixture =
 
   {
-    "userID": 123,
-    "UserPassword": 123,
+    "userID": "123abc",
+    "UserPassword": "123abc",
     "DBName": "DBNAME123ABC",
     "tables": [{
       "tableName": "Person",
