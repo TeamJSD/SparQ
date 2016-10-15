@@ -15,15 +15,13 @@ class Database extends Component {
 	onClick(e) {
 		const forms = this.state.content.concat(DatabaseForm)
 		this.setState({ content: forms })
-		console.log(this.state)
 	}
 
 	saveDB(e) {
-		console.log(this)
-		let obj = this.state.content
-		obj[e] = Route;
-		console.log(this.state, obj, e)
-		this.setState({ content: obj });
+		// let obj = this.state.content
+		// obj[e] = Route;
+		// this.setState({ content: obj });
+		console.log(e)
 	}
 
 	render() {

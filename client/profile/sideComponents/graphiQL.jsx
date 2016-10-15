@@ -8,7 +8,7 @@ class GraphiQL extends Component {
 	render() {
 		return (
 				<div>
-					<h1>This is GraphiQL</h1>
+					<h1>GraphiQL</h1>
 				</div>
 		)
 	}

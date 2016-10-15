@@ -3,17 +3,25 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql');
 const { graphql } = require('graphql');
-const authCtrl = require('./server/controllers/authController.js');
+// const authCtrl = require('./server/controllers/authController.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const userCtrl = require('./server/controllers/userController')
-const dbController = require('./dbController/createDb');
-const setSchema = require('./server/middleware/schemaController');
+
+const setSchema = require('./server/middleware/setSchema');
+const devUserCtrl = require('./server/middleware/devUserController');
+
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+
 import { apolloExpress } from 'apollo-server';
-import gqlTestSchema from './compiler/a1b2c3_schema.js';
-const app = express();
+
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
+
+import devUserSchema from './server/db/sparq_schema.js'
+import gqlTestSchema from './compiler/a1b2c3_schema.js';
+const app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
@@ -21,34 +29,44 @@ app.use(express.static(__dirname + '/'));
 require('dotenv').config();
 
 app.get('/', (req, res) => {
-  console.log("got /")
   res.sendFile(path.join(__dirname, '/client/index.html'));
 })
 
 app.get('/main.css', (req, res) => {
-  console.log("got /")
   res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
-app.post('/signup', (req, res) => {
-  console.log('hit sign up')
+app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
+  res.end();
 })
 
-// app.get('/authorize', authCtrl.authUser, authCtrl.setCookie, (req, res) => {
-//   res.redirect('http://localhost:8100/#/profile');
+app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
+  res.end();
+})
+
+// app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
+//   res.redirect('http://localhost:3000/#/profile');
 // })
 
-app.post('/edit/:devid', (req, res) => {
-  console.log("this is the dev id", req.params.devid);
+app.use('/devUser', graphqlHTTP({
+  schema: devUserSchema,
+  graphiql: true
+}))
+
+app.post('/edit', (req, res) => {
+  // console.log("this is the dev id", req.params.devId);
+  //check cookies to see which user's schema to update
   //should call db_compiler
   //should call gqlschema_compilter
 
   res.end();
 })
 
-app.post('/signup', (req, res) => {
-
-  })
+//works
+app.use('/graphql/a1b2c3', graphqlHTTP({
+    schema: gqlTestSchema,
+    graphiql: true
+  }))
   // works
   // app.use('/graphql/', apolloExpress({
   //   schema: gqlTestSchema,
@@ -59,8 +77,9 @@ app.post('/signup', (req, res) => {
 // }))
 
 app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
-  console.log("req.devSchema", req.devSchema)
-    //some weird export thing... because we're not using import'
+
+  // console.log("req.devSchema", req.devSchema)
+  //some weird export thing... because we're not using import'
   return { schema: req.devSchema.default }
 }))
 
@@ -88,4 +107,9 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
-app.listen(process.env.NODE_PORT || 8080, () => console.log('started server at 8080'));
+////////////this block is to test invoking o the compilers////////////
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBCompiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaCompiler(userDefinedSchema));
+
+app.listen(process.env.NODE_PORT || 3000, () => console.log('started server at 3000'));

@@ -23,7 +23,7 @@ class Profile extends Component {
 		return (
 				<div id='profile'>
 					<SideBar onClick={this.onClick}/>
-					<Viewer view={this.state.choice} showComponent={this.state.showComponent} />
+					<Viewer view={this.state.choice} />
 				</div>
 			)
 	}

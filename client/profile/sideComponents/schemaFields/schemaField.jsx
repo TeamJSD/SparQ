@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import Dropdown from 'react-dropdown';
 import Input from './input.jsx';
 import Saved from './saved.jsx';
+import createFixture from './../../../actions/schemaAction.jsx';
 
 class SchemaField extends Component {
 	constructor() {
 		super()
 		this.state = {
 			inputs: [],
-			savedSchema: {},
-			value: [],
+			collections: {},
 		}
 		this.onClick = this.onClick.bind(this);
 		this.createForm = this.createForm.bind(this);
@@ -22,29 +22,33 @@ class SchemaField extends Component {
 	}
 
 	createForm(e) {
-		let inputs = document.getElementsByClassName('schema-input');
-		let selections = document.getElementsByClassName('Dropdown-placeholder');
-		let obj = {};
-		for(let i = 0; i < inputs.length; i++) {
-			obj[inputs[i].value] = selections[i].innerHTML
-		}
-		console.log(obj)
+		e.preventDefault();
+		let target = e.nativeEvent;
+		const inputsNumber = target.target.length - 2
+		let values = [];
 
-		return this.props.saveSchema(this, e);
+		for(let i = 0; i < inputsNumber; i++) {
+			values.push(target.target[i].value)
+		}
+
+		return createFixture(values)
+
+		//return this.props.saveSchema(this, e);
 	}
 
 	render() {
 
 		const inputs = this.state.inputs.map((Element, index) => {
-			return <Element key={ index } index={ index } value={ this.state.value[index] } />
+			return <Element key={ index } index={ this.props.index } />
 		})
 
 		return (
 
 				<div>
 					<h3>This is schema field #{this.props.index + 1}</h3>
-						<form className='schema-form'>
-							<span id='schema-type'><h3>Object name:</h3><input type='text' id='schema-type-input'></input></span>
+						<form className='schema-form' onSubmit={this.createForm}>
+							<h3>Object name:</h3>
+							<input type='text' id='schema-type-input'></input>
 								{ inputs }
 
 							<button 
@@ -53,10 +57,10 @@ class SchemaField extends Component {
 							 Add Field
 							</button>
 
-							<button
-								className='submit-schema'
-								onClick={this.createForm.bind(this, this.props.index)}>
-							 	Save Schema
+							<button	
+								type='submit'		
+								className='submit-schema'>
+							 	Save
 							</button>
 
 						</form>

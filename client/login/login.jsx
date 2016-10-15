@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import Panel from './../components/panel.jsx';
+import LoginPanel from './loginPanel.jsx';
 import Signup from './../actions/signupAction.jsx';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 class Login extends Component {
 	constructor(props) {
@@ -21,7 +22,7 @@ class Login extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state); //check console to see what object is being passed over
-		axios.post('http://localhost:3000/signup', this.state).then((response) => console.log(response)).catch((err) => console.log(err))
+		axios.post('http://localhost:3000/login', this.state).then((response) => console.log(response)).catch((err) => console.log(err))
 	}
 
 	render() {
@@ -29,9 +30,10 @@ class Login extends Component {
 
 		return (
 			<div id='login-view'>
-				<h1>Not a member?</h1><a href='http://localhost:3000/#/signup'><h1 id='sign-up'>Sign Up.</h1></a>
+				<h1>Not a member?</h1>
+				<Link to='/signup'><h1 id='sign-up'>Sign Up.</h1></Link>
 				<div id='login-panel'>
-					<Panel  
+					<LoginPanel  
 					onSubmit={this.onSubmit} 
 					onChange={this.onChange}
 					username={this.state.username}
