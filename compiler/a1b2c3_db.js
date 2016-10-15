@@ -13,7 +13,7 @@ const Conn = new Sequelize(
   }
 );
 
-console.log(process.env.NODE_DBUSERNAME, process.env.NODE_DBPASSWORD, process.env.NODE_DBHOST);
+// console.log(process.env.NODE_DBUSERNAME, process.env.NODE_DBPASSWORD, process.env.NODE_DBHOST);
 
 const Person = Conn.define('person', {
   email: {
