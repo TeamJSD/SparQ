@@ -74,10 +74,6 @@ app.use('/graphql/a1b2c3', graphqlHTTP({
   schema: gqlTestSchema,
   graphiql: true
 }))
-// works
-// app.use('/graphql/', apolloExpress({
-//   schema: gqlTestSchema,
-// }))
 
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
