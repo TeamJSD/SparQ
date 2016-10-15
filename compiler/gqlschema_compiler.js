@@ -1,6 +1,6 @@
 import fs from 'fs';
 import _ from 'lodash';
-import Fixture from './../fixture/postcall_fixture.js';
+// import Fixture from './../fixture/postcall_fixture.js';
 
 let dependencies = `import {
   GraphQLObjectType,
@@ -104,7 +104,7 @@ let GQLQueryTablesBlock = function(tables) {
 };
 
 //Write to file.
-function createSchemaFile() {
+function createSchemaFile(Fixture) {
   //create schema file and append dep block. 
   fs.writeFile(`${Fixture.userID}_schema.js`, dependencies, (err) => {
     if (err) { console.log(err) }

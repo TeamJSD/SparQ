@@ -20,16 +20,12 @@ import DBCompiler from './compiler/db_compiler.js';
 import devUserSchema from './server/db/sparq_schema.js'
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
 
-
-
 const app = express();
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
-
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/index.html'));
@@ -43,8 +39,7 @@ app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
   res.end();
 })
 
-
-app.post('/login', devUserCtrl.authenticateDevUser , (req, res) => {
+app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
   res.end();
 })
 
@@ -66,31 +61,29 @@ app.post('/edit', (req, res) => {
   res.end();
 })
 
-
 //works
 app.use('/graphql/a1b2c3', graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
-}))
-// works
-// app.use('/graphql/', apolloExpress({
-//   schema: gqlTestSchema,
-// }))
-
+    schema: gqlTestSchema,
+    graphiql: true
+  }))
+  // works
+  // app.use('/graphql/', apolloExpress({
+  //   schema: gqlTestSchema,
+  // }))
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
 // }))
 
-app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
+app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
   // console.log("req.devSchema", req.devSchema)
   //some weird export thing... because we're not using import'
-  return {schema: req.devSchema.default}
+  return { schema: req.devSchema.default }
 }))
 
 // app.post('/graphql/:devid', (req, res) => {
 //   console.log("req.params.devid", req.params.devid);
-  
+
 //   //first check params, then check request body
 //   //this post only works for a body
 //   //should find a way to use express-graphql or apollo-server
@@ -112,7 +105,6 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
+console.log(GQLSchemaCompiler);
 
 app.listen(3000, () => console.log('started server at 3000'));
-
-
