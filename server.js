@@ -20,13 +20,13 @@ import DBCompiler from './compiler/db_compiler.js';
 
 import devUserSchema from './server/db/sparq_schema.js'
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
-
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
+require('dotenv').config();
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/index.html'));
@@ -77,6 +77,7 @@ app.use('/graphql/a1b2c3', graphqlHTTP({
 // }))
 
 app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
+
   // console.log("req.devSchema", req.devSchema)
   //some weird export thing... because we're not using import'
   return { schema: req.devSchema.default }
@@ -111,4 +112,4 @@ app.post('/createdb', (req, res) => {
 // console.log('invoking dbcomp', DBCompiler(userDefinedSchema));
 // console.log('invoking gqlcomp', GQLSchemaCompiler(userDefinedSchema));
 
-app.listen(3000, () => console.log('started server at 3000'));
+app.listen(process.env.NODE_PORT || 3000, () => console.log('started server at 3000'));
