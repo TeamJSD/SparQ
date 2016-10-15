@@ -14,6 +14,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 
 import { apolloExpress } from 'apollo-server';
+
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
 
@@ -105,6 +106,9 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
-console.log(GQLSchemaCompiler);
+////////////this block is to test invoking o the compilers////////////
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBCompiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaCompiler(userDefinedSchema));
 
 app.listen(3000, () => console.log('started server at 3000'));
