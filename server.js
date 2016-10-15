@@ -9,22 +9,16 @@ const cookieParser = require('cookie-parser');
 const userCtrl = require('./server/controllers/userController')
 const dbController = require('./dbController/createDb');
 const setSchema = require('./server/middleware/schemaController');
-
 import { apolloExpress } from 'apollo-server';
-
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
-
 const app = express();
-
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
-require('dotenv').config();
-console.log('env', process.env.NODE_ENV);
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
+require('dotenv').config();
 
 app.get('/', (req, res) => {
   console.log("got /")
