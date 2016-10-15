@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
+app.use(cookieParser());
 
 
 app.get('/', (req, res) => {
@@ -45,6 +46,7 @@ app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
 
 
 app.post('/login', devUserCtrl.authenticateDevUser , (req, res) => {
+  // console.log(res.cookie);
   res.end();
 })
 

@@ -37,6 +37,7 @@ devUserController.authenticateDevUser = function(req, res, next) {
           console.log("password was in correct... redirecting")
         } else {
           console.log("authentication successful");
+          res.cookie('devId', user.devId)
           next();
         }
       })
@@ -44,5 +45,7 @@ devUserController.authenticateDevUser = function(req, res, next) {
         console.log("there was an error.  Either the user does not exist or some other error")
       })
 }
+
+
 
 module.exports = devUserController;
