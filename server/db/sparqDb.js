@@ -1,18 +1,23 @@
 const Sequelize = require('sequelize');
 const faker = require('faker');
-const testFixture = require('../../fixture/postcall_fixture.js')
+const testFixture = require('../../fixture/postcall_fixture.js');
+require('dotenv').config();
 
 let sampleSchemaModel = JSON.stringify(testFixture);
 // console.log('this is the  sampleSchemaModel:', sampleSchemaModel)
 
 const Conn = new Sequelize(
-  'sparq',
-  null,
-  null, {
-    dialect: 'postgres',
-    host: 'localhost'
+  process.env.NODE_DBNAME,
+  null, //replace later with process.env.NODE_DBUSERNAME,
+  null //replace later with process.env.NODE_DBPASSWORD
+  , {
+    dialect: 'postgres', //always postgres
+    host: process.env.NODE_DBHOST
   }
 );
+
+console.log('db conn', process.env.NODE_DBNAME, process.env.NODE_DBUSERNAME, process.env.NODE_DBPASSWORD,
+  process.env.NODE_DBHOST);
 
 const DevUser = Conn.define('devUser', {
   username: {
