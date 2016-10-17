@@ -15,11 +15,11 @@ const LocalStrategy = require('passport-local').Strategy;
 
 import { apolloExpress } from 'apollo-server';
 
-import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
-import DBCompiler from './compiler/db_compiler.js';
+import GQLSchemaTranspiler from './transpiler/gqlschema_transpiler.js';
+import DBTranspiler from './transpiler/db_transpiler.js';
 
 import devUserSchema from './server/db/sparq_schema.js'
-import gqlTestSchema from './compiler/a1b2c3_schema.js';
+import gqlTestSchema from './transpiler/a1b2c3_schema.js';
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -108,8 +108,8 @@ app.post('/createdb', (req, res) => {
 })
 
 //////////this block is to test invoking o the compilers////////////
-// import userDefinedSchema from './fixture/postcall_fixture.js';
-// console.log('invoking dbcomp', DBCompiler(userDefinedSchema));
-// console.log('invoking gqlcomp', GQLSchemaCompiler(userDefinedSchema));
+import userDefinedSchema from './fixture/postcall_fixture.js';
+console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
+console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
 
 app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));
