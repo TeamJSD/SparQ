@@ -1,6 +1,5 @@
 import fs from 'fs';
 import _ from 'lodash';
-import Fixture from './../fixture/postcall_fixture.js';
 
 let dependencies = `import {
   GraphQLObjectType,
@@ -14,38 +13,39 @@ let dependencies = `import {
 import Db from './db';\n\n`
 
 //GQL Schema Builder
-let GQLDBSchema = function(data) {
+let GQLDBSchema = function(userSchema) {
   let output = '';
-  data.tables.forEach((element, index, array) => {
-    output = output + GQLSchemaTableBlock(element);
+  userSchema.tables.forEach((element, index, array) => {
+    output = output + GQLSchemaTableBlock(userSchema, element);
   });
   return output;
 };
 
-let GQLSchemaTableBlock = function(table) {
+let GQLSchemaTableBlock = function(userSchema, table) {
 
   let defineBlock = `const ${table.tableName} = new GraphQLObjectType({
   name: '${table.tableName}',
   description: 'This represents a ${table.tableName}',
   fields: () => {
-    return {\n${GQLSchemaFieldsBlock(table.fields,table.tableName)}}
+    return {\n${GQLSchemaFieldsBlock(userSchema,table.fields,table.tableName)}}
   }
 });\n\n`
   return defineBlock;
 };
 
-let GQLSchemaFieldsBlock = function(fieldArr, tableName) {
+let GQLSchemaFieldsBlock = function(userSchema, fieldArr, tableName) {
   ///////NOTE: ID is not included because not sure how to query ID from DB. Also thinking this might not be necessary for DB. 
 
   //compile relationship block
   let relationshipFieldBlock = ``;
-  Fixture.relationships.forEach((element, index, array) => {
-    if (tableName === element.Master) {
-      relationshipFieldBlock = GQLSchemaRelationsBlock(element);
-    }
-  });
 
-  // console.log(relationshipFieldBlock);
+  if (userSchema.hasRelationships) {
+    userSchema.relationships.forEach((element, index, array) => {
+      if (tableName === element.Master) {
+        relationshipFieldBlock = GQLSchemaRelationsBlock(element);
+      }
+    });
+  };
 
   let output = '';
   fieldArr.forEach((element, index, array) => {
@@ -104,18 +104,19 @@ let GQLQueryTablesBlock = function(tables) {
 };
 
 //Write to file.
-function createSchemaFile() {
+function createSchemaFile(userSchema) {
+
   //create schema file and append dep block. 
-  fs.writeFile(`${Fixture.userID}_schema.js`, dependencies, (err) => {
+  fs.writeFile(`${userSchema.userID}_schema.js`, dependencies, (err) => {
     if (err) { console.log(err) }
 
-    fs.appendFile(`${Fixture.userID}_schema.js`, GQLDBSchema(Fixture), (err) => {
+    fs.appendFile(`${userSchema.userID}_schema.js`, GQLDBSchema(userSchema), (err) => {
       if (err) { console.log(err) }
 
-      fs.appendFile(`${Fixture.userID}_schema.js`, GQLQueryBlock(Fixture), (err) => {
+      fs.appendFile(`${userSchema.userID}_schema.js`, GQLQueryBlock(userSchema), (err) => {
         if (err) { console.log(err) }
 
-        fs.appendFile(`${Fixture.userID}_schema.js`, `const Schema = new GraphQLSchema({
+        fs.appendFile(`${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
   query: Query});\n
 export default Schema;`, (err) => {
           if (err) { console.log(err) }
@@ -126,7 +127,5 @@ export default Schema;`, (err) => {
     });
   });
 };
-
-createSchemaFile();
 
 export default createSchemaFile

@@ -3,46 +3,47 @@ import _ from 'lodash';
 import Faker from 'faker';
 
 const Conn = new Sequelize(
-  'test1', //name of users individual db.
-  null, // username
-  null, { //password
+  process.env.NODE_DBNAME, //name of users individual db.
+  process.env.NODE_DBUSERNAME, // username
+  process.env.NODE_DBPASSWORD, { //password
     dialect: 'postgres', //always postgres
-    host: 'localhost' //instance
+    host: process.env.NODE_DBHOST //instance
   }
 );
 
+// console.log(process.env.NODE_DBUSERNAME, process.env.NODE_DBPASSWORD, process.env.NODE_DBHOST);
+
 const Person = Conn.define('person', {
-email: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-firstName: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-age: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  age: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
 });
 
 const Post = Conn.define('post', {
-title: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-content: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  content: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
 });
 
 Person.hasMany(Post);
 Post.belongsTo(Person);
 
-
-Conn.sync({force: true}).then(()=> {
-  _.times(10, ()=>{
+Conn.sync({ force: true }).then(() => {
+  _.times(10, () => {
     return Person.create({
       firstName: Faker.name.firstName(),
       lastName: Faker.name.lastName(),

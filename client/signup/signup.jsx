@@ -15,7 +15,7 @@ class Signup extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 		console.log(this.state); //check console to see what object is being passed over
-		axios.post('/signup', this.state).then((response) => console.log(response)).catch((err) => console.log(err))
+		axios.post('/signup', this.state).then((response) => window.location = response.data.redirectUrl).catch((err) => console.log(err))
 	}
 
 	onChange(e) {
