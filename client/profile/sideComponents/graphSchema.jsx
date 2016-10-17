@@ -9,6 +9,7 @@ class GraphSchema extends Component {
 		super()
 		this.state = {
 			schemas: [],
+			savedSchemas: [],
 		}
 		this.onClick = this.onClick.bind(this);
 		this.createSchema = this.createSchema.bind(this);
