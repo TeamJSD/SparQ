@@ -38,11 +38,14 @@ let GQLSchemaFieldsBlock = function(userSchema, fieldArr, tableName) {
 
   //compile relationship block
   let relationshipFieldBlock = ``;
-  userSchema.relationships.forEach((element, index, array) => {
-    if (tableName === element.Master) {
-      relationshipFieldBlock = GQLSchemaRelationsBlock(element);
-    }
-  });
+
+  if (userSchema.hasRelationships) {
+    userSchema.relationships.forEach((element, index, array) => {
+      if (tableName === element.Master) {
+        relationshipFieldBlock = GQLSchemaRelationsBlock(element);
+      }
+    });
+  };
 
   let output = '';
   fieldArr.forEach((element, index, array) => {
