@@ -59,7 +59,11 @@ app.use('/devUser', graphqlHTTP({
   graphiql: true
 }))
 
-app.post('/edit', devUserCtrl.setDevUserSchema, (req, res) => {
+app.post('/edit', 
+  devUserCtrl.setDevUserSchema,
+  devUserCtrl.constructScaffold,
+  devUserCtrl.buildSequelizeSchema, 
+  (req, res) => {
   console.log("req.body.tables", req.body.tables);
   console.log("hit edit route");
   console.log("this is the cookie coming in", req.cookies.devId);

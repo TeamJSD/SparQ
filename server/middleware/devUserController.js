@@ -1,7 +1,8 @@
 import sparqDb from './../db/sparqDb';
+import dbCompiler from './../../compiler/db_compiler';
+import gqlSchemaCompiler from './../../compiler/gqlschema_compiler';
 const shortid = require('shortid');
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy;
+
 
 //check to see if user already exists... uniqueness
 //sessions?
@@ -49,10 +50,9 @@ devUserController.authenticateDevUser = function(req, res, next) {
 
 devUserController.setDevUserSchema = function(req, res, next) {
   const devId = req.cookies.devId;
-  const newSchemaModel = req.body.tables;
+  const newSchemaModel = JSON.stringify(req.body.tables);
   sparqDb.models.devUser.findOne({ where: {devId: devId}})
     .then((user) => {
-      console.log("this is the dev user", user);
       user.updateAttributes({
         schemaModel: newSchemaModel
       })
@@ -63,5 +63,21 @@ devUserController.setDevUserSchema = function(req, res, next) {
     })
 }
 
+devUserController.buildSequelizeSchema = function(req, res, next) {
+  console.log("this is the req.body.fixture", req.body.fixture)
+  
+  next();
+}
+
+devUserController.constructScaffold = function(req, res, next) {
+  //create fixture object
+  const fixture = {};
+  fixture.userID = '';
+  fixture.UserPassword = '';
+  fixture.DBName = 'edittest';
+  fixture.tables = req.body.tables;
+  req.body.fixture = fixture;
+  next();
+}
 
 module.exports = devUserController;
