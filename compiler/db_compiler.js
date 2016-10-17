@@ -65,11 +65,16 @@ function createDBFile(userDefinedSchema) {
       fs.appendFile(`${userDefinedSchema.userID}_db.js`, createTablesBlock(userDefinedSchema.tables), (err) => {
         if (err) { console.log(err) }
 
-        //append relationships and exports
-        fs.appendFile(`${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nexport default Conn;`, (err) => {
-          if (err) { console.log(err) };
-
-        });
+        //append relationships and exports if relationships was defined.
+        if (userDefinedSchema.hasRelationships) {
+          fs.appendFile(`${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nexport default Conn;`, (err) => {
+            if (err) { console.log(err) };
+          });
+        } else {
+          fs.appendFile(`${userDefinedSchema.userID}_db.js`, `\nexport default Conn;`, (err) => {
+            if (err) { console.log(err) };
+          });
+        }
       });
     });
   })
