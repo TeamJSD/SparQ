@@ -107,9 +107,9 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
-////////////this block is to test invoking o the compilers////////////
+//////////this block is to test invoking o the compilers////////////
 // import userDefinedSchema from './fixture/postcall_fixture.js';
 // console.log('invoking dbcomp', DBCompiler(userDefinedSchema));
 // console.log('invoking gqlcomp', GQLSchemaCompiler(userDefinedSchema));
 
-app.listen(process.env.NODE_PORT || 3000, () => console.log('started server at 3000'));
+app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));
