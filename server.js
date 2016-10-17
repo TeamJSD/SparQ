@@ -59,7 +59,12 @@ app.use('/devUser', graphqlHTTP({
   graphiql: true
 }))
 
-app.post('/edit', (req, res) => {
+app.post('/edit', devUserCtrl.setDevUserSchema, (req, res) => {
+  console.log("req.body.tables", req.body.tables);
+  console.log("hit edit route");
+  console.log("this is the cookie coming in", req.cookies.devId);
+  //find proper user
+
   // console.log("this is the dev id", req.params.devId);
   //check cookies to see which user's schema to update
   //should call db_compiler

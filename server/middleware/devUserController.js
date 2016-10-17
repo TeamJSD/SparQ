@@ -25,6 +25,7 @@ devUserController.createDevUser = function(req, res, next) {
     console.log("error!", err)
   })
   req.devId = devId;
+  res.coodie('devId', devId);
   next();
 }
 
@@ -46,6 +47,21 @@ devUserController.authenticateDevUser = function(req, res, next) {
       })
 }
 
+devUserController.setDevUserSchema = function(req, res, next) {
+  const devId = req.cookies.devId;
+  const newSchemaModel = req.body.tables;
+  sparqDb.models.devUser.findOne({ where: {devId: devId}})
+    .then((user) => {
+      console.log("this is the dev user", user);
+      user.updateAttributes({
+        schemaModel: newSchemaModel
+      })
+      next();
+    })
+    .catch((err) => {
+      console.log("there was an error.  maybe the user doesnt exist")
+    })
+}
 
 
 module.exports = devUserController;
