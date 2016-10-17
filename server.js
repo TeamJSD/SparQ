@@ -64,7 +64,6 @@ app.post('/edit', (req, res) => {
 
 //works
 app.use('/graphql/a1b2c3', graphqlHTTP({
-<<<<<<< HEAD
   schema: gqlTestSchema,
   graphiql: true
 }))
@@ -72,16 +71,6 @@ app.use('/graphql/a1b2c3', graphqlHTTP({
 // app.use('/graphql/', apolloExpress({
 //   schema: gqlTestSchema,
 // }))
-
-=======
-    schema: gqlTestSchema,
-    graphiql: true
-  }))
-  // works
-  // app.use('/graphql/', apolloExpress({
-  //   schema: gqlTestSchema,
-  // }))
->>>>>>> 75318b91d5ac80d913bb925a87f3b992a8aa08a9
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
