@@ -38,11 +38,14 @@ let GQLSchemaFieldsBlock = function(userSchema, fieldArr, tableName) {
 
   //compile relationship block
   let relationshipFieldBlock = ``;
-  userSchema.relationships.forEach((element, index, array) => {
-    if (tableName === element.Master) {
-      relationshipFieldBlock = GQLSchemaRelationsBlock(element);
-    }
-  });
+
+  if (userSchema.hasRelationships) {
+    userSchema.relationships.forEach((element, index, array) => {
+      if (tableName === element.Master) {
+        relationshipFieldBlock = GQLSchemaRelationsBlock(element);
+      }
+    });
+  };
 
   let output = '';
   fieldArr.forEach((element, index, array) => {
@@ -100,6 +103,53 @@ let GQLQueryTablesBlock = function(tables) {
   return output
 };
 
+//GQL Mutation Builder
+
+let GQLMutationArgsFieldBuilder = function(fields) {
+  let fieldsBlock = ``;
+  let GQLType = {
+    "STRING": "GraphQLString",
+    "INTEGER": "GraphQLInt",
+    "BOOLEAN": "GraphQLBoolean",
+  };
+
+  fields.forEach(function(element) {
+    fieldsBlock += `${element.fieldName}: {\n type: new GraphQLNonNull \n (${GQLType[element.type]}),\n },`
+  });
+
+  return fieldsBlock;
+};
+
+let GQLMutationResolverBuilder = function(table) {
+  let resolverFields = ``;
+  table.fields.forEach(function(element) {
+    resolverFields += `${element.fieldName}: args.${element.fieldName},`
+  });
+
+  let resolverBlock = `resolve(_, args) {
+          return Db.models.${table.tableName.toLowerCase()}.create({
+          ${resolverFields}
+          });
+        }`;
+
+  return resolverBlock;
+};
+
+//Mutation outter block
+let GQLMutationBlock = function(userSchema) {
+  let tables = ``;
+  userSchema.tables.forEach(function(element) {
+    tables += `\n add${element.tableName}: {
+        type: ${element.tableName},
+        args: {\n ${GQLMutationArgsFieldBuilder(element.fields)}},
+        ${GQLMutationResolverBuilder(element)}}, `
+  });
+
+  let mutationBlock = `const Mutation = new GraphQLObjectType({\nname: 'Mutation',\ndescription: 'This is a mutation, functions that create things',\nfields() {\nreturn {${tables}}}\n})`
+
+  return mutationBlock;
+};
+
 //Write to file.
 function createSchemaFile(userSchema) {
 
@@ -107,17 +157,23 @@ function createSchemaFile(userSchema) {
   fs.writeFile(`${userSchema.userID}_schema.js`, dependencies, (err) => {
     if (err) { console.log(err) }
 
+    //create DB schema and append to file. 
     fs.appendFile(`${userSchema.userID}_schema.js`, GQLDBSchema(userSchema), (err) => {
       if (err) { console.log(err) }
 
+      //create GQL query and append to file. 
       fs.appendFile(`${userSchema.userID}_schema.js`, GQLQueryBlock(userSchema), (err) => {
         if (err) { console.log(err) }
 
-        fs.appendFile(`${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
-  query: Query});\n
-export default Schema;`, (err) => {
+        //create GQL mutation and append to file. 
+        fs.appendFile(`${userSchema.userID}_schema.js`, `${GQLMutationBlock(userSchema)}\n\n`, (err) => {
           if (err) { console.log(err) }
 
+          //create  export block and append to file.         
+          fs.appendFile(`${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
+  query: Query, mutation: Mutation});\nexport default Schema;`, (err) => {
+            if (err) { console.log(err) }
+          });
         });
 
       });
