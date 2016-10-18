@@ -14,23 +14,21 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 
 import { apolloExpress } from 'apollo-server';
+
 import GQLSchemaCompiler from './compiler/gqlschema_compiler.js';
 import DBCompiler from './compiler/db_compiler.js';
 
 import devUserSchema from './server/db/sparq_schema.js'
 import gqlTestSchema from './compiler/a1b2c3_schema.js';
-
-
+require('dotenv').config();
 
 const app = express();
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
 app.use(cookieParser());
-
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/index.html'));
@@ -44,9 +42,7 @@ app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
   res.end();
 })
 
-
-app.post('/login', devUserCtrl.authenticateDevUser , (req, res) => {
-  // console.log(res.cookie);
+app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
   res.end();
 })
 
@@ -77,7 +73,6 @@ app.post('/edit',
   res.end();
 })
 
-
 //works
 app.use('/graphql/a1b2c3', graphqlHTTP({
   schema: gqlTestSchema,
@@ -89,15 +84,16 @@ app.use('/graphql/a1b2c3', graphqlHTTP({
 //   schema: req.devSchema
 // }))
 
-app.post('/graphql/:devId', setSchema, apolloExpress(function (req) {
+app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
+
   // console.log("req.devSchema", req.devSchema)
   //some weird export thing... because we're not using import'
-  return {schema: req.devSchema.default}
+  return { schema: req.devSchema.default }
 }))
 
 // app.post('/graphql/:devid', (req, res) => {
 //   console.log("req.params.devid", req.params.devid);
-  
+
 //   //first check params, then check request body
 //   //this post only works for a body
 //   //should find a way to use express-graphql or apollo-server
@@ -119,7 +115,9 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
+////////////this block is to test invoking o the compilers////////////
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBCompiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaCompiler(userDefinedSchema));
 
-app.listen(3000, () => console.log('started server at 3000'));
-
-
+app.listen(process.env.NODE_PORT || 3000, () => console.log('started server at 3000'));

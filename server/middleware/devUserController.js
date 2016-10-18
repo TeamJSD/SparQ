@@ -1,6 +1,6 @@
 import sparqDb from './../db/sparqDb';
-import dbCompiler from './../../compiler/db_compiler';
-import gqlSchemaCompiler from './../../compiler/gqlschema_compiler';
+import createDBFile from './../../compiler/db_compiler';
+import createSchemaFile from './../../compiler/gqlschema_compiler';
 const shortid = require('shortid');
 
 
@@ -65,7 +65,8 @@ devUserController.setDevUserSchema = function(req, res, next) {
 
 devUserController.buildSequelizeSchema = function(req, res, next) {
   console.log("this is the req.body.fixture", req.body.fixture)
-  
+  const fixtureModel = req.body.fixture;
+  createDBFile(fixtureModel);
   next();
 }
 
