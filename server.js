@@ -19,7 +19,7 @@ import GQLSchemaTranspiler from './transpiler/gqlschema_transpiler.js';
 import DBTranspiler from './transpiler/db_transpiler.js';
 
 import devUserSchema from './server/db/sparq_schema.js'
-import gqlTestSchema from './compiler/a1b2c3_schema.js';
+// import gqlTestSchema from './compiler/a1b2c3_schema.js';
 require('dotenv').config();
 
 const app = express();
@@ -59,6 +59,7 @@ app.post('/edit',
   devUserCtrl.setDevUserSchema,
   devUserCtrl.constructScaffold,
   devUserCtrl.buildSequelizeSchema, 
+  devUserCtrl.buildGqlSchema,
   (req, res) => {
   console.log("req.body.tables", req.body.tables);
   console.log("hit edit route");
@@ -74,14 +75,9 @@ app.post('/edit',
 })
 
 //works
-app.use('/graphql/a1b2c3', graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
-}))
-
-
-// app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
-//   schema: req.devSchema
+// app.use('/graphql/a1b2c3', graphqlHTTP({
+//   schema: gqlTestSchema,
+//   graphiql: true
 // }))
 
 app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
@@ -116,8 +112,8 @@ app.post('/createdb', (req, res) => {
 })
 
 //////////this block is to test invoking o the compilers////////////
-import userDefinedSchema from './fixture/postcall_fixture.js';
-console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
-console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
 
 app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));

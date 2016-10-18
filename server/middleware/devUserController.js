@@ -1,6 +1,6 @@
 import sparqDb from './../db/sparqDb';
-import createDBFile from './../../compiler/db_compiler';
-import createSchemaFile from './../../compiler/gqlschema_compiler';
+import createDBFile from './../../transpiler/db_transpiler';
+import createGqlSchemaFile from './../../transpiler/gqlschema_transpiler';
 const shortid = require('shortid');
 
 
@@ -64,20 +64,27 @@ devUserController.setDevUserSchema = function(req, res, next) {
 }
 
 devUserController.buildSequelizeSchema = function(req, res, next) {
-  console.log("this is the req.body.fixture", req.body.fixture)
-  const fixtureModel = req.body.fixture;
-  createDBFile(fixtureModel);
+  console.log("this is the req.body.scaffold", req.body.scaffold)
+  const scaffold = req.body.scaffold;
+  createDBFile(scaffold);
+  next();
+}
+
+devUserController.buildGqlSchema = function(req, res, next) {
+  console.log("inside buildGqlSchema");
+  const scaffold = req.body.scaffold;
+  createGqlSchemaFile(scaffold);
   next();
 }
 
 devUserController.constructScaffold = function(req, res, next) {
   //create fixture object
-  const fixture = {};
-  fixture.userID = '';
-  fixture.UserPassword = '';
-  fixture.DBName = 'edittest';
-  fixture.tables = req.body.tables;
-  req.body.fixture = fixture;
+  const scaffold = {};
+  scaffold.userID = req.cookies.devId;
+  scaffold.UserPassword = '';
+  scaffold.DBName = 'edittest';
+  scaffold.tables = req.body.tables;
+  req.body.scaffold = scaffold;
   next();
 }
 
