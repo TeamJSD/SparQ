@@ -89,4 +89,17 @@ devUserController.constructScaffold = function(req, res, next) {
   next();
 }
 
+devUserController.getUserSchema = function (req, res, next) {
+  const devId = req.params.devId;
+  console.log("this is the devId", devId);
+  sparqDb.models.devUser.findOne({ where: {devId: devId}})
+    .then(user => {
+      console.log("got this schema", user.schemaModel)
+      //may have to JSON.parse?
+      req.body.schemaModel = user.schemaModel
+      next();
+    })
+  
+}
+
 module.exports = devUserController;
