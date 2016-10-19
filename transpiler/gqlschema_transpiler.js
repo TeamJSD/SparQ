@@ -1,7 +1,8 @@
 import fs from 'fs';
 import _ from 'lodash';
 
-let dependencies = `import {
+let GQLDepBuilder = function(userID) {
+  return `import {
   GraphQLObjectType,
   GraphQLInt,
   GraphQLString,
@@ -10,7 +11,8 @@ let dependencies = `import {
   GraphQLSchema,
   GraphQLNonNull
 } from 'graphql';
-import Db from './db';\n\n`
+import Db from './../devUserDbs/${userID}_db.js';\n\n`
+};
 
 //GQL Schema Builder
 let GQLDBSchema = function(userSchema) {
@@ -154,7 +156,7 @@ let GQLMutationBlock = function(userSchema) {
 function createSchemaFile(userSchema) {
 
   //create schema file and append dep block. 
-  fs.writeFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, dependencies, (err) => {
+  fs.writeFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, GQLDepBuilder(userSchema.userID), (err) => {
     if (err) { console.log(err) }
 
     //create DB schema and append to file. 

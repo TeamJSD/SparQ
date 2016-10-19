@@ -55,26 +55,24 @@ app.use('/devUser', graphqlHTTP({
   graphiql: true
 }))
 
-
-
-app.post('/edit', 
+app.post('/edit',
   devUserCtrl.setDevUserSchema,
   devUserCtrl.constructScaffold,
-  devUserCtrl.buildSequelizeSchema, 
+  devUserCtrl.buildSequelizeSchema,
   devUserCtrl.buildGqlSchema,
   (req, res) => {
-  console.log("req.body.tables", req.body.tables);
-  console.log("hit edit route");
-  console.log("this is the cookie coming in", req.cookies.devId);
-  //find proper user
+    console.log("req.body.tables", req.body.tables);
+    console.log("hit edit route");
+    console.log("this is the cookie coming in", req.cookies.devId);
+    //find proper user
 
-  // console.log("this is the dev id", req.params.devId);
-  //check cookies to see which user's schema to update
-  //should call db_compiler
-  //should call gqlschema_compilter
+    // console.log("this is the dev id", req.params.devId);
+    //check cookies to see which user's schema to update
+    //should call db_compiler
+    //should call gqlschema_compilter
 
-  res.end();
-})
+    res.end();
+  })
 
 //works
 // app.use('/graphql/a1b2c3', graphqlHTTP({
@@ -82,13 +80,13 @@ app.post('/edit',
 //   graphiql: true
 // }))
 
-app.post('/graphql/:devId', 
-  setSchema, 
+app.post('/graphql/:devId',
+  setSchema,
   apolloExpress(function(req) {
-  // console.log("req.devSchema", req.devSchema)
-  //some weird export thing... because we're not using import'
+    // console.log("req.devSchema", req.devSchema)
+    //some weird export thing... because we're not using import'
     return { schema: req.devSchema.default }
-}))
+  }))
 
 // app.post('/graphql/:devid', (req, res) => {
 //   console.log("req.params.devid", req.params.devid);
@@ -115,8 +113,8 @@ app.post('/createdb', (req, res) => {
 })
 
 //////////this block is to test invoking o the compilers////////////
-// import userDefinedSchema from './fixture/postcall_fixture.js';
-// console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
-// console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
+import userDefinedSchema from './fixture/postcall_fixture.js';
+console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
+console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
 
 app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));
