@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import SchemaField from './schemaFields/schemaField.jsx';
 import Saved from './schemaFields/saved.jsx';
+import Input from './schemaFields/input.jsx';
 
 class GraphSchema extends Component {
 	constructor() {
 		super()
 		this.state = {
 			schemas: [],
+			savedSchemas: [["Derrick", "Name", "STRING", "Ethnicity", "STRING"]],
 		}
 		this.onClick = this.onClick.bind(this);
 		this.createSchema = this.createSchema.bind(this);
@@ -17,14 +19,21 @@ class GraphSchema extends Component {
 
 	onClick(e) {
 
-		//axios.post('http://localhost:3000/data', update).then((response) => console.log(response)).catch((err) => console.log(err))
+	}
+
+	componentWillMount() {
+		let obj = [];
+		for(let i = 0; i < this.state.savedSchemas.length; i++) {
+			obj = obj.concat(SchemaField)
+		}
+		this.setState({ schemas: obj })
 	}
 
 	saveSchema(e) {
-		console.log(e)
-		let obj = this.state;
-		obj.schemas[e] = Saved;
-		this.setState(obj)
+		// console.log(e)
+		// let obj = this.state;
+		// obj.schemas[e] = Saved;
+		// this.setState(obj)
 	}
 
 	createSchema() {
@@ -34,7 +43,7 @@ class GraphSchema extends Component {
 
 	render() {
 		const schemas = this.state.schemas.map((Element, index) => {
-			return <Element key={ index } index={ index } onClick={this.onClick} saveSchema={this.saveSchema}/>
+			return <Element key={ index } ref={'element'+ index} index={ index } onClick={this.onClick} saveSchema={this.saveSchema}/>
 		})
 
 		return (

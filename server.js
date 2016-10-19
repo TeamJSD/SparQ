@@ -39,11 +39,11 @@ app.get('/main.css', (req, res) => {
 })
 
 app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
-  res.end();
+  res.send({redirectUrl: '/#profile'})
 })
 
 app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
-  res.end();
+  res.send({redirectUrl: '/#profile'})
 })
 
 app.get('/devUserSchema/:devId', 
@@ -81,10 +81,17 @@ app.post('/edit',
   })
 
 //works
-// app.use('/graphql/a1b2c3', graphqlHTTP({
+app.use('/graphql/a1b2c3', graphqlHTTP({
+  schema: gqlTestSchema,
+  graphiql: true
+}))
+// works
+// app.use('/graphql/', apolloExpress({
 //   schema: gqlTestSchema,
-//   graphiql: true
 // }))
+
+// app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
+//   schema: req.devSchema
 
 app.post('/graphql/:devId',
   setSchema,

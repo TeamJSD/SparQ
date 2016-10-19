@@ -4,14 +4,6 @@ import Dropdown from './dropdown.jsx';
 class Input extends Component {
 	constructor() {
 		super()
-		this.onSelect = this.onSelect.bind(this);
-		this.state = {
-			fieldValues: []
-		}
-	}
-
-	onSelect(option) {
-		console.log(option)
 	}
 
 	render() {
@@ -20,8 +12,8 @@ class Input extends Component {
 				<div className='input'>
 					<input
 						className='schema-input'
-						ref={this.props.index}
 						type='text'
+						defaultValue={this.props.textVal}
 						value={this.value}
 						onChange={this.props.createForm}
 						>
@@ -29,8 +21,19 @@ class Input extends Component {
 
 					<Dropdown
 						className='dropdown'
-						value={this.state.value}
-						onChange={this.props.createForm} />
+						onChange={this.props.createForm}
+						defaultValue={this.props.dropVal}
+						/>
+
+						<select>
+                <option value="true">Required</option>
+                <option value="false">Not required</option>
+            </select>
+            <select>
+                <option value="true">Mutable</option>
+                <option value="false">Immutable</option>
+            </select>
+
 				</div>
 		)
 	}
