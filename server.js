@@ -46,6 +46,11 @@ app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
   res.end();
 })
 
+app.get('/devUserSchema/:devId', 
+  devUserCtrl.getUserSchema,
+  (req, res) => {
+    res.json(req.body.schemaModel);
+})
 // app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
 //   res.redirect('http://localhost:3000/#/profile');
 // })
