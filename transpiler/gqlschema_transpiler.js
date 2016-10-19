@@ -1,7 +1,8 @@
 import fs from 'fs';
 import _ from 'lodash';
 
-let dependencies = `import {
+let GQLDepBuilder = function(userID) {
+  return `import {
   GraphQLObjectType,
   GraphQLInt,
   GraphQLString,
@@ -10,7 +11,8 @@ let dependencies = `import {
   GraphQLSchema,
   GraphQLNonNull
 } from 'graphql';
-import Db from './db';\n\n`
+import Db from './../devUserDbs/${userID}_db.js';\n\n`
+};
 
 //GQL Schema Builder
 let GQLDBSchema = function(userSchema) {
@@ -103,24 +105,77 @@ let GQLQueryTablesBlock = function(tables) {
   return output
 };
 
+//GQL Mutation Builder
+
+let GQLMutationArgsFieldBuilder = function(fields) {
+  let fieldsBlock = ``;
+  let GQLType = {
+    "STRING": "GraphQLString",
+    "INTEGER": "GraphQLInt",
+    "BOOLEAN": "GraphQLBoolean",
+  };
+
+  fields.forEach(function(element) {
+    fieldsBlock += `${element.fieldName}: {\n type: new GraphQLNonNull \n (${GQLType[element.type]}),\n },`
+  });
+
+  return fieldsBlock;
+};
+
+let GQLMutationResolverBuilder = function(table) {
+  let resolverFields = ``;
+  table.fields.forEach(function(element) {
+    resolverFields += `${element.fieldName}: args.${element.fieldName},`
+  });
+
+  let resolverBlock = `resolve(_, args) {
+          return Db.models.${table.tableName.toLowerCase()}.create({
+          ${resolverFields}
+          });
+        }`;
+
+  return resolverBlock;
+};
+
+//Mutation outter block
+let GQLMutationBlock = function(userSchema) {
+  let tables = ``;
+  userSchema.tables.forEach(function(element) {
+    tables += `\n add${element.tableName}: {
+        type: ${element.tableName},
+        args: {\n ${GQLMutationArgsFieldBuilder(element.fields)}},
+        ${GQLMutationResolverBuilder(element)}}, `
+  });
+
+  let mutationBlock = `const Mutation = new GraphQLObjectType({\nname: 'Mutation',\ndescription: 'This is a mutation, functions that create things',\nfields() {\nreturn {${tables}}}\n})`
+
+  return mutationBlock;
+};
+
 //Write to file.
 function createSchemaFile(userSchema) {
 
   //create schema file and append dep block. 
-  fs.writeFile(`${userSchema.userID}_schema.js`, dependencies, (err) => {
+  fs.writeFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, GQLDepBuilder(userSchema.userID), (err) => {
     if (err) { console.log(err) }
 
-    fs.appendFile(`${userSchema.userID}_schema.js`, GQLDBSchema(userSchema), (err) => {
+    //create DB schema and append to file. 
+    fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, GQLDBSchema(userSchema), (err) => {
       if (err) { console.log(err) }
 
-      fs.appendFile(`${userSchema.userID}_schema.js`, GQLQueryBlock(userSchema), (err) => {
+      //create GQL query and append to file. 
+      fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, GQLQueryBlock(userSchema), (err) => {
         if (err) { console.log(err) }
 
-        fs.appendFile(`${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
-  query: Query});\n
-export default Schema;`, (err) => {
+        //create GQL mutation and append to file. 
+        fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, `${GQLMutationBlock(userSchema)}\n\n`, (err) => {
           if (err) { console.log(err) }
 
+          //create  export block and append to file.         
+          fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
+  query: Query, mutation: Mutation});\nexport default Schema;`, (err) => {
+            if (err) { console.log(err) }
+          });
         });
 
       });

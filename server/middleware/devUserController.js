@@ -1,7 +1,8 @@
 import sparqDb from './../db/sparqDb';
+import createDBFile from './../../transpiler/db_transpiler';
+import createGqlSchemaFile from './../../transpiler/gqlschema_transpiler';
 const shortid = require('shortid');
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy;
+
 
 //check to see if user already exists... uniqueness
 //sessions?
@@ -25,6 +26,7 @@ devUserController.createDevUser = function(req, res, next) {
     console.log("error!", err)
   })
   req.devId = devId;
+  res.coodie('devId', devId);
   next();
 }
 
@@ -37,12 +39,67 @@ devUserController.authenticateDevUser = function(req, res, next) {
           console.log("password was in correct... redirecting")
         } else {
           console.log("authentication successful");
+          res.cookie('devId', user.devId)
           next();
         }
       })
       .catch((err) => {
         console.log("there was an error.  Either the user does not exist or some other error")
       })
+}
+
+devUserController.setDevUserSchema = function(req, res, next) {
+  const devId = req.cookies.devId;
+  const newSchemaModel = JSON.stringify(req.body.tables);
+  sparqDb.models.devUser.findOne({ where: {devId: devId}})
+    .then((user) => {
+      user.updateAttributes({
+        schemaModel: newSchemaModel
+      })
+      next();
+    })
+    .catch((err) => {
+      console.log("there was an error.  maybe the user doesnt exist")
+    })
+}
+
+devUserController.buildSequelizeSchema = function(req, res, next) {
+  console.log("this is the req.body.scaffold", req.body.scaffold)
+  const scaffold = req.body.scaffold;
+  createDBFile(scaffold);
+  next();
+}
+
+devUserController.buildGqlSchema = function(req, res, next) {
+  console.log("inside buildGqlSchema");
+  const scaffold = req.body.scaffold;
+  createGqlSchemaFile(scaffold);
+  next();
+}
+
+devUserController.constructScaffold = function(req, res, next) {
+  //create fixture object
+  const scaffold = {};
+  scaffold.userID = req.cookies.devId;
+  scaffold.UserPassword = '';
+  //change this
+  scaffold.DBName = 'edittest';
+  scaffold.tables = req.body.tables;
+  req.body.scaffold = scaffold;
+  next();
+}
+
+devUserController.getUserSchema = function (req, res, next) {
+  const devId = req.params.devId;
+  console.log("this is the devId", devId);
+  sparqDb.models.devUser.findOne({ where: {devId: devId}})
+    .then(user => {
+      console.log("got this schema", user.schemaModel)
+      //may have to JSON.parse?
+      req.body.schemaModel = user.schemaModel
+      next();
+    })
+  
 }
 
 module.exports = devUserController;
