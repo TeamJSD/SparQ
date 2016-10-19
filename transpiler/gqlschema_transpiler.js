@@ -154,23 +154,23 @@ let GQLMutationBlock = function(userSchema) {
 function createSchemaFile(userSchema) {
 
   //create schema file and append dep block. 
-  fs.writeFile(`${userSchema.userID}_schema.js`, dependencies, (err) => {
+  fs.writeFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, dependencies, (err) => {
     if (err) { console.log(err) }
 
     //create DB schema and append to file. 
-    fs.appendFile(`${userSchema.userID}_schema.js`, GQLDBSchema(userSchema), (err) => {
+    fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, GQLDBSchema(userSchema), (err) => {
       if (err) { console.log(err) }
 
       //create GQL query and append to file. 
-      fs.appendFile(`${userSchema.userID}_schema.js`, GQLQueryBlock(userSchema), (err) => {
+      fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, GQLQueryBlock(userSchema), (err) => {
         if (err) { console.log(err) }
 
         //create GQL mutation and append to file. 
-        fs.appendFile(`${userSchema.userID}_schema.js`, `${GQLMutationBlock(userSchema)}\n\n`, (err) => {
+        fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, `${GQLMutationBlock(userSchema)}\n\n`, (err) => {
           if (err) { console.log(err) }
 
           //create  export block and append to file.         
-          fs.appendFile(`${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
+          fs.appendFile(__dirname + `/../devUserGql/${userSchema.userID}_schema.js`, `const Schema = new GraphQLSchema({
   query: Query, mutation: Mutation});\nexport default Schema;`, (err) => {
             if (err) { console.log(err) }
           });

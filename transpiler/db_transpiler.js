@@ -55,23 +55,23 @@ let createConnectionsBlock = function(userDefinedSchema) {
 
 function createDBFile(userDefinedSchema) {
   //create db file and append dep block. 
-  fs.writeFile(`${userDefinedSchema.userID}_db.js`, createDependenciesblock(userDefinedSchema), (err) => {
+  fs.writeFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, createDependenciesblock(userDefinedSchema), (err) => {
     if (err) { console.log(err) }
     //append connection template block to db file. 
-    fs.appendFile(`${userDefinedSchema.userID}_db.js`, createConnectionsBlock(userDefinedSchema), (err) => {
+    fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, createConnectionsBlock(userDefinedSchema), (err) => {
       if (err) { console.log(err) }
 
       //append schema block
-      fs.appendFile(`${userDefinedSchema.userID}_db.js`, createTablesBlock(userDefinedSchema.tables), (err) => {
+      fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, createTablesBlock(userDefinedSchema.tables), (err) => {
         if (err) { console.log(err) }
 
         //append relationships and exports if relationships was defined.
         if (userDefinedSchema.hasRelationships) {
-          fs.appendFile(`${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nexport default Conn;`, (err) => {
+          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nexport default Conn;`, (err) => {
             if (err) { console.log(err) };
           });
         } else {
-          fs.appendFile(`${userDefinedSchema.userID}_db.js`, `\nexport default Conn;`, (err) => {
+          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, `\nexport default Conn;`, (err) => {
             if (err) { console.log(err) };
           });
         }

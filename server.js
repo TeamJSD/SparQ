@@ -19,14 +19,16 @@ import GQLSchemaTranspiler from './transpiler/gqlschema_transpiler.js';
 import DBTranspiler from './transpiler/db_transpiler.js';
 
 import devUserSchema from './server/db/sparq_schema.js'
-import gqlTestSchema from './transpiler/a1b2c3_schema.js';
+// import gqlTestSchema from './compiler/a1b2c3_schema.js';
+require('dotenv').config();
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static(__dirname + '/'));
-require('dotenv').config();
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/index.html'));
@@ -53,7 +55,19 @@ app.use('/devUser', graphqlHTTP({
   graphiql: true
 }))
 
-app.post('/edit', (req, res) => {
+
+
+app.post('/edit', 
+  devUserCtrl.setDevUserSchema,
+  devUserCtrl.constructScaffold,
+  devUserCtrl.buildSequelizeSchema, 
+  devUserCtrl.buildGqlSchema,
+  (req, res) => {
+  console.log("req.body.tables", req.body.tables);
+  console.log("hit edit route");
+  console.log("this is the cookie coming in", req.cookies.devId);
+  //find proper user
+
   // console.log("this is the dev id", req.params.devId);
   //check cookies to see which user's schema to update
   //should call db_compiler
@@ -63,24 +77,17 @@ app.post('/edit', (req, res) => {
 })
 
 //works
-app.use('/graphql/a1b2c3', graphqlHTTP({
-    schema: gqlTestSchema,
-    graphiql: true
-  }))
-  // works
-  // app.use('/graphql/', apolloExpress({
-  //   schema: gqlTestSchema,
-  // }))
-
-// app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
-//   schema: req.devSchema
+// app.use('/graphql/a1b2c3', graphqlHTTP({
+//   schema: gqlTestSchema,
+//   graphiql: true
 // }))
 
-app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
-
+app.post('/graphql/:devId', 
+  setSchema, 
+  apolloExpress(function(req) {
   // console.log("req.devSchema", req.devSchema)
   //some weird export thing... because we're not using import'
-  return { schema: req.devSchema.default }
+    return { schema: req.devSchema.default }
 }))
 
 // app.post('/graphql/:devid', (req, res) => {
@@ -108,8 +115,8 @@ app.post('/createdb', (req, res) => {
 })
 
 //////////this block is to test invoking o the compilers////////////
-import userDefinedSchema from './fixture/postcall_fixture.js';
-console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
-console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
 
 app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));
