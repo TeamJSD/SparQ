@@ -82,6 +82,7 @@ devUserController.constructScaffold = function(req, res, next) {
   const scaffold = {};
   scaffold.userID = req.cookies.devId;
   scaffold.UserPassword = '';
+  //change this
   scaffold.DBName = 'edittest';
   scaffold.tables = req.body.tables;
   req.body.scaffold = scaffold;

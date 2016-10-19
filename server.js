@@ -55,6 +55,8 @@ app.use('/devUser', graphqlHTTP({
   graphiql: true
 }))
 
+
+
 app.post('/edit', 
   devUserCtrl.setDevUserSchema,
   devUserCtrl.constructScaffold,
@@ -80,11 +82,12 @@ app.post('/edit',
 //   graphiql: true
 // }))
 
-app.post('/graphql/:devId', setSchema, apolloExpress(function(req) {
-
+app.post('/graphql/:devId', 
+  setSchema, 
+  apolloExpress(function(req) {
   // console.log("req.devSchema", req.devSchema)
   //some weird export thing... because we're not using import'
-  return { schema: req.devSchema.default }
+    return { schema: req.devSchema.default }
 }))
 
 // app.post('/graphql/:devid', (req, res) => {
