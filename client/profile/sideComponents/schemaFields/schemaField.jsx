@@ -9,7 +9,7 @@ class SchemaField extends Component {
 		super()
 		this.state = {
 			inputs: [],
-			collections: {},
+			data: [],
 		}
 		this.onClick = this.onClick.bind(this);
 		this.createForm = this.createForm.bind(this);
@@ -21,6 +21,24 @@ class SchemaField extends Component {
 		this.setState({ inputs })
 	}
 
+	componentWillMount() {
+		//console.log(this.props.inputs)
+		let input = [];
+		let data = [].concat(this.props.data)
+		for(let i = 0; i < this.props.inputs; i++) {
+			input = input.concat(Input)
+		}
+		//console.log('will mount should show before')
+		//console.log(data)
+		this.setState({ inputs: input, data: data })
+	}
+
+	componentDidMount() {
+		this.state.inputs.map((item) => this.state.inputs.value = 'hi');
+		//console.log(this.state.inputs)
+
+	}
+
 	createForm(e) {
 		e.preventDefault();
 		let target = e.nativeEvent;
@@ -30,7 +48,7 @@ class SchemaField extends Component {
 		for(let i = 0; i < inputsNumber; i++) {
 			values.push(target.target[i].value)
 		}
-
+		console.log(values)
 		return createFixture(values)
 
 	}
@@ -38,16 +56,24 @@ class SchemaField extends Component {
 	render() {
 
 		const inputs = this.state.inputs.map((Element, index) => {
-			return <Element key={ index } index={ this.props.index } />
+			return <Element
+			 key={ index }
+			 index={ this.props.index }
+			 textVal={this.state.data[(index * 2) + 1]}
+			 dropVal={this.state.data[(index * 2) + 2]}/>
 		})
 
 		return (
 
 				<div>
-					<h3>This is schema field #{this.props.index + 1}</h3>
 						<form className='schema-form' onSubmit={this.createForm}>
 							<h3>Object name:</h3>
-							<input type='text' id='schema-type-input'></input>
+							
+							<input type='text'
+							id='schema-type-input' 
+							defaultValue={this.state.data[0]}>
+							</input>
+							
 								{ inputs }
 
 							<button 

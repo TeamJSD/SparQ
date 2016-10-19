@@ -3,21 +3,14 @@ import React, {Component} from 'react';
 class Dropdown extends Component {
 
 	constructor() {
-      super();
-      this.state = {
-      	value: 'String'
-      }
-    }
-
-  handleChange(e){
-    this.setState({value:e.target.value});
+    super();
   }
   
 	render() {
 
 		return (
 			<div>
-					<select id = "dropdown">
+			<select id = "dropdown" defaultValue={this.props.defaultValue}>
                 <option value="STRING">String</option>
                 <option value="UUID">ID</option>
                 <option value="INTEGER">Number</option>
