@@ -13,7 +13,7 @@ const devUserCtrl = require('./server/middleware/devUserController');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 
-import { apolloExpress } from 'apollo-server';
+import { apolloExpress, graphiqlExpress } from 'apollo-server';
 
 import GQLSchemaTranspiler from './transpiler/gqlschema_transpiler.js';
 import DBTranspiler from './transpiler/db_transpiler.js';
@@ -93,7 +93,9 @@ app.post('/edit',
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
-
+app.use('/graphiql/:devId', graphiqlExpress({
+  endpointURL: '/graphql/z1y2x3'
+}))
 
 app.post('/graphql/:devId',
   setSchema, //middleware that grabs gql file and attaches to req body. 
