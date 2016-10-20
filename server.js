@@ -38,7 +38,10 @@ app.get('/main.css', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
-app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
+app.post('/signup', 
+  devUserCtrl.createDevUser, 
+  devUserCtrl.createDevUserDb,
+  (req, res) => {
   res.send({ redirectUrl: '/#profile' })
 })
 
@@ -79,10 +82,10 @@ app.post('/edit',
 
 //works
 
-app.use('/graphql/a1b2c3', graphqlHTTP({
-    schema: gqlTestSchema,
-    graphiql: true
-  }))
+// app.use('/graphql/a1b2c3', graphqlHTTP({
+//     schema: gqlTestSchema,
+//     graphiql: true
+//   }))
   // works
   // app.use('/graphql/', apolloExpress({
   //   schema: gqlTestSchema,
