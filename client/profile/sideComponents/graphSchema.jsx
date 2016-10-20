@@ -15,6 +15,7 @@ class GraphSchema extends Component {
 		this.onClick = this.onClick.bind(this);
 		this.createSchema = this.createSchema.bind(this);
 		this.saveSchema = this.saveSchema.bind(this);
+		this.deleteSchema = this.deleteSchema.bind(this);
 	}
 
 	onClick(e) {
@@ -36,6 +37,14 @@ class GraphSchema extends Component {
 		// this.setState(obj)
 	}
 
+	deleteSchema(e) {
+		e.preventDefault();
+		console.log(e)
+		let copy = Object.assign([], this.state.schemas);
+		copy.splice(e, 1);
+		this.setState({ schemas: copy })
+	}
+
 	createSchema() {
 		const schemas = this.state.schemas.concat(SchemaField);
 		this.setState({ schemas });
@@ -43,7 +52,12 @@ class GraphSchema extends Component {
 
 	render() {
 		const schemas = this.state.schemas.map((Element, index) => {
-			return <Element key={ index } ref={'element'+ index} index={ index } onClick={this.onClick} saveSchema={this.saveSchema}/>
+			return <Element key={ index }
+				ref={'element'+ index} 
+				index={ index } 
+				onClick={this.onClick} 
+				saveSchema={this.saveSchema}
+				deleteSchema={this.deleteSchema}/>
 		})
 
 		return (

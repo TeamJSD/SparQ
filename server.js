@@ -81,10 +81,10 @@ app.post('/edit',
   })
 
 //works
-app.use('/graphql/a1b2c3', graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
-}))
+// app.use('/graphql/a1b2c3', graphqlHTTP({
+//   schema: gqlTestSchema,
+//   graphiql: true
+// }))
 // works
 // app.use('/graphql/', apolloExpress({
 //   schema: gqlTestSchema,
