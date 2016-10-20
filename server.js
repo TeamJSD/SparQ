@@ -52,14 +52,11 @@ app.get('/devUserSchema/:devId',
     // let jsonSchemaModel = JSON.parse(req.body.schemaModel);
     res.send(req.body.schemaModel);
 })
+
 // app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
 //   res.redirect('http://localhost:3000/#/profile');
 // })
 
-app.use('/devUser', graphqlHTTP({
-  schema: devUserSchema,
-  graphiql: true
-}))
 
 app.post('/edit',
   devUserCtrl.setDevUserSchema,
@@ -80,18 +77,6 @@ app.post('/edit',
     res.end();
   })
 
-//works
-app.use('/graphql/a1b2c3', graphqlHTTP({
-  schema: gqlTestSchema,
-  graphiql: true
-}))
-// works
-// app.use('/graphql/', apolloExpress({
-//   schema: gqlTestSchema,
-// }))
-
-// app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
-//   schema: req.devSchema
 
 app.post('/graphql/:devId',
   setSchema,
@@ -101,22 +86,7 @@ app.post('/graphql/:devId',
     return { schema: req.devSchema.default }
   }))
 
-// app.post('/graphql/:devid', (req, res) => {
-//   console.log("req.params.devid", req.params.devid);
 
-//   //first check params, then check request body
-//   //this post only works for a body
-//   //should find a way to use express-graphql or apollo-server
-//   //this is bad practice... find a better way to do this.
-//   let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
-//   console.log("req.body", req.body.query);
-//   const reqQuery = req.body.query;
-//   graphql(gqlTestSchema, reqQuery)
-//     .then(result => {
-//       console.log(result);
-//       res.json(result);
-//     })
-// })
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;
@@ -125,9 +95,9 @@ app.post('/createdb', (req, res) => {
   res.end();
 })
 
-//////////this block is to test invoking o the compilers////////////
-import userDefinedSchema from './fixture/postcall_fixture.js';
-console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
-console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
+// //////////this block is to test invoking o the compilers////////////
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
 
 app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));
