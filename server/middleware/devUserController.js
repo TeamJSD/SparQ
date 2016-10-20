@@ -1,6 +1,7 @@
 import sparqDb from './../db/sparqDb';
 import createDBFile from './../../transpiler/db_transpiler';
 import createGqlSchemaFile from './../../transpiler/gqlschema_transpiler';
+const createDevUserDb = require('./createDb');
 const shortid = require('shortid');
 
 //check to see if user already exists... uniqueness
@@ -11,20 +12,28 @@ const devUserController = {};
 
 //create devUser in sparDB
 devUserController.createDevUser = function(req, res, next) {
+  console.log("this is the req body in createdevuser", req.body)
   const devId = shortid.generate();
+  console.log("this is the devid generated.  it should match below: ", devId)
   sparqDb.models.devUser.create({
       username: req.body.username,
       password: req.body.password,
       devId: devId
     })
     .then(data => {
-      console.log("this is what create returns: ", data);
+      console.log("user created ");
     })
     .catch(err => {
       console.log("error!", err)
     })
   req.devId = devId;
-  res.coodie('devId', devId);
+  res.cookie('devId', devId);
+  next();
+}
+
+devUserController.createDevUserDb = function(req, res, next) {
+  console.log("this is the devId inside createdb.  the db created should match this:", req.devId)
+  createDevUserDb(req.devId);
   next();
 }
 
