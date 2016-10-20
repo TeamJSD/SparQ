@@ -58,12 +58,13 @@ devUserController.authenticateDevUser = function(req, res, next) {
 
 //writes userSchema tables to the DB. 
 devUserController.setDevUserSchema = function(req, res, next) {
+  console.log("this is the req.body", req.body)
   const devId = req.cookies.devId;
-  const newSchemaModel = JSON.stringify(req.body.tables);
+  const newScaffold = JSON.stringify(req.body);
   sparqDb.models.devUser.findOne({ where: { devId: devId } })
     .then((user) => {
       user.updateAttributes({
-        schemaModel: newSchemaModel
+        schemaModel: newScaffold
       })
       next();
     })
@@ -72,10 +73,22 @@ devUserController.setDevUserSchema = function(req, res, next) {
     })
 }
 
+// devUserController.constructScaffold = function(req, res, next) {
+//   //create fixture object
+//   const scaffold = {};
+//   scaffold.userID = req.cookies.devId;
+//   scaffold.UserPassword = '';
+//   //change this
+//   scaffold.DBName = 'edittest';
+//   scaffold.tables = req.body.tables;
+//   req.body.scaffold = scaffold;
+//   next();
+// }
+
 //creates db file using transpiler from scaffold which was attached to req.body. 
 devUserController.buildSequelizeSchema = function(req, res, next) {
-  console.log("this is the req.body.scaffold", req.body.scaffold)
-  const scaffold = req.body.scaffold;
+  console.log("this is the req.body", req.body)
+  const scaffold = req.body;
   createDBFile(scaffold);
   next();
 }
@@ -83,23 +96,13 @@ devUserController.buildSequelizeSchema = function(req, res, next) {
 //creates gql file using transpiler from scaffold which was attached to req.body. 
 devUserController.buildGqlSchema = function(req, res, next) {
   console.log("inside buildGqlSchema");
-  const scaffold = req.body.scaffold;
+  const scaffold = req.body;
   createGqlSchemaFile(scaffold);
   next();
 }
 
 //contstructs scaffold and attaches to req.body.
-devUserController.constructScaffold = function(req, res, next) {
-  //create fixture object
-  const scaffold = {};
-  scaffold.userID = req.cookies.devId;
-  scaffold.UserPassword = '';
-  //change this
-  scaffold.DBName = 'edittest';
-  scaffold.tables = req.body.tables;
-  req.body.scaffold = scaffold;
-  next();
-}
+
 
 //queries db for existing userSchema.
 devUserController.getUserSchema = function(req, res, next) {
