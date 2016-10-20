@@ -5,25 +5,20 @@ let fixture =
     "UserPassword": "",
     "DBName": "",
     "tables": [{
-      "tableName": "Person",
+      "tableName": "Book",
       "fields": [{
-        "fieldName": "email",
+        "fieldName": "title",
         "type": "STRING",
         "required": true,
         "mutable": false
       }, {
-        "fieldName": "firstName",
+        "fieldName": "author",
         "type": "STRING",
         "required": true,
         "mutable": false
-      }, {
-        "fieldName": "age",
-        "type": "INTEGER",
-        "required": false,
-        "mutable": true
       }]
     }, {
-      "tableName": "Post",
+      "tableName": "Booklet",
       "fields": [{
         "fieldName": "Title",
         "type": "STRING",
@@ -36,7 +31,7 @@ let fixture =
         "mutable": false
       }]
     }],
-    "hasRelationships": true,
+    "hasRelationships": false,
     "relationships": [{
         "Master": "Person",
         "Slave": "Post",

@@ -63,7 +63,7 @@ app.get('/devUserSchema/:devId',
 
 app.post('/edit',
   devUserCtrl.setDevUserSchema, //saves the schema model to devUser DB. 
-  devUserCtrl.constructScaffold, //constructs scaffold and attaches to req.body
+  // devUserCtrl.constructScaffold, //constructs scaffold and attaches to req.body
   devUserCtrl.buildSequelizeSchema, //builds sequelize file
   devUserCtrl.buildGqlSchema, //builds gql file
   (req, res) => {
