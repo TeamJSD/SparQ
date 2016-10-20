@@ -28,15 +28,6 @@ let createFieldsBlock = function(fieldArr) {
 let dependencies = `import Sequelize from 'sequelize';
 import _ from 'lodash';\n\n`
 
-// let connection = `const Conn = new Sequelize(
-//   '${Fixture.DBName}', //name of users individual db.
-//   '${Fixture.userID}', // username
-//   '${Fixture.UserPassword}', { //password
-//     dialect: 'postgres', //always postgres
-//     host: 'localhost' //instance
-//   }
-// );\n\n`
-
 let createDependenciesblock = function(userDefinedSchema) {
   return `import Sequelize from 'sequelize';
 import _ from 'lodash';\n\n`
@@ -44,9 +35,9 @@ import _ from 'lodash';\n\n`
 
 let createConnectionsBlock = function(userDefinedSchema) {
   return `const Conn = new Sequelize(
-  '${userDefinedSchema.DBName}', //name of users individual db.
-  '${userDefinedSchema.userID}', // username
-  '${userDefinedSchema.UserPassword}', { //password
+  '${userDefinedSchema.userID}', //name of users individual db.
+  null, // username
+  null, { //password
     dialect: 'postgres', //always postgres
     host: 'localhost' //instance
   }
