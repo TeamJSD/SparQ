@@ -26,13 +26,15 @@ class Input extends Component {
 						/>
 
 						<select>
-                <option value="true">Required</option>
-                <option value="false">Not required</option>
+              <option value="true">Required</option>
+              <option value="false">Not required</option>
             </select>
             <select>
-                <option value="true">Mutable</option>
-                <option value="false">Immutable</option>
+              <option value="true">Mutable</option>
+              <option value="false">Immutable</option>
             </select>
+
+					<button onClick={this.props.deleteInput.bind(null, this)}>Delete</button>
 
 				</div>
 		)
