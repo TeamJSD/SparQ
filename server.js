@@ -39,22 +39,22 @@ app.get('/main.css', (req, res) => {
 })
 
 app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
-  res.send({redirectUrl: '/#profile'})
+  res.send({ redirectUrl: '/#profile' })
 })
 
 app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
-  res.send({redirectUrl: '/#profile'})
+  res.send({ redirectUrl: '/#profile' })
 })
 
-app.get('/devUserSchema/:devId', 
-  devUserCtrl.getUserSchema,
-  (req, res) => {
-    // let jsonSchemaModel = JSON.parse(req.body.schemaModel);
-    res.send(req.body.schemaModel);
-})
-// app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
-//   res.redirect('http://localhost:3000/#/profile');
-// })
+app.get('/devUserSchema/:devId',
+    devUserCtrl.getUserSchema, //check to see if user schema exists in db, if not returns null. 
+    (req, res) => {
+      // let jsonSchemaModel = JSON.parse(req.body.schemaModel);
+      res.send(req.body.schemaModel);
+    })
+  // app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
+  //   res.redirect('http://localhost:3000/#/profile');
+  // })
 
 app.use('/devUser', graphqlHTTP({
   schema: devUserSchema,
@@ -62,10 +62,10 @@ app.use('/devUser', graphqlHTTP({
 }))
 
 app.post('/edit',
-  devUserCtrl.setDevUserSchema,
-  devUserCtrl.constructScaffold,
-  devUserCtrl.buildSequelizeSchema,
-  devUserCtrl.buildGqlSchema,
+  devUserCtrl.setDevUserSchema, //saves the schema model to devUser DB. 
+  devUserCtrl.constructScaffold, //constructs scaffold and attaches to req.body
+  devUserCtrl.buildSequelizeSchema, //builds sequelize file
+  devUserCtrl.buildGqlSchema, //builds gql file
   (req, res) => {
     console.log("req.body.tables", req.body.tables);
     console.log("hit edit route");
@@ -81,21 +81,22 @@ app.post('/edit',
   })
 
 //works
-// app.use('/graphql/a1b2c3', graphqlHTTP({
-//   schema: gqlTestSchema,
-//   graphiql: true
-// }))
-// works
-// app.use('/graphql/', apolloExpress({
-//   schema: gqlTestSchema,
-// }))
+
+app.use('/graphql/a1b2c3', graphqlHTTP({
+    schema: gqlTestSchema,
+    graphiql: true
+  }))
+  // works
+  // app.use('/graphql/', apolloExpress({
+  //   schema: gqlTestSchema,
+  // }))
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
 
 app.post('/graphql/:devId',
-  setSchema,
-  apolloExpress(function(req) {
+  setSchema, //middleware that grabs gql file and attaches to req body. 
+  apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries. 
     // console.log("req.devSchema", req.devSchema)
     //some weird export thing... because we're not using import'
     return { schema: req.devSchema.default }
@@ -126,8 +127,8 @@ app.post('/createdb', (req, res) => {
 })
 
 //////////this block is to test invoking o the compilers////////////
-import userDefinedSchema from './fixture/postcall_fixture.js';
-console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
-console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
+// import userDefinedSchema from './fixture/postcall_fixture.js';
+// console.log('invoking dbcomp', DBTranspiler(userDefinedSchema));
+// console.log('invoking gqlcomp', GQLSchemaTranspiler(userDefinedSchema));
 
 app.listen(process.env.NODE_PORT, () => console.log(`started server at ${process.env.NODE_PORT}`));
