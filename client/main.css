@@ -182,7 +182,7 @@ button:hover {
 	flex-grow: 1;
 }
 
-#create-schema {
+#create-schema, #save-schema {
 	margin-top: 60px;
 	height: 50px;
 	width: 200px;
