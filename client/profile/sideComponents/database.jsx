@@ -32,7 +32,9 @@ class Database extends Component {
 
 		return (
 				<div id='database-view'>
-						<h2>Your database information.</h2>
+						<h2>Your database information:</h2>
+						<h3>Database: MyTestDB</h3>
+						<h3>Route: /graphQL/a1b2c3</h3>
 						{ forms }
 						<button onClick={this.onClick}>Create DB</button>
 				</div>
