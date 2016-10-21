@@ -2,9 +2,9 @@ import Sequelize from 'sequelize';
 import _ from 'lodash';
 
 const Conn = new Sequelize(
-  'edittest', //name of users individual db.
-  'z1y2x3', // username
-  '', { //password
+  'z1y2x3', //name of users individual db.
+  null, // username
+  null, { //password
     dialect: 'postgres', //always postgres
     host: 'localhost' //instance
   }
@@ -22,15 +22,16 @@ author: {
 });
 
 const Booklet = Conn.define('booklet', {
-title: {
+Title: {
       type: Sequelize.STRING,
       allowNull: false
     },
-subtitle: {
+Content: {
       type: Sequelize.STRING,
       allowNull: false
     },
 });
 
+Book.create({title: "test", author: "test"})
 
 export default Conn;

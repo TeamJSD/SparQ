@@ -1,12 +1,9 @@
 const exec = require('child_process').exec;
-const config = {
-  database: 'sparq'
-}
-
-const dbController = {};
 
 
-dbController.createDevUserDb = function(name) {
+
+const createDevUserDb = function(name) {
+  console.log("name inside createDB.js", name)
   function execCreateDb(name) {
     exec(`createdb ${name}`, function (error, stdout, stderr) {
             console.log('stdout: ' + stdout);
@@ -19,6 +16,6 @@ dbController.createDevUserDb = function(name) {
   execCreateDb(name)
 }
 
-module.exports = dbController;
+module.exports = createDevUserDb;
 
 

@@ -13,7 +13,7 @@ const devUserCtrl = require('./server/middleware/devUserController');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 
-import { apolloExpress } from 'apollo-server';
+import { apolloExpress, graphiqlExpress } from 'apollo-server';
 
 import GQLSchemaTranspiler from './transpiler/gqlschema_transpiler.js';
 import DBTranspiler from './transpiler/db_transpiler.js';
@@ -38,13 +38,17 @@ app.get('/main.css', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
-app.post('/signup', devUserCtrl.createDevUser, (req, res) => {
+app.post('/signup', 
+  devUserCtrl.createDevUser, 
+  devUserCtrl.createDevUserDb,
+  (req, res) => {
   res.send({ redirectUrl: '/#profile' })
 })
 
 app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
   res.send({ redirectUrl: '/#profile' })
 })
+
 
 app.get('/devUserSchema/:devId',
     devUserCtrl.getUserSchema, //check to see if user schema exists in db, if not returns null. 
@@ -56,14 +60,10 @@ app.get('/devUserSchema/:devId',
   //   res.redirect('http://localhost:3000/#/profile');
   // })
 
-app.use('/devUser', graphqlHTTP({
-  schema: devUserSchema,
-  graphiql: true
-}))
 
 app.post('/edit',
   devUserCtrl.setDevUserSchema, //saves the schema model to devUser DB. 
-  devUserCtrl.constructScaffold, //constructs scaffold and attaches to req.body
+  // devUserCtrl.constructScaffold, //constructs scaffold and attaches to req.body
   devUserCtrl.buildSequelizeSchema, //builds sequelize file
   devUserCtrl.buildGqlSchema, //builds gql file
   (req, res) => {
@@ -93,6 +93,9 @@ app.post('/edit',
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
+app.use('/graphiql/:devId', graphiqlExpress({
+  endpointURL: '/graphql/z1y2x3'
+}))
 
 app.post('/graphql/:devId',
   setSchema, //middleware that grabs gql file and attaches to req body. 
@@ -102,22 +105,7 @@ app.post('/graphql/:devId',
     return { schema: req.devSchema.default }
   }))
 
-// app.post('/graphql/:devid', (req, res) => {
-//   console.log("req.params.devid", req.params.devid);
 
-//   //first check params, then check request body
-//   //this post only works for a body
-//   //should find a way to use express-graphql or apollo-server
-//   //this is bad practice... find a better way to do this.
-//   let  devGqlSchema = require(`./compiler/${req.params.devid}_schema.js`);
-//   console.log("req.body", req.body.query);
-//   const reqQuery = req.body.query;
-//   graphql(gqlTestSchema, reqQuery)
-//     .then(result => {
-//       console.log(result);
-//       res.json(result);
-//     })
-// })
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;

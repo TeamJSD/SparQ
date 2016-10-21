@@ -7,7 +7,7 @@ import {
   GraphQLSchema,
   GraphQLNonNull
 } from 'graphql';
-import Db from './db';
+import Db from './../devUserDbs/z1y2x3_db.js';
 
 const Book = new GraphQLObjectType({
   name: 'Book',
@@ -36,16 +36,16 @@ const Booklet = new GraphQLObjectType({
   description: 'This represents a Booklet',
   fields: () => {
     return {
-title: {
+Title: {
       type: GraphQLString,
       resolve(booklet) {
-        return booklet.title;
+        return booklet.Title;
 }
     },
-subtitle: {
+Content: {
       type: GraphQLString,
       resolve(booklet) {
-        return booklet.subtitle;
+        return booklet.Content;
 }
     },
 
@@ -96,16 +96,16 @@ return {
  addBooklet: {
         type: Booklet,
         args: {
- title: {
+ Title: {
  type: new GraphQLNonNull 
  (GraphQLString),
- },subtitle: {
+ },Content: {
  type: new GraphQLNonNull 
  (GraphQLString),
  },},
         resolve(_, args) {
           return Db.models.booklet.create({
-          title: args.title,subtitle: args.subtitle,
+          Title: args.Title,Content: args.Content,
           });
         }}, }}
 })
