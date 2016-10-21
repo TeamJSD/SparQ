@@ -5,8 +5,8 @@ function createFixture(data) {
 	let values = Object.assign([], data)
 
   let fixture = {
-    "userID": 123,
-    "UserPassword": 123,
+    "userID": '',
+    "UserPassword": '',
     "DBName": "DBNAME123ABC",
     "tables": [],
     "hasRelationships": false,
@@ -26,7 +26,7 @@ function createFixture(data) {
     "mutable": false
   }
 
-  //loop through large array full of smaller arrays represent each form in schema
+  //loop through large array full of smaller arrays that represent each form in schema
   for(let i = 0; i < values.length; i++) {
     fixture.tables.push(Object.assign({}, tableValues))
 
@@ -53,6 +53,7 @@ function createFixture(data) {
       temp.push(field)
     }
 
+    //account for relationships
     if(relations[0] !== 'none') {
       fixture.hasRelationships = true;
       fixture.relationships.push({"Master": values[i][0], "Slave": relations[0], "Verb": relations[1]})
@@ -60,6 +61,14 @@ function createFixture(data) {
 
     fixture.tables[i].fields = temp
   }
+
+  fixture.userID = document.cookie.replace('devId=', '')
+
+  //create relationship strings
+  fixture.relationships.map((item) => {
+    let str = item.Master + '.' + item.Verb + '(' + item.Slave + ');\n' 
+    fixture.relationshipsString += str;
+  })
 
   console.log(fixture, 'fixture')
 
