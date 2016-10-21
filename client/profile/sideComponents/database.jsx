@@ -32,7 +32,7 @@ class Database extends Component {
 
 		return (
 				<div id='database-view'>
-						<h2>Create a Database?</h2>
+						<h2>Your database information.</h2>
 						{ forms }
 						<button onClick={this.onClick}>Create DB</button>
 				</div>

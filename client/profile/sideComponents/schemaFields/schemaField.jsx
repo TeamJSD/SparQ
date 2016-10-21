@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Dropdown from 'react-dropdown';
 import Input from './input.jsx';
 import Saved from './saved.jsx';
+import Relationships from './relationships.jsx'
 import createFixture from './../../../actions/schemaAction.jsx';
 
 class SchemaField extends Component {
@@ -12,7 +12,7 @@ class SchemaField extends Component {
 			data: [],
 		}
 		this.onClick = this.onClick.bind(this);
-		this.createForm = this.createForm.bind(this);
+		this.saveForm = this.saveForm.bind(this);
 		this.deleteInput = this.deleteInput.bind(this);
 	}
 	
@@ -35,10 +35,11 @@ class SchemaField extends Component {
 
 	}
 
-	createForm(e) {
+	saveForm(e) {
 		e.preventDefault();
 		let target = e.nativeEvent;
-		const inputsNumber = target.target.length - 3
+		console.log(target)
+		const inputsNumber = target.target.length - 2
 		let values = [];
 
 		for(let i = 0; i < inputsNumber; i++) {
@@ -50,7 +51,6 @@ class SchemaField extends Component {
 	}
 
 	deleteInput(e) {
-		console.log(e)
 		let copy = Object.assign([], this.state.inputs);
 		copy.splice(e, 1);
 		this.setState({ inputs: copy })
@@ -62,8 +62,10 @@ class SchemaField extends Component {
 			return <Element
 			 key={ index }
 			 index={ index }
-			 textVal={this.state.data[(index * 2) + 1]}
-			 dropVal={this.state.data[(index * 2) + 2]}
+			 textVal={this.state.data[(index * 4) + 1]}
+			 dropVal={this.state.data[(index * 4) + 2]}
+			 reqVal={this.state.data[(index * 4) + 3]}
+			 mutVal={this.state.data[(index * 4) + 4]}
 			 deleteInput={this.deleteInput}
 			 />
 		})
@@ -71,15 +73,23 @@ class SchemaField extends Component {
 		return (
 
 				<div>
-						<form className='schema-form' onSubmit={this.createForm}>
-							<h3>Object name:</h3>
+						<form className='schema-form' onSubmit={this.saveForm}>
+							<h3>Table name:</h3>
 							
 							<input type='text'
 							id='schema-type-input' 
 							defaultValue={this.state.data[0]}>
-							</input>
+							</input> <br /> <br />
+
+							Fields: <br /> <br />
 							
 								{ inputs }
+
+							Has Relationships: <br />
+							<Relationships 
+							relationshipOptions={this.props.relationshipOptions} 
+							relationships={this.props.relationships}
+							/>
 
 							<button 
 								className='add-input'
