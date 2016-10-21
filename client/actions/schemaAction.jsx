@@ -2,51 +2,70 @@ import axios from 'axios';
 
 function createFixture(data) {
 
-	let values = data;
-	let chunk = {
-			"fieldName": "firstName",
-      "type": "STRING",
-      "required": true,
-      "mutable": false
-      }
+	let values = Object.assign([], data)
 
- let fixture = {
+  let fixture = {
     "userID": 123,
     "UserPassword": 123,
     "DBName": "DBNAME123ABC",
-    "tables": [{
-      "tableName": "Person",
-      "fields": []
-    }],
+    "tables": [],
     "hasRelationships": false,
     "relationships": [],
     "relationshipsString": ""
   }
 
-  fixture["tables"][0]["tableName"] = values[0]
-
-  let fields = fixture["tables"][0]["fields"]
-
-  //input number of field values
-  for(let i = 1; i < values.length; i+= 2) {
-  	fields.push(Object.assign({}, chunk))
+  let tableValues = {
+    "tableName": "",
+    "fields": []
   }
 
-  //fill in the field names
-  for(let i = 0; i < fields.length; i++) {
-  	fields[i].fieldName = values[(i * 2) + 1]
+  let fieldValues = {
+    "fieldName": "",
+    "type": "",
+    "required": false,
+    "mutable": false
   }
 
-  //fill in the field types
-  for(let i = 0; i < fields.length; i++) {
-		fields[i].type = values[(i * 2) + 2]
-	}
+  //loop through large array full of smaller arrays represent each form in schema
+  for(let i = 0; i < values.length; i++) {
+    fixture.tables.push(Object.assign({}, tableValues))
 
-  console.log(fixture)
+    //set the name of the table
+    fixture.tables[i].tableName = values[i][0]
+    
+    //variable for relationship of the table
+    const relations = values[i].splice(-2)
 
- return axios.post('/edit', fixture)
-	.then((response) => console.log(response))
-	.catch((err) => console.log(err));
+    //variable for length to save calculation time
+    let leng = values[i].length
+
+    let temp = []
+
+    for(let j = 1; j < leng; j += 4) {
+      let field = Object.assign({}, fieldValues)
+      
+      //insert all the appropriate values for the specific field
+      field.fieldName = values[i][j];
+      field.type = values[i][j + 1];
+      field.required = values[i][j + 2];
+      field.mutable = values[i][j + 3];
+
+      temp.push(field)
+    }
+
+    if(relations[0] !== 'none') {
+      fixture.hasRelationships = true;
+      fixture.relationships.push({"Master": values[i][0], "Slave": relations[0], "Verb": relations[1]})
+    }
+
+    fixture.tables[i].fields = temp
+  }
+
+  console.log(fixture, 'fixture')
+
+ // return axios.post('/edit', fixture)
+	// .then((response) => console.log('fixture post request success'))
+	// .catch((err) => console.log(err));
 }
 
 

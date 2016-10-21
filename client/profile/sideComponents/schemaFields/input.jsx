@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Dropdown from './dropdown.jsx';
 
 class Input extends Component {
 	constructor() {
@@ -7,6 +6,7 @@ class Input extends Component {
 	}
 
 	render() {
+		//delete button 	<button onClick={this.props.deleteInput.bind(null, this)}>Delete</button>
 
 		return (
 				<div className='input'>
@@ -19,22 +19,24 @@ class Input extends Component {
 						>
 					</input>
 
-					<Dropdown
-						className='dropdown'
-						onChange={this.props.createForm}
-						defaultValue={this.props.dropVal}
-						/>
+	        <select className= "dropdown" defaultValue={this.props.dropVal}>
+	          <option value="STRING">String</option>
+	          <option value="UUID">ID</option>
+	          <option value="INTEGER">Number</option>
+	          <option value="FLOAT">Float</option>
+	          <option value="BOOLEAN">Boolean</option>
+	          <option value="DATE">Date</option>
+	        </select>
 
-						<select>
-              <option value="true">Required</option>
-              <option value="false">Not required</option>
-            </select>
-            <select>
-              <option value="true">Mutable</option>
-              <option value="false">Immutable</option>
-            </select>
-
-					<button onClick={this.props.deleteInput.bind(null, this)}>Delete</button>
+					<select defaultValue={this.props.reqVal}>
+            <option value="true">Required</option>
+            <option value="false">Not required</option>
+          </select>
+          
+          <select defaultValue={this.props.mutVal}>
+            <option value="true">Mutable</option>
+            <option value="false">Immutable</option>
+          </select>
 
 				</div>
 		)
