@@ -97,12 +97,6 @@ class SchemaField extends Component {
 							 Add Field
 							</button>
 
-							<button	
-								type='submit'		
-								className='submit-schema'>
-							 	Save
-							</button>
-
 						</form>
 				</div>
 		)

@@ -3,6 +3,7 @@ import axios from 'axios';
 function createFixture(data) {
 
 	let values = Object.assign([], data)
+  console.log(values, 'values from the form')
 
   let fixture = {
     "userID": '',
@@ -34,10 +35,11 @@ function createFixture(data) {
     fixture.tables[i].tableName = values[i][0]
     
     //variable for relationship of the table
-    const relations = values[i].splice(-2)
+    const relations = values[i].slice(-2)
+    console.log(relations)
 
     //variable for length to save calculation time
-    let leng = values[i].length
+    let leng = values[i].length - 2
 
     let temp = []
 
@@ -62,7 +64,8 @@ function createFixture(data) {
     fixture.tables[i].fields = temp
   }
 
-  fixture.userID = document.cookie.replace('devId=', '')
+  fixture.userID = document.cookie.replace('devId=', '');
+  fixture.DBName = fixture.userID;
 
   //create relationship strings
   fixture.relationships.map((item) => {
@@ -72,9 +75,9 @@ function createFixture(data) {
 
   console.log(fixture, 'fixture')
 
- // return axios.post('/edit', fixture)
-	// .then((response) => console.log('fixture post request success'))
-	// .catch((err) => console.log(err));
+ return axios.post('/edit', fixture)
+	.then((response) => console.log('fixture post request success'))
+	.catch((err) => console.log(err));
 }
 
 

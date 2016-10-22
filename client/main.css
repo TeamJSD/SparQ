@@ -189,8 +189,8 @@ button:hover {
 	font-size: 20px;
 }
 
-.submit-schema, .add-input {
-	width: 100px;
+.add-input {
+	width: 200px;
 	height: 30px;
 	font-size: 13px;
 	margin-top: 25px;
@@ -248,9 +248,17 @@ button:hover {
 	height: 30px;
 }
 
+.delete-input {
+	font-size: 16px;
+	display: inline-block;
+	margin-left: 5px;
+}
 
-
-
+.delete-input:hover {
+	cursor: pointer;
+	color: black;
+	font-weight: bold;
+}
 
 
 
