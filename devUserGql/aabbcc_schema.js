@@ -15,30 +15,44 @@ const Derrick = new GraphQLObjectType({
   fields: () => {
     return {
 Name: {
-      type: GraphQLInt,
+      type: GraphQLString,
       resolve(derrick) {
         return derrick.Name;
 }
     },
-true: {
-      type: undefined,
+Age: {
+      type: GraphQLInt,
       resolve(derrick) {
-        return derrick.true;
+        return derrick.Age;
 }
     },
-Ethnicity: {
-      type: GraphQLString,
-      resolve(derrick) {
-        return derrick.Ethnicity;
+ derrick: {
+        type: new GraphQLList(Derrick),
+        resolve(derrick) {
+          return derrick.getDerricks();
+        }
+      }
 }
-    },
-false: {
-      type: undefined,
-      resolve(derrick) {
-        return derrick.false;
-}
-    },
+  }
+});
 
+const Steve = new GraphQLObjectType({
+  name: 'Steve',
+  description: 'This represents a Steve',
+  fields: () => {
+    return {
+Name: {
+      type: GraphQLString,
+      resolve(steve) {
+        return steve.Name;
+}
+    },
+ derrick: {
+        type: new GraphQLList(Derrick),
+        resolve(steve) {
+          return steve.getDerricks();
+        }
+      }
 }
   }
 });
@@ -52,6 +66,11 @@ const Query = new GraphQLObjectType({
           type: new GraphQLList(Derrick),
           resolve(root, args) {
             return Db.models.derrick.findAll({ where: args });
+          }
+        },steve: { 
+          type: new GraphQLList(Steve),
+          resolve(root, args) {
+            return Db.models.steve.findAll({ where: args });
           }
         },
     }
@@ -68,20 +87,26 @@ return {
         args: {
  Name: {
  type: new GraphQLNonNull 
- (GraphQLInt),
- },true: {
- type: new GraphQLNonNull 
- (undefined),
- },Ethnicity: {
- type: new GraphQLNonNull 
  (GraphQLString),
- },false: {
+ },Age: {
  type: new GraphQLNonNull 
- (undefined),
+ (GraphQLInt),
  },},
         resolve(_, args) {
           return Db.models.derrick.create({
-          Name: args.Name,true: args.true,Ethnicity: args.Ethnicity,false: args.false,
+          Name: args.Name,Age: args.Age,
+          });
+        }}, 
+ addSteve: {
+        type: Steve,
+        args: {
+ Name: {
+ type: new GraphQLNonNull 
+ (GraphQLString),
+ },},
+        resolve(_, args) {
+          return Db.models.steve.create({
+          Name: args.Name,
           });
         }}, }}
 })

@@ -2,9 +2,9 @@ import Sequelize from 'sequelize';
 import _ from 'lodash';
 
 const Conn = new Sequelize(
-  'edittest', //name of users individual db.
-  'aabbcc', // username
-  '', { //password
+  'aabbcc', //name of users individual db.
+  null, // username
+  null, { //password
     dialect: 'postgres', //always postgres
     host: 'localhost' //instance
   }
@@ -12,22 +12,23 @@ const Conn = new Sequelize(
 
 const Derrick = Conn.define('derrick', {
 Name: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-true: {
-      type: Sequelize.false,
-      allowNull: false
-    },
-Ethnicity: {
       type: Sequelize.STRING,
       allowNull: false
     },
-false: {
-      type: Sequelize.true,
+Age: {
+      type: Sequelize.INTEGER,
       allowNull: false
     },
 });
 
+const Steve = Conn.define('steve', {
+Name: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+});
+
+Derrick.hasMany(Derrick);
+Steve.belongsTo(Derrick);
 
 export default Conn;
