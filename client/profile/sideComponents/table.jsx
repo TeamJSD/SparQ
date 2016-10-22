@@ -64,8 +64,10 @@ class Table extends Component {
     		temp.push(fields[j].required);
     		temp.push(fields[j].mutable);
     	}
-    	temp.push(fixture.relationships[i].Slave)
-    	temp.push(fixture.relationships[i].Verb)
+    	if(fixture.hasRelationships) {
+    		temp.push(fixture.relationships[i].Slave)
+    		temp.push(fixture.relationships[i].Verb)
+    	}
     	data.push(temp)
     }
     return data;
@@ -100,7 +102,8 @@ class Table extends Component {
 		return createFixture(fixtureValues)
 	}
 
-	createSchema() {
+	createSchema(e) {
+		e.preventDefault();
 		let schemas = Object.assign([], this.state.schemas)
 		schemas = schemas.concat(SchemaField);
 		this.state.relationships.push(["none", "none"])

@@ -15,24 +15,16 @@ Name: {
       type: Sequelize.STRING,
       allowNull: false
     },
-Email: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-Age: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
 });
 
 const Steve = Conn.define('steve', {
-Dicksize: {
-      type: Sequelize.INTEGER,
+Name: {
+      type: Sequelize.STRING,
       allowNull: false
     },
 });
 
-Derrick.belongsTo(Steve);
-Steve.hasMany(Derrick);
+Derrick.hasMany(Derrick);
+Steve.belongsTo(Derrick);
 
 export default Conn;

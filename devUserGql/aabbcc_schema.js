@@ -20,22 +20,10 @@ Name: {
         return derrick.Name;
 }
     },
-Email: {
-      type: GraphQLString,
-      resolve(derrick) {
-        return derrick.Email;
-}
-    },
-Age: {
-      type: GraphQLInt,
-      resolve(derrick) {
-        return derrick.Age;
-}
-    },
- steve: {
-        type: new GraphQLList(Steve),
+ derrick: {
+        type: new GraphQLList(Derrick),
         resolve(derrick) {
-          return derrick.getSteves();
+          return derrick.getDerricks();
         }
       }
 }
@@ -47,10 +35,10 @@ const Steve = new GraphQLObjectType({
   description: 'This represents a Steve',
   fields: () => {
     return {
-Dicksize: {
-      type: GraphQLInt,
+Name: {
+      type: GraphQLString,
       resolve(steve) {
-        return steve.Dicksize;
+        return steve.Name;
 }
     },
  derrick: {
@@ -94,28 +82,22 @@ return {
  Name: {
  type: new GraphQLNonNull 
  (GraphQLString),
- },Email: {
- type: new GraphQLNonNull 
- (GraphQLString),
- },Age: {
- type: new GraphQLNonNull 
- (GraphQLInt),
  },},
         resolve(_, args) {
           return Db.models.derrick.create({
-          Name: args.Name,Email: args.Email,Age: args.Age,
+          Name: args.Name,
           });
         }}, 
  addSteve: {
         type: Steve,
         args: {
- Dicksize: {
+ Name: {
  type: new GraphQLNonNull 
- (GraphQLInt),
+ (GraphQLString),
  },},
         resolve(_, args) {
           return Db.models.steve.create({
-          Dicksize: args.Dicksize,
+          Name: args.Name,
           });
         }}, }}
 })
