@@ -12,7 +12,6 @@ class SchemaField extends Component {
 			data: [],
 		}
 		this.onClick = this.onClick.bind(this);
-		this.saveForm = this.saveForm.bind(this);
 		this.deleteInput = this.deleteInput.bind(this);
 	}
 	
@@ -32,21 +31,6 @@ class SchemaField extends Component {
 	}
 
 	componentDidMount() {
-
-	}
-
-	saveForm(e) {
-		e.preventDefault();
-		let target = e.nativeEvent;
-		console.log(target)
-		const inputsNumber = target.target.length - 2
-		let values = [];
-
-		for(let i = 0; i < inputsNumber; i++) {
-			values.push(target.target[i].value)
-		}
-		console.log(values)
-		return createFixture(values)
 
 	}
 
@@ -72,8 +56,7 @@ class SchemaField extends Component {
 
 		return (
 
-				<div>
-						<form className='schema-form' onSubmit={this.saveForm}>
+				<div className='schema-form'>
 							<h3>Table name:</h3>
 							
 							<input type='text'
@@ -96,8 +79,6 @@ class SchemaField extends Component {
 								onClick={this.onClick}>
 							 Add Field
 							</button>
-
-						</form>
 				</div>
 		)
 	}

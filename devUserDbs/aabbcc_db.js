@@ -15,6 +15,10 @@ Name: {
       type: Sequelize.STRING,
       allowNull: false
     },
+Age: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
 });
 
 const Steve = Conn.define('steve', {

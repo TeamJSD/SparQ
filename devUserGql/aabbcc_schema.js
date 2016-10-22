@@ -20,6 +20,12 @@ Name: {
         return derrick.Name;
 }
     },
+Age: {
+      type: GraphQLInt,
+      resolve(derrick) {
+        return derrick.Age;
+}
+    },
  derrick: {
         type: new GraphQLList(Derrick),
         resolve(derrick) {
@@ -82,10 +88,13 @@ return {
  Name: {
  type: new GraphQLNonNull 
  (GraphQLString),
+ },Age: {
+ type: new GraphQLNonNull 
+ (GraphQLInt),
  },},
         resolve(_, args) {
           return Db.models.derrick.create({
-          Name: args.Name,
+          Name: args.Name,Age: args.Age,
           });
         }}, 
  addSteve: {

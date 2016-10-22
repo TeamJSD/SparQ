@@ -3,6 +3,7 @@ import axios from 'axios';
 function createFixture(data) {
 
 	let values = Object.assign([], data)
+  console.log(values)
 
   let fixture = {
     "userID": '',
@@ -26,6 +27,7 @@ function createFixture(data) {
     "mutable": false
   }
 
+
   //loop through large array full of smaller arrays that represent each form in schema
   for(let i = 0; i < values.length; i++) {
     fixture.tables.push(Object.assign({}, tableValues))
@@ -34,7 +36,7 @@ function createFixture(data) {
     fixture.tables[i].tableName = values[i][0]
     
     //variable for relationship of the table
-    const relations = values[i].splice(-2)
+    const relations = values[i].slice(-2)
 
     //variable for length to save calculation time
     let leng = values[i].length - 2
@@ -42,15 +44,19 @@ function createFixture(data) {
     let temp = []
 
     for(let j = 1; j < leng; j += 4) {
-      let field = Object.assign({}, fieldValues)
-      
-      //insert all the appropriate values for the specific field
-      field.fieldName = values[i][j];
-      field.type = values[i][j + 1];
-      field.required = values[i][j + 2];
-      field.mutable = values[i][j + 3];
 
-      temp.push(field)
+      //account for empty field names
+      if(values[i][j] !== '') {
+        let field = Object.assign({}, fieldValues)
+        
+        //insert all the appropriate values for the specific field
+        field.fieldName = values[i][j];
+        field.type = values[i][j + 1];
+        field.required = values[i][j + 2];
+        field.mutable = values[i][j + 3];
+
+        temp.push(field)
+      }
     }
 
     //account for relationships

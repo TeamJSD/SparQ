@@ -125,7 +125,11 @@ class Table extends Component {
 
 		return (
 				<div>
-					<h1>My Tables</h1>
+					<h2>Your Database</h2>
+					<h3>Database: MyTestDB</h3>
+					<h3>Route: /graphQL/a1b2c3</h3>
+					<br />
+					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>
 						{ schemas }
 						<button id='create-schema' onClick={this.createSchema}>New Table</button>
