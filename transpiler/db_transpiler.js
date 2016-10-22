@@ -25,9 +25,6 @@ let createFieldsBlock = function(fieldArr) {
   return output
 };
 
-let dependencies = `import Sequelize from 'sequelize';
-import _ from 'lodash';\n\n`
-
 let createDependenciesblock = function(userDefinedSchema) {
   return `import Sequelize from 'sequelize';
 import _ from 'lodash';\n\n`
@@ -58,11 +55,11 @@ function createDBFile(userDefinedSchema) {
 
         //append relationships and exports if relationships was defined.
         if (userDefinedSchema.hasRelationships) {
-          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nexport default Conn;`, (err) => {
+          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nConn.sync()\nexport default Conn;`, (err) => {
             if (err) { console.log(err) };
           });
         } else {
-          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, `\nexport default Conn;`, (err) => {
+          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, `\nConn.sync()\nexport default Conn;`, (err) => {
             if (err) { console.log(err) };
           });
         }
