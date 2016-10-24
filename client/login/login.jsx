@@ -23,7 +23,7 @@ class Login extends Component {
 		e.preventDefault();
 		console.log(this.state); //check console to see what object is being passed over
 		axios.post('/login', this.state).then((response) => {
-			console.log(response)
+			console.log(response, 'this is the response')
 			 window.location = response.data.redirectUrl
 			}).catch((err) => console.log(err))
 	}

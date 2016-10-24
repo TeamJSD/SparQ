@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import GraphiQL from './sideComponents/graphiQL.jsx';
 import Table from './sideComponents/table.jsx';
-import Database from './sideComponents/database.jsx';
 
 
 class Viewer extends Component {
@@ -15,8 +14,6 @@ class Viewer extends Component {
 			component = <GraphiQL />
 		} else if(this.props.view === 'My Schema') {
 			component = <Table />
-		} else if (this.props.view === 'My Database') {
-			component = <Database />
 		}
 
 		return (

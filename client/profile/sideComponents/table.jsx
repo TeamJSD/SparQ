@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SchemaField from './schemaFields/schemaField.jsx';
 import Input from './schemaFields/input.jsx';
+import Saved from './schemaFields/saved.jsx';
 import createFixture from './../../actions/schemaAction.jsx';
 import axios from 'axios';
 
@@ -89,6 +90,7 @@ class Table extends Component {
 		for(let i = 0; i < children.length; i++) {
 			let childForm = children[i].children[0].elements
 			let tempValues = []
+			console.log(children)
 			
 			//loop through inputs to get the individual values
 			for(let j = 0; j < childForm.length - 1; j++) {
@@ -126,8 +128,7 @@ class Table extends Component {
 		return (
 				<div>
 					<h2>Your Database</h2>
-					<h3>Database: MyTestDB</h3>
-					<h3>Route: /graphQL/a1b2c3</h3>
+					<h3>Route: /graphQL/{document.cookie.replace('devId=', '')}</h3>
 					<br />
 					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>

@@ -48,6 +48,7 @@ devUserController.authenticateDevUser = function(req, res, next) {
       } else {
         console.log("authentication successful");
         res.cookie('devId', user.devId)
+        next();
       }
     })
     .catch((err) => {

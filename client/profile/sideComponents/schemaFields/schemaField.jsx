@@ -57,6 +57,7 @@ class SchemaField extends Component {
 		return (
 
 				<div className='schema-form'>
+					<form>
 							<h3>Table name:</h3>
 							
 							<input type='text'
@@ -79,6 +80,7 @@ class SchemaField extends Component {
 								onClick={this.onClick}>
 							 Add Field
 							</button>
+						</form>
 				</div>
 		)
 	}
