@@ -17,6 +17,7 @@ class Table extends Component {
 		}
 		this.createSchema = this.createSchema.bind(this);
 		this.saveSchema = this.saveSchema.bind(this);
+		this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 	}
 
 	componentWillMount() {
@@ -25,9 +26,7 @@ class Table extends Component {
 		
 		axios.get(`/devUserSchema/${document.cookie.replace('devId=', '')}`)
 		.then((response) => {
-			console.log(response.data)
 			data = this.collectData(response.data)
-			console.log(data, 'this is the data that loads')
 			let obj = [];
 			
 			for(let i = 0; i < data.length; i++) {
@@ -41,6 +40,7 @@ class Table extends Component {
 					}
 					num++;
 				}
+				let relations = data[i]
 				this.state.relationships.push(Object.assign([], data[i].splice(-2)))
 				this.state.inputs.push(num)
 			}
@@ -65,10 +65,23 @@ class Table extends Component {
     		temp.push(fields[j].required);
     		temp.push(fields[j].mutable);
     	}
-    	if(fixture.hasRelationships) {
-    		temp.push(fixture.relationships[i].Slave)
-    		temp.push(fixture.relationships[i].Verb)
-    	}
+    	    	
+    		let slave = 'none',
+    		verb = 'none';
+
+    		if(fixture.relationships[i]) {
+	    		if(fixture.relationships[i].Master !== fixture.tables[i].tableName) {
+	    			fixture.relationships.splice(i, 0, fixture.relationships[i])
+	    			fixture.relationships[i] = '';
+	    		} else {
+	    			slave = fixture.relationships[i].Slave
+	    			verb = fixture.relationships[i].Verb
+	    		}
+	    	}
+
+    		temp.push(slave)
+    		temp.push(verb)
+    	
     	data.push(temp)
     }
     return data;
@@ -79,7 +92,8 @@ class Table extends Component {
 	}
 
 	saveSchema(e){
-		e.preventDefault()
+		e.preventDefault();
+		console.log(e, 'inside save schema')
 		let fixtureValues = []
 
 		//get all existing form elements
@@ -88,12 +102,13 @@ class Table extends Component {
 
 		//loop through form elements to get the inputs
 		for(let i = 0; i < children.length; i++) {
+			console.log(i)
+			console.log(children[i].children, 'children childrn')
 			let childForm = children[i].children[0].elements
 			let tempValues = []
-			console.log(children)
 			
 			//loop through inputs to get the individual values
-			for(let j = 0; j < childForm.length - 1; j++) {
+			for(let j = 0; j < childForm.length - 2; j++) {
 				//collect input values of each form
 				tempValues.push(childForm[j].value)
 			}
@@ -112,6 +127,17 @@ class Table extends Component {
 		this.setState({ schemas: schemas,  });
 	}
 
+	componentWillReceiveProps(e) {
+		console.log(e)
+		let schemas = Object.assign([], this.state.schemas)
+		schemas.splice(e, 1)
+		let data = Object.assign([], this.state.data)
+		this.state.data.splice(e, 1)
+		console.log(schemas)
+		this.state.relationships.splice(e, 1)
+		this.setState({ schemas: schemas });	
+	}
+
 	render() {
 		const schemas = this.state.schemas.map((Element, index) => {
 			return <Element key={ index }
@@ -122,7 +148,8 @@ class Table extends Component {
 			 data={this.state.data[index]}
 			 relationshipOptions={this.state.relationshipOptions}
 			 relationships={this.state.relationships[index]}
-			  />
+			 deleteTable={this.componentWillReceiveProps}
+			 />
 		})
 
 		return (
