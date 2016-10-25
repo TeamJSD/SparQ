@@ -20,6 +20,7 @@ class Profile extends Component {
 	}
 
 	render() {
+		
 		return (
 				<div id='profile'>
 					<SideBar onClick={this.onClick}/>

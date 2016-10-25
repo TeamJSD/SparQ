@@ -7,6 +7,7 @@ import Profile from './../profile/profile.jsx';
 import NotFound from './../404/404.jsx';
 import Container from './container.jsx';
 import Signup from './../signup/signup.jsx';
+import Signout from './../signout/signout.jsx';
 
 class App extends Component {
 	render() {
@@ -17,6 +18,7 @@ class App extends Component {
 						<Route path='/signup' component={Signup} />
 						<Route path='/login' component={Login} />
 						<Route path='/profile' component={Profile} />	
+						<Route path='/signout' component={Signout} />
 						<Route path='*' component={NotFound} />
 				</Route>
 			</Router>

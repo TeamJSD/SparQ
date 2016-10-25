@@ -11,7 +11,7 @@ class LoginField extends Component {
 				<form id="login-field" onSubmit={this.props.onSubmit}>
 					<input onChange={this.props.onChange} type="text" id="username" name="username" placeholder='Username'></input><br />
 					<input onChange={this.props.onChange} type="password" id="password" name="password" placeholder='Password'></input><br />
-					<button type='submit' id='log-in-spoof'>Log in</button>
+					<button type='submit' id='log-in-button'>Log in</button>
 				</form>
 			</div>
 		)

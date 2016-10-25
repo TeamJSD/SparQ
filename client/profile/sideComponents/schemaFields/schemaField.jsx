@@ -13,6 +13,7 @@ class SchemaField extends Component {
 		}
 		this.onClick = this.onClick.bind(this);
 		this.deleteInput = this.deleteInput.bind(this);
+		this.onSubmit = this.onSubmit.bind(this)
 	}
 	
 	onClick(e) {
@@ -32,6 +33,10 @@ class SchemaField extends Component {
 
 	componentDidMount() {
 
+	}
+
+	onSubmit(e) {
+		e.preventDefault();
 	}
 
 	deleteInput(e) {
@@ -57,6 +62,7 @@ class SchemaField extends Component {
 		return (
 
 				<div className='schema-form'>
+					<form onSubmit={this.onSubmit}>
 							<h3>Table name:</h3>
 							
 							<input type='text'
@@ -79,6 +85,14 @@ class SchemaField extends Component {
 								onClick={this.onClick}>
 							 Add Field
 							</button>
+							
+							<button
+								onClick={this.props.deleteTable.bind(null, this.props.index)}
+								type='button'>
+								Delete Table
+							</button>
+						
+						</form>
 				</div>
 		)
 	}
