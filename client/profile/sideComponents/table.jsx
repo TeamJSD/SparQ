@@ -93,7 +93,6 @@ class Table extends Component {
 
 	saveSchema(e){
 		e.preventDefault();
-		console.log(e, 'inside save schema')
 		let fixtureValues = []
 
 		//get all existing form elements
@@ -102,8 +101,7 @@ class Table extends Component {
 
 		//loop through form elements to get the inputs
 		for(let i = 0; i < children.length; i++) {
-			console.log(i)
-			console.log(children[i].children, 'children childrn')
+
 			let childForm = children[i].children[0].elements
 			let tempValues = []
 			
@@ -129,13 +127,13 @@ class Table extends Component {
 
 	componentWillReceiveProps(e) {
 		console.log(e)
-		let schemas = Object.assign([], this.state.schemas)
-		schemas.splice(e, 1)
-		let data = Object.assign([], this.state.data)
-		this.state.data.splice(e, 1)
-		console.log(schemas)
-		this.state.relationships.splice(e, 1)
-		this.setState({ schemas: schemas });	
+		// let schemas = Object.assign([], this.state.schemas)
+		// schemas.splice(e, 1)
+		// let data = Object.assign([], this.state.data)
+		// this.state.data.splice(e, 1)
+		// console.log(schemas)
+		// this.state.relationships.splice(e, 1)
+		// this.setState({ schemas: schemas });	
 	}
 
 	render() {
