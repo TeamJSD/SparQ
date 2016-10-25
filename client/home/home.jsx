@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Info from './Info.jsx';
-import LoginPanel from './../login/loginPanel.jsx';
+import HomeLogin from './homelogin.jsx';
 import Footer from './../components/footer.jsx';
 
 class Home extends Component {
@@ -12,7 +12,7 @@ class Home extends Component {
 						<Info />
 					</span>
 					<span id='panel'>
-						<LoginPanel />
+						<HomeLogin />
 					</span>
 				</div>
 					<Footer />

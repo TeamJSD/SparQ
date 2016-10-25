@@ -10,10 +10,13 @@ class NavBar extends Component {
 	render() {
 		let indicator = (document.cookie.match(/^(?:.*;)?devId=([^;]+)(?:.*)?$/)||[,null])[1];
 		let link;
+		let notLoggedIn;
 		if(indicator) {
 			link = <Link to='/signout'>Sign Out</Link>
+			notLoggedIn = '/profile'
 		} else {
 			link = <Link to='/login'>Login</Link>
+			notLoggedIn = '/login'
 		}
 		
 		return (
@@ -25,7 +28,7 @@ class NavBar extends Component {
 				<span id='spacer'></span>
 				<span id="nav">
 					<Link to='/'>Home</Link>&nbsp;
-					<Link to='/profile'>Profile</Link>
+					<Link to={ notLoggedIn }>Profile</Link>
 					{ link }
 				</span>
 			</div>

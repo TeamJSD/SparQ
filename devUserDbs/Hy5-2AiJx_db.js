@@ -32,8 +32,6 @@ Content: {
     },
 });
 
-Users.Posts(hasMany);
-Posts.Users(belongsTo);
 
 Conn.sync()
 export default Conn;

@@ -26,12 +26,7 @@ Age: {
         return users.Age;
 }
     },
- hasmany: {
-        type: new GraphQLList(hasMany),
-        resolve(users) {
-          return users.gethasManys();
-        }
-      }
+
 }
   }
 });
@@ -53,12 +48,7 @@ Content: {
         return posts.Content;
 }
     },
- belongsto: {
-        type: new GraphQLList(belongsTo),
-        resolve(posts) {
-          return posts.getbelongsTos();
-        }
-      }
+
 }
   }
 });
