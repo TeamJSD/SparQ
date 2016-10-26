@@ -17,7 +17,7 @@ class Table extends Component {
 		}
 		this.createSchema = this.createSchema.bind(this);
 		this.saveSchema = this.saveSchema.bind(this);
-		this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+		this.deleteTable = this.deleteTable.bind(this);
 	}
 
 	componentWillMount() {
@@ -125,15 +125,20 @@ class Table extends Component {
 		this.setState({ schemas: schemas,  });
 	}
 
-	componentWillReceiveProps(e) {
+	deleteTable(e) {
 		console.log(e)
-		// let schemas = Object.assign([], this.state.schemas)
-		// schemas.splice(e, 1)
-		// let data = Object.assign([], this.state.data)
-		// this.state.data.splice(e, 1)
-		// console.log(schemas)
-		// this.state.relationships.splice(e, 1)
-		// this.setState({ schemas: schemas });	
+		let newState = Object.assign({}, this.state)
+		console.log(newState)
+		newState.data.splice(e, 1)
+		newState.schemas.splice(e, 1)
+		newState.inputs.splice(e, 1)
+		newState.relationshipOptions.splice(e, 1)
+		newState.relationships.splice(e, 1)
+		console.log(newState)
+		this.setState(newState);
+		forceUpdate();
+
+		console.log('update')
 	}
 
 	render() {
@@ -146,7 +151,7 @@ class Table extends Component {
 			 data={this.state.data[index]}
 			 relationshipOptions={this.state.relationshipOptions}
 			 relationships={this.state.relationships[index]}
-			 deleteTable={this.componentWillReceiveProps}
+			 deleteTable={this.deleteTable}
 			 />
 		})
 

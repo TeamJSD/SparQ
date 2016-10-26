@@ -41,8 +41,10 @@ class SchemaField extends Component {
 
 	deleteInput(e) {
 		let copy = Object.assign([], this.state.inputs);
+		let data = Object.assign([], this.state.data);
 		copy.splice(e, 1);
-		this.setState({ inputs: copy })
+		data.splice(e, 1);
+		this.setState({ inputs: copy, data: data })
 	}
 
 	render() {
