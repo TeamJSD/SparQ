@@ -27,10 +27,15 @@ class Table extends Component {
 	componentDidMount() {
 		//get request for data
 		let data;
+		let id = (document.cookie.match(/^(?:.*;)?devId=([^;]+)(?:.*)?$/)||[,null])[1];
+		console.log(id)
 		
-		axios.get(`/devUserSchema/${document.cookie.replace('devId=', '')}`)
+		axios.get(`/devUserSchema/${id}`)
 		.then((response) => {
+			console.log(response.data, 'data')
+			
 			data = this.collectData(response.data)
+			
 			let obj = [];
 			
 			for(let i = 0; i < data.length; i++) {
@@ -48,12 +53,14 @@ class Table extends Component {
 				this.state.relationships.push(Object.assign([], data[i].splice(-2)))
 				this.state.inputs.push(num)
 			}
+
+			if(!obj.length) {
+				obj = obj.concat(SchemaField)
+			}
 			this.setState({ schemas: obj, data: data })
 
 		})
-		.catch((err) => console.log(err))
-		//create amount of necessary forms for loading the user's tables
-		
+		.catch((err) => console.log(err))		
 	}
 
 	collectData(obj) {
@@ -189,7 +196,7 @@ class Table extends Component {
 		return (
 				<div>
 					<h2>Your Database</h2>
-					<h3>Route: /graphQL/{document.cookie.replace('devId=', '')}</h3>
+					<h3>Your Route: www.sparq.rocks/graphQL/{document.cookie.replace('devId=', '')}</h3>
 					<br />
 					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>
