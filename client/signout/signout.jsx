@@ -15,7 +15,7 @@ class Signout extends Component {
 
 		return (
 			<div>
-			 Sign Out?
+			 <h2>Sign Out?</h2>
        <Link to='/'><button onClick={this.clearCookie}>Yes</button></Link>
       </div>
 		)

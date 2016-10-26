@@ -70,11 +70,11 @@ class SchemaField extends Component {
 							defaultValue={this.state.data[0]}>
 							</input> <br /> <br />
 
-							Fields: <br /> <br />
+							Fields: <br /> 
 							
 								{ inputs }
 
-							Has Relationships: <br />
+							Has Relationships: <br /><br />
 							<Relationships 
 							relationshipOptions={this.props.relationshipOptions} 
 							relationships={this.props.relationships}
@@ -87,6 +87,7 @@ class SchemaField extends Component {
 							</button>
 							
 							<button
+								className='delete-table'
 								onClick={this.props.deleteTable.bind(null, this.props.index)}
 								type='button'>
 								Delete Table

@@ -32,8 +32,10 @@ class Login extends Component {
 
 		return (
 			<div id='login-view'>
-				<h1>Not a member?</h1>
-				<Link to='/signup'><h1 id='sign-up'>Sign Up.</h1></Link>
+				<div id='login-header'>
+					<h1>Not a member?</h1>&nbsp;&nbsp;&nbsp;
+					<Link to='/signup'><h1 id='sign-up'>Sign Up.</h1></Link>
+				</div>
 				<div id='login-panel'>
 					<LoginPanel  
 					onSubmit={this.onSubmit} 
