@@ -160,7 +160,7 @@ class Table extends Component {
 		return (
 				<div>
 					<h2>Your Database</h2>
-					<h3>Your Route: www.sparq.rocks/graphQL/{document.cookie.replace('devId=', '')}</h3>
+					<h3>Your Route: www.sparq.rocks/graphiQL/{document.cookie.replace('devId=', '')}</h3>
 					<br />
 					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>
