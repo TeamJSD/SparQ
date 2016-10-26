@@ -29,7 +29,8 @@ let GQLSchemaTableBlock = function(userSchema, table) {
   name: '${table.tableName}',
   description: 'This represents a ${table.tableName}',
   fields: () => {
-    return {\n${GQLSchemaFieldsBlock(userSchema,table.fields,table.tableName)}}
+    return {
+      ${GQLSchemaFieldsBlock(userSchema,table.fields,table.tableName)}}
   }
 });\n\n`
   return defineBlock;
@@ -49,7 +50,7 @@ let GQLSchemaFieldsBlock = function(userSchema, fieldArr, tableName) {
     });
   };
 
-  let output = '';
+  let output = `id: {\ntype: GraphQLInt,\nresolve(${tableName.toLowerCase()}) { \nreturn ${tableName.toLowerCase()}.id; } },`;
   fieldArr.forEach((element, index, array) => {
 
     let GQLType = {
@@ -106,14 +107,21 @@ let GQLQueryTablesBlock = function(tables) {
 };
 
 //GQL Mutation Builder
-
-let GQLMutationArgsFieldBuilder = function(fields) {
+let GQLMutationArgsFieldBuilder = function(fields, tableName, userSchema, hasRelations) {
   let fieldsBlock = ``;
   let GQLType = {
     "STRING": "GraphQLString",
     "INTEGER": "GraphQLInt",
     "BOOLEAN": "GraphQLBoolean",
   };
+
+  if (hasRelations) {
+    userSchema.relationships.forEach(function(element) {
+      if (element.Verb === "belongsTo" && element.Master === tableName) {
+        fieldsBlock += `id: { \ntype: new GraphQLNonNull(GraphQLInt),\n },`
+      }
+    });
+  }
 
   fields.forEach(function(element) {
     fieldsBlock += `${element.fieldName}: {\n type: new GraphQLNonNull \n (${GQLType[element.type]}),\n },`
@@ -122,17 +130,23 @@ let GQLMutationArgsFieldBuilder = function(fields) {
   return fieldsBlock;
 };
 
-let GQLMutationResolverBuilder = function(table) {
+let GQLMutationResolverBuilder = function(fields, tableName, userSchema, hasRelations) {
+
   let resolverFields = ``;
-  table.fields.forEach(function(element) {
+
+  if (hasRelations) {
+    userSchema.relationships.forEach(function(element) {
+      if (element.Verb === "belongsTo" && element.Master === tableName) {
+        resolverFields += `${element.Slave.toLowerCase()}Id: args.id,`
+      }
+    });
+  }
+
+  fields.forEach(function(element) {
     resolverFields += `${element.fieldName}: args.${element.fieldName},`
   });
 
-  let resolverBlock = `resolve(_, args) {
-          return Db.models.${table.tableName.toLowerCase()}.create({
-          ${resolverFields}
-          });
-        }`;
+  let resolverBlock = `resolve(_, args) {\n return Db.models.${tableName.toLowerCase()}.create({\n ${resolverFields} }); }`;
 
   return resolverBlock;
 };
@@ -140,11 +154,12 @@ let GQLMutationResolverBuilder = function(table) {
 //Mutation outter block
 let GQLMutationBlock = function(userSchema) {
   let tables = ``;
+
   userSchema.tables.forEach(function(element) {
     tables += `\n add${element.tableName}: {
         type: ${element.tableName},
-        args: {\n ${GQLMutationArgsFieldBuilder(element.fields)}},
-        ${GQLMutationResolverBuilder(element)}}, `
+        args: {\n ${GQLMutationArgsFieldBuilder(element.fields,element.tableName,userSchema,userSchema.hasRelationships)}},
+        ${GQLMutationResolverBuilder(element.fields,element.tableName,userSchema,userSchema.hasRelationships)}}, `
   });
 
   let mutationBlock = `const Mutation = new GraphQLObjectType({\nname: 'Mutation',\ndescription: 'This is a mutation, functions that create things',\nfields() {\nreturn {${tables}}}\n})`
