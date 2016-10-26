@@ -6,20 +6,17 @@ class Input extends Component {
 	}
 
 	render() {
-		//delete button 	<button onClick={this.props.deleteInput.bind(null, this)}>Delete</button>
-
 		return (
 				<div className='input'>
 					<input
 						className='schema-input'
 						type='text'
-						defaultValue={this.props.textVal}
-						value={this.value}
-						onChange={this.props.createForm}
+						value={this.props.textVal}
+						onChange={event => this.props.handleChange(event, this.props.schemaIndex, (this.props.index * 4) + 1)}
 						>
 					</input>
 
-	        <select className= "dropdown" defaultValue={this.props.dropVal}>
+	        <select className= "dropdown" value={this.props.dropVal} onChange={event => this.props.handleChange(event, this.props.schemaIndex, (this.props.index * 4) + 2)}>
 	          <option value="STRING">String</option>
 	          <option value="UUID">ID</option>
 	          <option value="INTEGER">Number</option>
@@ -28,16 +25,16 @@ class Input extends Component {
 	          <option value="DATE">Date</option>
 	        </select>
 
-					<select defaultValue={this.props.reqVal}>
+					<select value={this.props.reqVal} onChange={event => this.props.handleChange(event, this.props.schemaIndex, (this.props.index * 4) + 3)}>
             <option value="true">Required</option>
             <option value="false">Not required</option>
           </select>
           
-          <select defaultValue={this.props.mutVal}>
+          <select value={this.props.mutVal} onChange={event => this.props.handleChange(event, this.props.schemaIndex, (this.props.index * 4) + 4)}>
             <option value="true">Mutable</option>
             <option value="false">Immutable</option>
           </select>
-          <p className='delete-input' onClick={this.props.deleteInput.bind(null, this.props.index)}>Delete</p>
+          <p className='delete-input' onClick={event => this.props.deleteInput(event, this.props.schemaIndex, this.props.index)}>Delete</p>
 
 
 				</div>

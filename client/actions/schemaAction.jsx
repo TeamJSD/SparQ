@@ -62,7 +62,7 @@ function createFixture(data) {
     //account for relationships
     if(relations[0] !== 'none') {
       fixture.hasRelationships = true;
-      fixture.relationships.push({"Master": values[i][0], "Slave": relations[0], "Verb": relations[1]})
+      fixture.relationships.push({"Master": values[i][0], "Slave": relations[1], "Verb": relations[0]})
     }
 
     fixture.tables[i].fields = temp

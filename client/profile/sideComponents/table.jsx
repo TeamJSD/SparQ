@@ -18,9 +18,13 @@ class Table extends Component {
 		this.createSchema = this.createSchema.bind(this);
 		this.saveSchema = this.saveSchema.bind(this);
 		this.deleteTable = this.deleteTable.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.relationshipChange = this.relationshipChange.bind(this);
+		this.addInput = this.addInput.bind(this);
+		this.deleteInput = this.deleteInput.bind(this);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		//get request for data
 		let data;
 		
@@ -40,7 +44,7 @@ class Table extends Component {
 					}
 					num++;
 				}
-				let relations = data[i]
+				//let relations = data[i]
 				this.state.relationships.push(Object.assign([], data[i].splice(-2)))
 				this.state.inputs.push(num)
 			}
@@ -87,10 +91,6 @@ class Table extends Component {
     return data;
 	}
 
-	componentDidMount() {
-
-	}
-
 	saveSchema(e){
 		e.preventDefault();
 		let fixtureValues = []
@@ -114,6 +114,7 @@ class Table extends Component {
 			//push individual form values into whole collection (fixture values)
 			fixtureValues.push(tempValues)
 		}
+
 		return createFixture(fixtureValues)
 	}
 
@@ -125,21 +126,47 @@ class Table extends Component {
 		this.setState({ schemas: schemas,  });
 	}
 
+	addInput(e, index) {
+		e.preventDefault();
+		console.log('inside add input', index)
+		let copy = this.state.inputs
+		copy[index]++
+		this.setState({ inputs: copy })
+	}
+
+	deleteInput(schemaIndex, index) {
+		console.log('inside delete input', index)
+		let copy = this.state
+		copy.inputs[schemaIndex]--
+		copy.data[schemaIndex].splice(((index * 4) + 1), 4)
+		this.setState({ copy })
+	}
+
+
 	deleteTable(e) {
-		console.log(e)
 		let newState = Object.assign({}, this.state)
-		console.log(newState)
 		newState.data.splice(e, 1)
 		newState.schemas.splice(e, 1)
 		newState.inputs.splice(e, 1)
 		newState.relationshipOptions.splice(e, 1)
 		newState.relationships.splice(e, 1)
-		console.log(newState)
 		this.setState(newState);
-		forceUpdate();
-
-		console.log('update')
 	}
+
+	handleChange(event, schemaIndex, index) {
+		let copy = this.state.data
+		copy[schemaIndex][index] = event.target.value
+		console.log(copy)
+  	this.setState({ data: copy });
+  }
+
+  relationshipChange(event, schemaIndex, index) {
+  	let copy = this.state.relationships
+  	copy[schemaIndex][index] = event.target.value
+  	console.log(copy)
+  	this.setState({ relationships: copy })
+  }
+
 
 	render() {
 		const schemas = this.state.schemas.map((Element, index) => {
@@ -151,7 +178,11 @@ class Table extends Component {
 			 data={this.state.data[index]}
 			 relationshipOptions={this.state.relationshipOptions}
 			 relationships={this.state.relationships[index]}
+			 addInput={this.addInput}
+			 deleteInput={this.deleteInput}
 			 deleteTable={this.deleteTable}
+			 handleChange={this.handleChange}
+			 relationshipChange={this.relationshipChange}
 			 />
 		})
 
