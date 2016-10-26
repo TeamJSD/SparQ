@@ -55,11 +55,11 @@ function createDBFile(userDefinedSchema) {
 
         //append relationships and exports if relationships was defined.
         if (userDefinedSchema.hasRelationships) {
-          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nConn.sync()\nexport default Conn;`, (err) => {
+          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, userDefinedSchema.relationshipsString + `\nConn.sync({ force: true })\nexport default Conn;`, (err) => {
             if (err) { console.log(err) };
           });
         } else {
-          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, `\nConn.sync()\nexport default Conn;`, (err) => {
+          fs.appendFile(__dirname + `/../devUserDbs/${userDefinedSchema.userID}_db.js`, `\nConn.sync({ force: true })\nexport default Conn;`, (err) => {
             if (err) { console.log(err) };
           });
         }
