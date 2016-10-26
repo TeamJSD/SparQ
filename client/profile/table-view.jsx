@@ -12,7 +12,7 @@ class Viewer extends Component {
 		let component;
 		if(this.props.view === 'GraphiQL') {
 			component = <GraphiQL />
-		} else if(this.props.view === 'My Schema') {
+		} else {
 			component = <Table />
 		}
 

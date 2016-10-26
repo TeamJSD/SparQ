@@ -13,8 +13,14 @@ p {
 	font-size: 30px;
 }
 
-input {
+/*input {
 	width: 300px;
+}*/
+
+select {
+	margin-right: 10px;
+	background-color: white;
+	height: 25px;
 }
 
 #nav-container {
@@ -61,7 +67,7 @@ input {
 	justify-content: flex-end;
 	align-items: center;
 	padding: 0;
-	margin: 100px 0 0 0;
+	margin: 40px 0 0 0;
 }
 
 #info {
@@ -111,7 +117,7 @@ button:hover {
 
 #footer {
 	text-align: center;
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 #login-view {
@@ -120,6 +126,14 @@ button:hover {
 
 #login-view a {
 	text-decoration: none;
+}
+
+#login-view h1 {
+	font-size: 30px;
+}
+
+#login-header h1 {
+	display: inline-block;
 }
 
 #sign-up {
@@ -189,7 +203,7 @@ button:hover {
 	font-size: 20px;
 }
 
-.add-input {
+.add-input, .delete-table {
 	width: 200px;
 	height: 30px;
 	font-size: 13px;
@@ -206,11 +220,12 @@ button:hover {
 .schema-form {
 	border: 1px solid black;
 	padding: 25px;
-	width: 400px;
+	width: 800px;
+	margin-bottom: 50px;
 }
 
 .schema-form input {
-	width: 300px;
+	width: 500px;
 }
 
 .schema-input {
