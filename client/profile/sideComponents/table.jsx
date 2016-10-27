@@ -26,20 +26,16 @@ class Table extends Component {
 
 	componentDidMount() {
 		//get request for data
-		let data;
+		let data = [];
+		let obj = [];		
 		let id = this.getCookie('devId')
 		
 		axios.get(`/devUserSchema/${id}`)
 		.then((response) => {
-			console.log(response.data, 'data')
-			
-			data = this.collectData(response.data)
-			
-			let obj = [];
 
-				if(!data.length) {
+				if(!response.data) {
 					//put one initial form with one initial input field if there is no saved data
-					obj = obj.concat(SchemaField);
+					obj.push(SchemaField);
 					data.push(["Table Name", "Field Name", "STRING", "true", "true"])
 					this.state.relationships.push(["none", "none"])
 					this.state.inputs.push(1)
@@ -47,6 +43,8 @@ class Table extends Component {
 				
 				} else {
 			
+					data = this.collectData(response.data)
+					
 					for(let i = 0; i < data.length; i++) {
 						obj = obj.concat(SchemaField)
 						let num = 0
