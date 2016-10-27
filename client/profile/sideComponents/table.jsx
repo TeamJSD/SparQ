@@ -15,7 +15,7 @@ class Table extends Component {
 			relationshipOptions: [],
 			relationships: [],
 		}
-		this.createSchema = this.createSchema.bind(this);
+		this.createTable = this.createTable.bind(this);
 		this.saveSchema = this.saveSchema.bind(this);
 		this.deleteTable = this.deleteTable.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -137,15 +137,24 @@ class Table extends Component {
 		return createFixture(fixtureValues)
 	}
 
-	createSchema(e) {
+	createTable(e) {
 		e.preventDefault();
-		let schemas = Object.assign([], this.state.schemas)
-		let data = Object.assign([], this.state.data)
-		schemas = schemas.concat(SchemaField);
-		data.push(["Table Name", "Field Name", "STRING", "none", "none"])
-		this.state.relationships.push(["none", "none"])
-		this.state.inputs.push(1)
-		this.setState({ schemas: schemas, data: data });
+		let newState = Object.assign({}, this.state)
+		newState.schemas.push(SchemaField);
+		newState.data.push(["Table Name", "Field Name", "STRING", "none", "none"])
+		newState.relationships.push(["none", "none"])
+		newState.inputs.push(1)
+		this.setState(newState);
+	}
+
+	deleteTable(e) {
+		let newState = Object.assign({}, this.state)
+		newState.data.splice(e, 1)
+		newState.schemas.splice(e, 1)
+		newState.inputs.splice(e, 1)
+		newState.relationshipOptions.splice(e, 1)
+		newState.relationships.splice(e, 1)
+		this.setState(newState);
 	}
 
 	addInput(e, index) {
@@ -156,23 +165,11 @@ class Table extends Component {
 		this.setState({ inputs: copy })
 	}
 
-	deleteInput(schemaIndex, index) {
-		console.log('inside delete input', index)
+	deleteInput(e, schemaIndex, index) {
 		let copy = this.state
 		copy.inputs[schemaIndex]--
 		copy.data[schemaIndex].splice(((index * 4) + 1), 4)
 		this.setState({ copy })
-	}
-
-
-	deleteTable(e) {
-		let newState = Object.assign({}, this.state)
-		newState.data.splice(e, 1)
-		newState.schemas.splice(e, 1)
-		newState.inputs.splice(e, 1)
-		newState.relationshipOptions.splice(e, 1)
-		newState.relationships.splice(e, 1)
-		this.setState(newState);
 	}
 
 	handleChange(event, schemaIndex, index) {
@@ -219,7 +216,7 @@ class Table extends Component {
 					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>
 						{ schemas }
-						<button id='create-schema' onClick={this.createSchema}>New Table</button>
+						<button id='create-schema' onClick={this.createTable}>New Table</button>
 						<button id='save-schema' type='submit'>Save Schema</button>
 					</form>
 				</div>
