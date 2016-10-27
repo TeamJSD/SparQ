@@ -158,9 +158,9 @@ class Table extends Component {
 	addInput(e, index) {
 		e.preventDefault();
 		console.log('inside add input', index)
-		let copy = this.state.inputs
+		let copy = Object.assign([], this.state.inputs)
+		let data = Object.assign([], this.state.data)
 		copy[index]++
-		let data = this.state.data
 		data[index].push('', 'STRING', 'true', 'true')
 		this.setState({ data: data, inputs: copy })
 	}
