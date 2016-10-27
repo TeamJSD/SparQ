@@ -1,7 +1,0 @@
-NODE_ENV = dev
-NODE_PORT = 3000
-NODE_DBUSERNAME = ''
-NODE_DBPASSWORD = ''
-NODE_DBHOST = localhost
-NODE_DBNAME = sparq
-

@@ -68,7 +68,16 @@ function createFixture(data) {
     fixture.tables[i].fields = temp
   }
 
-  fixture.userID = document.cookie.replace('devId=', '');
+    let id = (() => {
+      var value = "; " + document.cookie;
+      var parts = value.split("; " + 'devId' + "=");
+      if (parts.length == 2) return parts.pop().split(";").shift();
+    })
+
+    const devId = id()
+
+
+  fixture.userID = devId;
   fixture.DBName = fixture.userID;
 
   //create relationship strings

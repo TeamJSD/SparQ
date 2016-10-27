@@ -17,14 +17,17 @@ class Table extends Component {
 		}
 		this.createSchema = this.createSchema.bind(this);
 		this.saveSchema = this.saveSchema.bind(this);
-		this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+		this.deleteTable = this.deleteTable.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.relationshipChange = this.relationshipChange.bind(this);
+		this.addInput = this.addInput.bind(this);
+		this.deleteInput = this.deleteInput.bind(this);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		//get request for data
 		let data;
-		let id = (document.cookie.match(/^(?:.*;)?devId=([^;]+)(?:.*)?$/)||[,null])[1];
-		console.log(id)
+		let id = this.getCookie('devId')
 		
 		axios.get(`/devUserSchema/${id}`)
 		.then((response) => {
@@ -33,30 +36,43 @@ class Table extends Component {
 			data = this.collectData(response.data)
 			
 			let obj = [];
-			
-			for(let i = 0; i < data.length; i++) {
-				obj = obj.concat(SchemaField)
-				let num = 0
+
+				if(!data.length) {
+					//put one initial form with one initial input field if there is no saved data
+					obj = obj.concat(SchemaField);
+					data.push(["Table Name", "Field Name", "STRING", "true", "true"])
+					this.state.relationships.push(["none", "none"])
+					this.state.inputs.push(1)
+					this.setState({ schemas: obj, data: data})
 				
-				for(let j = 0; j < data[i].length - 2; j += 4) {
-					if(j === 0) {
-						this.state.relationshipOptions.push(data[i][j]);
-						j++
+				} else {
+			
+					for(let i = 0; i < data.length; i++) {
+						obj = obj.concat(SchemaField)
+						let num = 0
+						
+						for(let j = 0; j < data[i].length - 2; j += 4) {
+							if(j === 0) {
+								this.state.relationshipOptions.push(data[i][j]);
+								j++
+							}
+							num++;
+						}
+
+						this.state.relationships.push(Object.assign([], data[i].splice(-2)))
+						this.state.inputs.push(num)
 					}
-					num++;
+
+					this.setState({ schemas: obj, data: data })
 				}
-				let relations = data[i]
-				this.state.relationships.push(Object.assign([], data[i].splice(-2)))
-				this.state.inputs.push(num)
-			}
-
-			if(!obj.length) {
-				obj = obj.concat(SchemaField)
-			}
-			this.setState({ schemas: obj, data: data })
-
 		})
 		.catch((err) => console.log(err))		
+	}
+
+	getCookie(name) {
+		var value = "; " + document.cookie;
+  	var parts = value.split("; " + name + "=");
+  	if (parts.length == 2) return parts.pop().split(";").shift();
 	}
 
 	collectData(obj) {
@@ -86,16 +102,12 @@ class Table extends Component {
 	    		}
 	    	}
 
-    		temp.push(slave)
     		temp.push(verb)
+    		temp.push(slave)
     	
     	data.push(temp)
     }
     return data;
-	}
-
-	componentDidMount() {
-
 	}
 
 	saveSchema(e){
@@ -121,27 +133,62 @@ class Table extends Component {
 			//push individual form values into whole collection (fixture values)
 			fixtureValues.push(tempValues)
 		}
+
 		return createFixture(fixtureValues)
 	}
 
 	createSchema(e) {
 		e.preventDefault();
 		let schemas = Object.assign([], this.state.schemas)
+		let data = Object.assign([], this.state.data)
 		schemas = schemas.concat(SchemaField);
+		data.push(["Table Name", "Field Name", "STRING", "none", "none"])
 		this.state.relationships.push(["none", "none"])
-		this.setState({ schemas: schemas,  });
+		this.state.inputs.push(1)
+		this.setState({ schemas: schemas, data: data });
 	}
 
-	componentWillReceiveProps(e) {
-		console.log(e)
-		// let schemas = Object.assign([], this.state.schemas)
-		// schemas.splice(e, 1)
-		// let data = Object.assign([], this.state.data)
-		// this.state.data.splice(e, 1)
-		// console.log(schemas)
-		// this.state.relationships.splice(e, 1)
-		// this.setState({ schemas: schemas });	
+	addInput(e, index) {
+		e.preventDefault();
+		console.log('inside add input', index)
+		let copy = this.state.inputs
+		copy[index]++
+		this.setState({ inputs: copy })
 	}
+
+	deleteInput(schemaIndex, index) {
+		console.log('inside delete input', index)
+		let copy = this.state
+		copy.inputs[schemaIndex]--
+		copy.data[schemaIndex].splice(((index * 4) + 1), 4)
+		this.setState({ copy })
+	}
+
+
+	deleteTable(e) {
+		let newState = Object.assign({}, this.state)
+		newState.data.splice(e, 1)
+		newState.schemas.splice(e, 1)
+		newState.inputs.splice(e, 1)
+		newState.relationshipOptions.splice(e, 1)
+		newState.relationships.splice(e, 1)
+		this.setState(newState);
+	}
+
+	handleChange(event, schemaIndex, index) {
+		let copy = this.state.data
+		copy[schemaIndex][index] = event.target.value
+		console.log(copy)
+  	this.setState({ data: copy });
+  }
+
+  relationshipChange(event, schemaIndex, index) {
+  	let copy = this.state.relationships
+  	copy[schemaIndex][index] = event.target.value
+  	console.log(copy)
+  	this.setState({ relationships: copy })
+  }
+
 
 	render() {
 		const schemas = this.state.schemas.map((Element, index) => {
@@ -153,14 +200,21 @@ class Table extends Component {
 			 data={this.state.data[index]}
 			 relationshipOptions={this.state.relationshipOptions}
 			 relationships={this.state.relationships[index]}
-			 deleteTable={this.componentWillReceiveProps}
+			 addInput={this.addInput}
+			 deleteInput={this.deleteInput}
+			 deleteTable={this.deleteTable}
+			 handleChange={this.handleChange}
+			 relationshipChange={this.relationshipChange}
 			 />
 		})
+
+		const id = this.getCookie('devId')
+
 
 		return (
 				<div>
 					<h2>Your Database</h2>
-					<h3>Your Route: www.sparq.rocks/graphiQL/{document.cookie.replace('devId=', '')}</h3>
+					<h3>Your Route: www.sparq.rocks/graphiQL/{id}</h3>
 					<br />
 					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>

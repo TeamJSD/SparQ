@@ -7,55 +7,66 @@ import createFixture from './../../../actions/schemaAction.jsx';
 class SchemaField extends Component {
 	constructor() {
 		super()
-		this.state = {
-			inputs: [],
-			data: [],
-		}
-		this.onClick = this.onClick.bind(this);
+		// this.state = {
+		// 	inputs: [],
+		// }
+		this.addInput = this.addInput.bind(this);
 		this.deleteInput = this.deleteInput.bind(this);
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 	
-	onClick(e) {
-		e.preventDefault();
-		const inputs = this.state.inputs.concat(Input)
-		this.setState({ inputs })
-	}
-
-	componentWillMount() {
-		let input = [];
-		let data = [].concat(this.props.data)
-		for(let i = 0; i < this.props.inputs; i++) {
-			input = input.concat(Input)
-		}
-		this.setState({ inputs: input, data: data })
+	addInput(e, index) {
+		// e.preventDefault();
+		// const inputs = this.state.inputs.concat(Input)
+		// this.setState({ inputs: inputs })
+		// return this.props.addInput(index)
 	}
 
 	componentDidMount() {
-
+		// let input = [];
+		// for(let i = 0; i < this.props.inputs; i++) {
+		// 	input = input.concat(Input)
+		// }
+		// this.setState({ inputs: input })
 	}
 
 	onSubmit(e) {
+		//when you click on add field, it won't submit the form
 		e.preventDefault();
 	}
 
-	deleteInput(e) {
-		let copy = Object.assign([], this.state.inputs);
-		copy.splice(e, 1);
-		this.setState({ inputs: copy })
+	deleteInput(e, schemaIndex, index) {
+		//console.log(e)
+		// e.preventDefault();
+		// let copy = Object.assign([], this.state.inputs);
+		// copy.splice(index, 1);
+		//this.props.data.splice(index, 4)
+		// this.setState({ inputs: copy })
+		// return this.props.deleteInput(schemaIndex, index)
 	}
 
 	render() {
 
-		const inputs = this.state.inputs.map((Element, index) => {
+
+		const test = [];
+
+		(() => {
+			for(let i = 0; i < this.props.inputs; i++) {
+				test.push(Input)
+			}
+		})()
+
+		const inputs = test.map((Element, index) => {
 			return <Element
 			 key={ index }
 			 index={ index }
-			 textVal={this.state.data[(index * 4) + 1]}
-			 dropVal={this.state.data[(index * 4) + 2]}
-			 reqVal={this.state.data[(index * 4) + 3]}
-			 mutVal={this.state.data[(index * 4) + 4]}
+			 schemaIndex={this.props.index}
+			 textVal={this.props.data[(index * 4) + 1]}
+			 dropVal={this.props.data[(index * 4) + 2]}
+			 reqVal={this.props.data[(index * 4) + 3]}
+			 mutVal={this.props.data[(index * 4) + 4]}
 			 deleteInput={this.deleteInput}
+			 handleChange={this.props.handleChange}
 			 />
 		})
 
@@ -67,7 +78,8 @@ class SchemaField extends Component {
 							
 							<input type='text'
 							id='schema-type-input' 
-							defaultValue={this.state.data[0]}>
+							value={this.props.data[0]}
+							onChange={event => this.props.handleChange(event, this.props.index, 0)}>
 							</input> <br /> <br />
 
 							Fields: <br /> 
@@ -78,11 +90,13 @@ class SchemaField extends Component {
 							<Relationships 
 							relationshipOptions={this.props.relationshipOptions} 
 							relationships={this.props.relationships}
+							schemaIndex={this.props.index}
+							relationshipChange={this.props.relationshipChange}
 							/>
 
 							<button 
 								className='add-input'
-								onClick={this.onClick}>
+								onClick={event => this.props.addInput(event, this.props.index)}>
 							 Add Field
 							</button>
 							
