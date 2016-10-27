@@ -7,46 +7,56 @@ import createFixture from './../../../actions/schemaAction.jsx';
 class SchemaField extends Component {
 	constructor() {
 		super()
-		this.state = {
-			inputs: [],
-		}
+		// this.state = {
+		// 	inputs: [],
+		// }
 		this.addInput = this.addInput.bind(this);
 		this.deleteInput = this.deleteInput.bind(this);
 		this.onSubmit = this.onSubmit.bind(this)
 	}
 	
 	addInput(e, index) {
-		e.preventDefault();
-		const inputs = this.state.inputs.concat(Input)
-		this.setState({ inputs: inputs })
-		return this.props.addInput(index)
+		// e.preventDefault();
+		// const inputs = this.state.inputs.concat(Input)
+		// this.setState({ inputs: inputs })
+		// return this.props.addInput(index)
 	}
 
 	componentDidMount() {
-		let input = [];
-		for(let i = 0; i < this.props.inputs; i++) {
-			input = input.concat(Input)
-		}
-		this.setState({ inputs: input })
+		// let input = [];
+		// for(let i = 0; i < this.props.inputs; i++) {
+		// 	input = input.concat(Input)
+		// }
+		// this.setState({ inputs: input })
 	}
 
 	onSubmit(e) {
+		//when you click on add field, it won't submit the form
 		e.preventDefault();
 	}
 
 	deleteInput(e, schemaIndex, index) {
 		//console.log(e)
-		e.preventDefault();
-		let copy = Object.assign([], this.state.inputs);
-		copy.splice(index, 1);
+		// e.preventDefault();
+		// let copy = Object.assign([], this.state.inputs);
+		// copy.splice(index, 1);
 		//this.props.data.splice(index, 4)
-		this.setState({ inputs: copy })
-		return this.props.deleteInput(schemaIndex, index)
+		// this.setState({ inputs: copy })
+		// return this.props.deleteInput(schemaIndex, index)
 	}
 
 	render() {
 
-		const inputs = this.state.inputs.map((Element, index) => {
+
+		const test = [];
+
+		(() => {
+			for(let i = 0; i < this.props.inputs; i++) {
+				test.push(Input)
+			}
+		})()
+
+		const inputs = test.map((Element, index) => {
 			return <Element
 			 key={ index }
 			 index={ index }
@@ -86,7 +96,7 @@ class SchemaField extends Component {
 
 							<button 
 								className='add-input'
-								onClick={event => this.addInput(event, this.props.index)}>
+								onClick={event => this.props.addInput(event, this.props.index)}>
 							 Add Field
 							</button>
 							
