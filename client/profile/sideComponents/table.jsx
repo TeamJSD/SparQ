@@ -160,7 +160,9 @@ class Table extends Component {
 		console.log('inside add input', index)
 		let copy = this.state.inputs
 		copy[index]++
-		this.setState({ inputs: copy })
+		let data = this.state.data
+		data[index].push('', 'STRING', 'true', 'true')
+		this.setState({ data: data, inputs: copy })
 	}
 
 	deleteInput(e, schemaIndex, index) {
