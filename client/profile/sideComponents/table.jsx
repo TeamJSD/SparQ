@@ -157,7 +157,6 @@ class Table extends Component {
 
 	addInput(e, index) {
 		e.preventDefault();
-		console.log('inside add input', index)
 		let copy = Object.assign([], this.state.inputs)
 		let data = Object.assign([], this.state.data)
 		copy[index]++
@@ -175,14 +174,12 @@ class Table extends Component {
 	handleChange(event, schemaIndex, index) {
 		let copy = this.state.data
 		copy[schemaIndex][index] = event.target.value
-		console.log(copy)
   	this.setState({ data: copy });
   }
 
   relationshipChange(event, schemaIndex, index) {
   	let copy = this.state.relationships
   	copy[schemaIndex][index] = event.target.value
-  	console.log(copy)
   	this.setState({ relationships: copy })
   }
 
@@ -210,13 +207,14 @@ class Table extends Component {
 
 		return (
 				<div>
-					<h2>Your Database</h2>
-					<h3>Your Route: www.sparq.rocks/graphiQL/{id}</h3>
+					<div id='database-information'>
+						<h3>Your Route: www.sparq.rocks/graphQL/{id}</h3>
+					</div>
 					<br />
 					<h2>My Tables</h2>
 					<form onSubmit={this.saveSchema}>
 						{ schemas }
-						<button id='create-schema' onClick={this.createTable}>New Table</button>
+						<button id='create-table' onClick={this.createTable}>New Table</button>
 						<button id='save-schema' type='submit'>Save Schema</button>
 					</form>
 				</div>

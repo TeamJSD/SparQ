@@ -34,7 +34,7 @@ class Input extends Component {
             <option value="true">Mutable</option>
             <option value="false">Immutable</option>
           </select>
-          <p className='delete-input' onClick={event => this.props.deleteInput(event, this.props.schemaIndex, this.props.index)}>Delete</p>
+          <p className='delete-input' onClick={event => this.props.deleteInput(event, this.props.schemaIndex, this.props.index)}>x</p>
 
 
 				</div>
