@@ -1,6 +1,6 @@
 # SparQ
 
-![logo](http://imgur.com/pdtR6wo)
+![logo](http://i.imgur.com/pdtR6wo.png)
 
 SparQ is an open-source project providing user the ability to create a full functional GraphQL enabled back-end in minutes. 
 
