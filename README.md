@@ -6,7 +6,7 @@ SparQ is an open-source project providing user the ability to create a full func
 
 SparQ is currently in Alpha. We welcome any feedback you might have. 
 
-###Usage
+### Usage
 1. Sign Up / Login
 2. Define table names
 3. Define table fields
@@ -20,6 +20,7 @@ SparQ is currently in Alpha. We welcome any feedback you might have.
 **Example:** query to retrieve data. 
 Table Name: Person
 Data: firstName, age, email, id
+```
   {
     person {
       firstName
@@ -28,17 +29,20 @@ Data: firstName, age, email, id
       id
     }
   }
+  ```
 
 
 **Example:** mutation to create new person. 
 Table Name: Person
 Data: firstName, age, email, id
+```
  mutation addPersonExample {
   addPerson(firstName: "Erlich", age: 30, email: "erlich@bachman.com") {
     id
     firstName
   }
 }
+```
 
 ### Contributors
 
