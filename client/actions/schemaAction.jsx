@@ -3,7 +3,6 @@ import axios from 'axios';
 function createFixture(data) {
 
 	let values = Object.assign([], data)
-  console.log(values)
 
   let fixture = {
     "userID": '',
@@ -50,7 +49,7 @@ function createFixture(data) {
         let field = Object.assign({}, fieldValues)
         
         //insert all the appropriate values for the specific field
-        field.fieldName = values[i][j];
+        field.fieldName = values[i][j][0].toLowerCase() + values[i][j].slice(1);
         field.type = values[i][j + 1];
         field.required = values[i][j + 2];
         field.mutable = values[i][j + 3];
@@ -86,10 +85,10 @@ function createFixture(data) {
     fixture.relationshipsString += str;
   })
 
-  console.log(fixture, 'fixture')
+  //console.log(fixture, 'fixture')
 
  return axios.post('/edit', fixture)
-	.then((response) => console.log('fixture post request success'))
+	.then((response) => console.log('Successfully Saved'))
 	.catch((err) => console.log(err));
 }
 

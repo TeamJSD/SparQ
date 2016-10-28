@@ -43,13 +43,15 @@ class SchemaField extends Component {
 
 				<div className='schema-form'>
 					<form onSubmit={this.onSubmit}>
-							<h3>Table name:</h3>
+						<div className='form-header'>
+							Table name:
 							
 							<input type='text'
 							id='schema-type-input' 
 							value={this.props.data[0]}
 							onChange={event => this.props.handleChange(event, this.props.index, 0)}>
 							</input> <br /> <br />
+						</div>
 
 							Fields: <br /> 
 							
@@ -66,14 +68,14 @@ class SchemaField extends Component {
 							<button 
 								className='add-input'
 								onClick={event => this.props.addInput(event, this.props.index)}>
-							 Add Field
+							 +
 							</button>
 							
 							<button
 								className='delete-table'
 								onClick={this.props.deleteTable.bind(null, this.props.index)}
 								type='button'>
-								Delete Table
+								x
 							</button>
 						
 						</form>
