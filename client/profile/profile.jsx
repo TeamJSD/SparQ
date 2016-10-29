@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import SideBar from './sidebar.jsx';
 import Viewer from './table-view.jsx';
-import ReactD from 'react-dom';
-import GraphiQL from './sideComponents/graphiQL.jsx';
-import ReactDOM from 'react-dom';
 
 class Profile extends Component {
 	constructor() {

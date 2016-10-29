@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import GraphiQL from './sideComponents/graphiQL.jsx';
 import Table from './sideComponents/table.jsx';
+//import GraphiQL from 'graphiQL'
 
 
 class Viewer extends Component {
 	constructor() {
 		super()
 	}
+
 
 	render() {
 		let component;

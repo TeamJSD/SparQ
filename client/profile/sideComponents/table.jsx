@@ -139,7 +139,7 @@ class Table extends Component {
 		e.preventDefault();
 		let newState = Object.assign({}, this.state)
 		newState.schemas.push(SchemaField);
-		newState.data.push(["Table Name", "Field Name", "STRING", "none", "none"])
+		newState.data.push(["", "", "STRING", "none", "none"])
 		newState.relationships.push(["none", "none"])
 		newState.inputs.push(1)
 		this.setState(newState);

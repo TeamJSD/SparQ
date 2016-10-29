@@ -7,8 +7,15 @@ class NavBar extends Component {
 		super();
 	}
 
+
+	getCookie(name) {
+		var value = "; " + document.cookie;
+  	var parts = value.split("; " + name + "=");
+  	if (parts.length == 2) return parts.pop().split(";").shift();
+	}
+
 	render() {
-		let indicator = (document.cookie.match(/^(?:.*;)?devId=([^;]+)(?:.*)?$/)||[,null])[1];
+		let indicator = this.getCookie('devId')
 		let link;
 		let notLoggedIn;
 		if(indicator) {
