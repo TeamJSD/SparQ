@@ -47,7 +47,7 @@ class SchemaField extends Component {
 							Table name:
 							
 							<input type='text'
-							id='schema-type-input' 
+							className='schema-type-input' 
 							value={this.props.data[0]}
 							placeholder='Table Name'
 							onChange={event => this.props.handleChange(event, this.props.index, 0)}>
