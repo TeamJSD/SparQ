@@ -121,6 +121,8 @@ button:hover {
 
 #info {
     background-color: #efefef;
+    text-align: center;
+    padding: 120px 80px;
 }
 
 #info h1 {
@@ -135,6 +137,7 @@ button:hover {
     padding: 0 60px;
     width: 30%;
     text-align: center;
+    margin: 50px auto;
 }
 
 #githubimg {
