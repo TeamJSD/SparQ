@@ -56,7 +56,6 @@ button:hover {
     align-items: center;
     margin: 0;
     border-bottom: 1px solid #E0E0E0;
-    text-decoration: bold;
 }
 
 #spacer {
@@ -77,7 +76,7 @@ button:hover {
 }
 
 .navbar a {
-    padding-left: 40px;
+    margin-left: 40px;
     text-decoration: none;
     color: #666;
     font-size: 20px;
@@ -89,34 +88,52 @@ button:hover {
 
 /*home*/
 #home-container {
-    display: flex;
+/*    display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
     align-items: center;
     padding: 0;
-    margin: 40px 0 0 0;
+    margin: 40px 0 150px 0;*/
 }
 
+#home-welcome {
+    background-image:linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), 
+    url(https://wallpaperscraft.com/image/danboard_boxes_robot_mood_sparkler_sparks_48969_1920x1080.jpg);
+    background-size: cover;
+    background-position: center center;
+    height: 800px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 700px;
+    font-family: 'Lato', sans-serif;
+}
+
+#home-welcome h1 {
+    color: white;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: lighter;
+}
+
+
 #info {
-    width: 70%;
-    margin: 0 80px;
-    min-width: 600px;
+    background-color: #efefef;
 }
 
 #info h1 {
-    margin: 50px 50px 0px 80px;
+    margin: 0;
 }
 
 #info p {
-    padding: 50px 80px;
-    margin: 0px;
-    text-align: justify;
+
 }
 
 #panel {
     padding: 0 60px;
     width: 30%;
-    border-left: 1px solid #AAA;
     text-align: center;
 }
 
@@ -128,7 +145,14 @@ button:hover {
 
 #footer {
     text-align: center;
-    margin-top: 50px;
+    padding: 20px 0;
+    border-top: 1px solid #E0E0E0;
+}
+
+#footer a {
+    font-weight: bold;
+    text-decoration: none;
+    color: blue;
 }
 
 #login-view {
@@ -209,7 +233,7 @@ button:hover {
 }
 
 #viewer {
-    padding: 0 0 200px 100px;
+    padding: 0 0 200px 50px;
     flex-grow: 1;
     border-left: 1px solid #E0E0E0;
     background-color: #fdfdfd;
@@ -243,6 +267,7 @@ button:hover {
     color: white;
     background-color: #ffbb3f; 
     font-weight: bolder;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); 
 }
 
 .add-input:hover, .delete-table:hover {
@@ -262,13 +287,13 @@ button:hover {
     border-radius: 10px;
     padding: 25px;
     width: 80%;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     background-color: white;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .input {
-    margin: 20px 0px;
+    margin: 20px 0;
     width: 95%;
     padding: 5px 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -331,9 +356,9 @@ button:hover {
     margin-top: 25px;
 }
 
-#schema-type h3, input {
-    display: inline-block;
-    margin: 0 20px 0 0;
+.schema-type-input {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); 
+    padding-left: 10px;
 }
 
 #database-information {

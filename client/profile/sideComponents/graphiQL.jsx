@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+//import GraphiQL from 'graphiql';
 
 class GraphiQL extends Component {
 	constructor() {

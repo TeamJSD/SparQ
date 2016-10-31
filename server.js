@@ -93,7 +93,7 @@ app.post('/edit',
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
 app.use('/graphiql/:devId', graphiqlExpress({
-  endpointURL: '/graphqlq/HJOMJhRJg',
+  endpointURL: '/graphql/_____'
 }))
 
 app.post('/graphql/:devId',

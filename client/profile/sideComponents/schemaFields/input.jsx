@@ -12,6 +12,7 @@ class Input extends Component {
 						className='schema-input'
 						type='text'
 						value={this.props.textVal}
+						placeholder='Field Name'
 						onChange={event => this.props.handleChange(event, this.props.schemaIndex, (this.props.index * 4) + 1)}
 						>
 					</input>
