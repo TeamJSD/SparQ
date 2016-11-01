@@ -29,10 +29,10 @@ select {
 }
 
 button {
-    width: 100px;
-    height: 30px;
+    width: 200px;
+    height: 60px;
     size: 20px;
-    font-size: 13px;
+    font-size: 25px;
     background: white;
     border: 0.5px solid #333;
     margin: 25px auto 20px auto;

@@ -121,6 +121,7 @@ devUserController.getUserSchema = function(req, res, next) {
 devUserController.devUserQuery = function(req, res, next) {
   let GQLQuery = req.body;
   console.log(typeof GQLQuery);
+
   req.body = { "query": GQLQuery }
   console.log('req.body', req.body);
 

@@ -25,8 +25,9 @@ require('dotenv').config();
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
-app.use(bodyParser.text())
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+
 app.use(cors())
 app.use(express.static(__dirname + '/'));
 app.use(cookieParser());
@@ -93,7 +94,7 @@ app.post('/edit',
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
 app.use('/graphiql/:devId', graphiqlExpress({
-  endpointURL: '/graphql/BJMT_7kgl'
+  endpointURL: '/graphqlq/r1dhMtrge'
 }))
 
 app.post('/graphql/:devId',
@@ -105,13 +106,6 @@ app.post('/graphql/:devId',
     return { schema: req.devSchema.default }
   }))
 
-app.post('/graphqlq/:devId',
-  setSchema, //middleware that grabs gql file and attaches to req body. 
-  apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries. 
-    // console.log("req.devSchema", req.devSchema)
-    //some weird export thing... because we're not using import'
-    return { schema: req.devSchema.default }
-  }))
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;
