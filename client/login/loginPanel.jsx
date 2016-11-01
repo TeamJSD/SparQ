@@ -12,8 +12,6 @@ class LoginPanel extends Component {
 		return (
 			<div>
 				<h1>Log into SparQ</h1>
-				<img src={pic} id='githubimg'/>
-				<LoginButton />
 				<LoginField 
 					onSubmit={this.props.onSubmit} 
 					onChange={this.props.onChange}
