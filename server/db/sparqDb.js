@@ -8,8 +8,8 @@ let sampleSchemaModel = JSON.stringify(testFixture);
 
 const Conn = new Sequelize(
   process.env.NODE_DBNAME,
-  null, //replace later with process.env.NODE_DBUSERNAME,,
-  null, //replace later with process.env.NODE_DBPASSWORD,
+  null, //replace later with process.env.NODE_DBUSERNAME,
+  null, //replace later with process.env.NODE_DBPASSWORD
   , {
     dialect: 'postgres', //always postgres
     host: process.env.NODE_DBHOST
