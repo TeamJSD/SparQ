@@ -118,19 +118,19 @@ devUserController.getUserSchema = function(req, res, next) {
 }
 
 //trying to support user queries not from graphiql
-devUserController.devUserQuery = function(req, res, next) {
-  let GQLQuery = req.body;
-  console.log(typeof GQLQuery);
+// devUserController.devUserQuery = function(req, res, next) {
+//   let GQLQuery = req.body;
+//   console.log(typeof GQLQuery);
 
-  req.body = { "query": GQLQuery }
-  console.log('req.body', req.body);
+//   req.body = { "query": GQLQuery }
+//   console.log('req.body', req.body);
 
-  next();
+//   next();
 
-  //test mutation 
-  //mutation steveSucks { addPerson(firstName: "steve23", age: 252, email: "steve2@desk.com"){ id firstName } }
-  //test query
-  // {person{ firstName age email id }}
-};
+//   //test mutation 
+//   //mutation steveSucks { addPerson(firstName: "steve23", age: 252, email: "steve2@desk.com"){ id firstName } }
+//   //test query
+//   // {person{ firstName age email id }}
+// };
 
 module.exports = devUserController;
