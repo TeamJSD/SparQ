@@ -37,7 +37,7 @@ let createConnectionsBlock = function(userDefinedSchema) {
   null //replace later with process.env.NODE_DBPASSWORD
   , { 
     dialect: 'postgres', //always postgres
-    host: 'localhost' //instance
+    host: process.env.NODE_DBHOST
   }
 );\n\n`
 };
