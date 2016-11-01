@@ -33,8 +33,9 @@ import _ from 'lodash';\n\n`
 let createConnectionsBlock = function(userDefinedSchema) {
   return `const Conn = new Sequelize(
   '${userDefinedSchema.userID}', //name of users individual db.
-  null, // username
-  null, { //password
+  null, //replace later with process.env.NODE_DBUSERNAME,
+  null //replace later with process.env.NODE_DBPASSWORD
+  , { 
     dialect: 'postgres', //always postgres
     host: 'localhost' //instance
   }
