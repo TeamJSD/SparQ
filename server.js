@@ -25,7 +25,9 @@ require('dotenv').config();
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+
 app.use(cors())
 app.use(express.static(__dirname + '/'));
 app.use(cookieParser());
@@ -38,17 +40,16 @@ app.get('/main.css', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/main.css'));
 })
 
-app.post('/signup', 
-  devUserCtrl.createDevUser, 
+app.post('/signup',
+  devUserCtrl.createDevUser,
   devUserCtrl.createDevUserDb,
   (req, res) => {
-  res.send({ redirectUrl: '/#profile' })
-})
+    res.send({ redirectUrl: '/#profile' })
+  })
 
 app.post('/login', devUserCtrl.authenticateDevUser, (req, res) => {
   res.send({ redirectUrl: '/#profile' })
 })
-
 
 app.get('/devUserSchema/:devId',
     devUserCtrl.getUserSchema, //check to see if user schema exists in db, if not returns null. 
@@ -59,7 +60,6 @@ app.get('/devUserSchema/:devId',
   // app.get('/authorize', authCtrl.authGitUser, authCtrl.setCookie, (req, res) => {
   //   res.redirect('http://localhost:3000/#/profile');
   // })
-
 
 app.post('/edit',
   devUserCtrl.setDevUserSchema, //saves the schema model to devUser DB. 
@@ -86,26 +86,33 @@ app.post('/edit',
 //     schema: gqlTestSchema,
 //     graphiql: true
 //   }))
-  // works
-  // app.use('/graphql/', apolloExpress({
-  //   schema: gqlTestSchema,
-  // }))
+// works
+// app.use('/graphql/', apolloExpress({
+//   schema: gqlTestSchema,
+// }))
 
 // app.get('/graphql/:devId', setSchema, apolloExpress( req => ({
 //   schema: req.devSchema
 app.use('/graphiql/:devId', graphiqlExpress({
-  endpointURL: '/graphql/BJMT_7kgl'
+  endpointURL: '/graphqlq/r1dhMtrge'
 }))
 
 app.post('/graphql/:devId',
   setSchema, //middleware that grabs gql file and attaches to req body. 
+  devUserCtrl.devUserQuery,
   apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries. 
     // console.log("req.devSchema", req.devSchema)
     //some weird export thing... because we're not using import'
     return { schema: req.devSchema.default }
   }))
 
-
+app.post('/graphqlq/:devId',
+  setSchema, //middleware that grabs gql file and attaches to req body. 
+  apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries. 
+    // console.log("req.devSchema", req.devSchema)
+    //some weird export thing... because we're not using import'
+    return { schema: req.devSchema.default }
+  }))
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;
