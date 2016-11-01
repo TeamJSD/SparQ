@@ -8,12 +8,15 @@ class Home extends Component {
 		return (
 			<div>
 				<div id='home-container'>
-					<span id='info'>
+					<div id='home-welcome'>
+						<h1>SparQ</h1>
+					</div>
+					<div id='info'>
 						<Info />
-					</span>
-					<span id='panel'>
+					</div>
+					<div id='panel'>
 						<HomeLogin />
-					</span>
+					</div>
 				</div>
 					<Footer />
 			</div>
