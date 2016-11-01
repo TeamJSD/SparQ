@@ -111,7 +111,7 @@ button:hover {
     font-family: 'Lato', sans-serif;
 }
 
-#home-welcome h1 {
+#home-welcome h1, h2 {
     color: white;
     margin: 0;
     font-family: 'Lato', sans-serif;

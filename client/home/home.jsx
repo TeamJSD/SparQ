@@ -10,6 +10,7 @@ class Home extends Component {
 				<div id='home-container'>
 					<div id='home-welcome'>
 						<h1>SparQ</h1>
+						<h2>GraphQL as a Service</h2>
 					</div>
 					<div id='info'>
 						<Info />
