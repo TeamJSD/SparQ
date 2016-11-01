@@ -99,21 +99,20 @@ app.use('/graphiql/:devId', graphiqlExpress({
 
 app.post('/graphql/:devId',
   setSchema, //middleware that grabs gql file and attaches to req body. 
-  devUserCtrl.devUserQuery,
+  // devUserCtrl.devUserQuery,
   apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries. 
     // console.log("req.devSchema", req.devSchema)
     //some weird export thing... because we're not using import'
     return { schema: req.devSchema.default }
   }))
 
-app.post('/graphqlq/:devId',    
- setSchema, //middleware that grabs gql file and attaches to req body.     
-   apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries.    
-     // console.log("req.devSchema", req.devSchema)    
-     //some weird export thing... because we're not using import'    
-     return { schema: req.devSchema.default }    
-   }))
-
+app.post('/graphqlq/:devId',
+  setSchema, //middleware that grabs gql file and attaches to req body.     
+  apolloExpress(function(req) { //apollo middleware to support the routing of devUser queries.    
+    // console.log("req.devSchema", req.devSchema)    
+    //some weird export thing... because we're not using import'    
+    return { schema: req.devSchema.default }
+  }))
 
 app.post('/createdb', (req, res) => {
   // const devDb = req.body;
